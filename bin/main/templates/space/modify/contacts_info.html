@@ -1,0 +1,120 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="/js/jQuery-2.1.4.min.js"></script>
+	<link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+		
+</head>
+<body>
+<div layout:fragment="content">
+	
+	<div class="container">
+  
+  <div class="heading my-5"><h3>연락처 정보를 입력해주세요.</h3>
+  	<span class="option">
+  		<span class="txt_required">
+  			<span class="ico_required">* </span>
+  				필수입력
+  		</span>
+  	</span>
+  </div>
+  
+		<form id="contactsinfo" class="form-group form-inline my-4" action="modify.html" th:action="@{/space/modify/contacts_info}" th:object="${contactsInfo}" method="POST"> 
+			<input type="hidden" class="form-control" name="hostId" th:value="*{hostId}" readonly="readonly" />
+			<input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:field="*{spaceNum}" />
+			  
+			<label for="inputSpaceEmail" class="col-sm-3 col-form-label">이메일</label>
+			  
+			<div class="form-group form-inline my-3">
+			   <input type="text" class="form-control w" id="spaceEmail1" name="spaceEmail1" th:field="*{spaceEmail1}" placeholder="이메일 아이디">
+			</div>
+			  
+			<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			   <div class="input-group-addon">@</div>
+			   <input type="text" class="form-control" id="spaceEmail2" name="spaceEmail2" th:field="*{spaceEmail2}" placeholder="이메일  도메인">
+			</div>			 
+  
+			<div class="dropdown">
+			  <button type="button" class="btn btn-primary dropdown-toggle" id="dropdown-menu-status" data-toggle="dropdown">
+			    Dropdown button
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="#">naver.com</a>
+			    <a class="dropdown-item" href="#">daum.net</a>
+			    <a class="dropdown-item" href="#">gmail.com</a>
+			  </div>
+			</div>
+	
+			 <div class="form-group form-inline my-3">
+			    <label for="inputSpaceCell" class="col-sm-3 col-form-label">휴대폰</label>
+			    <div class="col-sm-9 my-3">
+			      <input type="text" class="form-control" id="spaceCell" name="spaceTel" th:field="*{spaceCell}" placeholder="휴대폰">
+			    </div>
+			  
+			    <label for="inputSpaceTel" class="col-sm-3 col-form-label">대표 번호</label>
+			    <div class="col-sm-9 my-3">
+			      <input type="text" class="form-control" id="spaceTel" name="spaceTel" th:field="*{spaceTel}" placeholder="대표 번호">
+			    </div>	
+		    </div>
+		    
+		</form>
+	</div>
+	
+	
+	<div class="fixed_bar fixed">
+		<span class="btn_wrap">
+			<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">이전</a>
+		</span>
+		<span class="btn_wrap">
+			<a id="btnRegister" href="javascript:void(0)" class="fix_btn_next">수정</a>
+		</span>
+	</div>
+	
+	 <!-- Bootstrap core JavaScript -->
+	 <script src="/vendor/jquery/jquery.min.js"></script>
+	 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<script>
+		$(document).ready(function() {
+			$("#title").text("연락처 정보");
+			
+			var formObj = $("#contactsinfo");
+			
+			$("#btnRegister").on("click", function() {
+				formObj.submit();
+			});
+			
+			
+		});
+		
+		var emailAdd;
+		var emailId;
+		
+		$('.dropdown-menu > a').on('click', function() {
+		    // 버튼에 선택된 항목 텍스트 넣기 
+		   if($('.mailSiteList').val($(this).text()) != 0){
+			   $('#dropdown-menu-status').text($(this).text());
+		   };
+		    
+		    emailAdd =  $('#dropdown-menu-status').text($(this).text());
+		    emailId = $('input[id=spaceEmail]').val();
+		    
+		    $('input[id=spaceEmail2]').val(emailAdd.text());
+		});
+		
+	</script>	
+</div>
+	
+</body>
+</html>

@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+  
+<title layout:fragment="title">CodeClass</title>
+
+<div layout:fragment="content">  
+  
+  <div class="w-75 p-t-100 p-b-90">
+  		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{codeclass.header.list}"></h2>
+  		</div>
+		
+		<table class="table table-bordered table-hover" border="1">
+			<tr>
+				<th class="text-center" width="160" th:text="#{codeclass.classCode}"></th>
+				<th class="text-center" width="160" th:text="#{codeclass.className}"></th>
+				<th class="text-center" width="180" th:text="#{codeclass.regdate}"></th>
+			</tr>
+		
+			<tr th:if="${#lists.isEmpty(list)}">
+				<td colspan="3" th:text="#{common.listEmpty}">
+					List is empty.
+				</td>
+			</tr>
+			
+			<tr th:each="codeClass : ${list}">
+				<td class="text-center" th:text="${codeClass.classCode}">${codeClass.classCode}</td>
+				<td class="text-center"><a href="/codeclass/read?classCode=${codeClass.classCode}" th:href="'/codeclass/read?classCode=' + ${codeClass.classCode}" th:text="${codeClass.className}">${codeClass.className}</a></td>
+				<td class="text-center" th:text="${#dates.format(codeClass.regDate, 'yyyy-MM-dd HH:mm')}">${codeClass.regDate}</td>
+			</tr>
+				
+		</table>
+		
+		<div class="m-t-100">
+			<button class="btn btn-sea">
+					<a href="register" th:text="#{action.new}"></a>
+			</button>
+		</div>
+		
+		<script th:inline="javascript">
+			var result = [[${msg}]];
+		
+			if (result === "SUCCESS") {
+				alert([[#{common.processSuccess}]]);
+			}
+		</script>
+	</div>
+</div>	 
+

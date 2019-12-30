@@ -1,0 +1,310 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/css/snackbar.css" rel="stylesheet">
+		
+		
+	<style>
+	* {
+	  box-sizing: border-box;
+	}
+	
+	body {
+	  font-family: Arial, Helvetica, sans-serif;
+	}
+	
+	/* Float four columns side by side */
+	.column {
+	  float: left;
+	  width: 50%;
+	  padding: 10px 10px;
+	}
+	
+	/* Remove extra left and right margins, due to padding */
+	.row {margin: 0 -5px;}
+	
+	/* Clear floats after the columns */
+	.row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	
+	/* Responsive columns */
+	@media screen and (max-width: 1000px) {
+	  .column {
+	    width: 100%;
+	    display: block;
+	    margin-bottom: 20px;
+	  }
+	}
+	
+	/* Style the counter cards */
+	.card {
+	   border: 2px solid #f1f1f1;
+	  text-align: left;
+	  background-color: #ffffff;
+	}
+	
+	
+	/* space title */
+	.space_name {
+	    padding: 20px 20px 20px 20px;
+	    margin: 0 0;
+	    background-color: #fff;
+	    border-top: 1px solid #ebebeb;
+	    border-bottom: 1px solid #ebebeb;
+	}
+	
+	.space_name  .title {
+		float : left;
+		font-size : 22px;
+	}
+	
+	
+	.space_name  .desc {
+		float : right;
+	}	
+	</style>
+</head>
+<body>
+<div layout:fragment="content">
+<form id="basicinfo" action="contacts.html" th:action="@{/space/modify}" th:object="${spaceInfo}" method="POST">
+	<input type="hidden" th:field="*{spaceNum}" />
+	<div class="w-100 p-t-100 p-b-90" >
+		<div class="space_name" >
+			 <div class="row">
+			    <div class="col">
+					<h2>공간 이름</h2>
+			    </div>
+			    <div class="col">
+			   		<h2 th:text="${spaceInfo.spaceName}"></h2>
+			    </div>
+			  </div>	
+		</div>	
+	
+		<div class="row p-t-100 ml-5 mr-5">
+		  <div class="column">
+			    <div class="card">
+			    	<div class="card-header">
+				      <h3>기본정보</h3>
+			    	</div>
+			    	<div class="card-body">
+				      <p class="card-title">공간에 대한 정보를 입력하세요.</p>
+				      <input type="hidden" th:field="*{basicStatus}" />
+				      <div class="float-right">
+					      <a href="modify.html" th:href="@{|/space/modify/basic_info?spaceNum=${spaceInfo.spaceNum}|}" class="btn btn-primary float-right" >수정</a>
+				      </div>
+			    	</div>
+			    </div>
+		  </div>
+		
+		  <div class="column">
+		    <div class="card">
+		    	<div class="card-header">
+			      <h3>연락처 정보</h3>
+		    	</div>
+		    	<div class="card-body">
+			      	<p class="card-title">문의 및 알림을 받을 연락처를 입력하세요.</p>
+			      	<input type="hidden" th:field="*{contactsStatus}" />
+		    		<div class="float-right">
+						<a th:if="*{contactsStatus} == 'CHECK'" href="modify.html" th:href="@{|/space/modify/contacts_info?spaceNum=${spaceInfo.spaceNum}|}" class="btn btn-primary float-right" >수정</a>								    		
+						<a th:if="*{contactsStatus} != 'CHECK'" href="create.html" th:href="@{|/space/create/contacts_info?spaceNum=${spaceInfo.spaceNum}&spaceId=*{spaceId}|}" class="btn btn-primary float-right" >등록</a>
+		    		</div>
+		    	</div>
+		    </div>
+		  </div>
+		  
+		  <div class="column">
+		    <div class="card">
+		    	<div class="card-header">
+   		        	<h3>이용 안내</h3>
+		    	</div>
+		    	<div class="card-body">
+			      <p class="card-title">운영시간 및 주의사항을 입력하세요.</p>
+			      <input type="hidden" th:field="*{usageStatus}" />
+		    	  <div class="float-right">
+						<a th:if="*{usageStatus} == 'CHECK'" href="modify.html" th:href="@{|/space/modify/usage_info?spaceNum=${spaceInfo.spaceNum}|}" class="btn btn-primary float-right" >수정</a>
+						<a th:if="*{usageStatus} != 'CHECK'" href="create.html" th:href="@{|/space/create/usage_info?spaceNum=${spaceInfo.spaceNum}&spaceId=*{spaceId}|}" class="btn btn-primary float-right" >등록</a>								    		
+		    	  </div>
+		    	</div>
+		    </div>
+		  </div>
+		  
+		  <div class="column">
+		    <div class="card">
+		    	<div class="card-header">
+		      		<h3>정산/환불 정보</h3>
+		      	</div>
+		      	<div class="card-body">
+			        <p class="card-title">예약 및 정산 정보를 입력하세요.</p>
+			        <input type="hidden" th:field="*{accountsStatus}" />
+			        <input type="hidden" th:field="*{refundStatus}" />
+		      		<div class="float-right">
+						<a th:if="${spaceInfo.accountsStatus == 'CHECK' && spaceInfo.refundStatus == 'CHECK'}" href="modify.html" th:href="@{|/space/modify/accounts_info?spaceNum=${spaceInfo.spaceNum}|}" class="btn btn-primary float-right" >수정</a>
+						<a th:if="${spaceInfo.accountsStatus != 'CHECK' && spaceInfo.refundStatus != 'CHECK'}" th:href="@{|/space/create/accounts_info?spaceNum=${spaceInfo.spaceNum}&spaceId=*{spaceId}|}" class="btn btn-primary float-right" >등록</a>								    		
+		    	  	</div>
+		      	</div>
+		      	
+		    </div>
+		  </div>
+		  
+		  
+		  <div class="column">
+		    <div class="card">
+		    	<div class="card-header">
+		      		<h3>세부공간 추가/수정</h3>
+		      	</div>
+		      	<div class="card-body">
+			        <p class="card-title">제공할 수 있는 편의시설과 서비스를 입력하세요.</p>
+			        <input type="hidden" th:field="*{roomStatus}" />
+		      		<div class="float-right">
+			      		<a th:if="*{roomStatus} == 'CHECK'" href="modify.html" th:href="@{|/space/${spaceInfo.spaceNum}/room/manage|}" class="btn btn-primary float-right" >수정</a>
+						<a th:if="*{roomStatus} != 'CHECK'" href="create.html" th:href="@{|/space/${spaceInfo.spaceNum}/room/manage|}" class="btn btn-primary float-right" >등록</a>
+		    	  	</div>
+		      	</div>
+		    </div>
+		  </div>
+		  
+		  <th:block th:if="*{checkStatus} == 'WAIT'	">
+		   <div class="column">
+		    <div class="card">
+		    	<div class="card-header">
+		      		<h3>검수신청되었습니다.</h3>
+		      	</div>
+		      	<div class="card-body">
+			        <p class="card-title">관리자가 검수승인을 하면 신청 공간이 바로 런칭됩니다.</p>
+			        <input id="checkStatus" type="hidden" th:field="*{checkStatus}" name="checkStatus" />
+		      		<div class="float-right">
+			      		<a th:if="*{checkStatus} == 'CHECK'" href="modify.html" th:href="@{|/space/modify}" class="btn btn-primary float-right" >검수 취소하기</a>
+						<a id="btnCancel" th:if="*{checkStatus} == 'WAIT'" href="javascript:vodi(0)" class="btn btn-primary float-right" >검수신청 취소하기</a>
+		    	  	</div>
+		      	</div>
+		    </div>
+		  </div>
+		  </th:block>
+		  
+		  <th:block th:if="*{checkStatus} != 'WAIT' ">
+		  	<input id="checkStatus" type="hidden" name="checkStatus" th:field="*{checkStatus}"/>
+		  </th:block>
+		  
+		  <th:block th:if="*{checkStatus} == 'CHECK'">
+		   <div class="column">
+		    <div class="card">
+		    	<div class="card-header">
+		      		<h3>검수승인 완료.</h3>
+		      	</div>
+		      	<div class="card-body">
+			        <p class="card-title">공개/비공개 버튼으로 공간을 (비)활성화할 수 있습니다.</p>
+		      		<div class="float-right">
+			      		<a id="btnOpen" th:if="*{publicStatus} != 'CHECK'" href="javascript:void(0)" class="btn btn-primary float-right" >공개</a>
+						<a id="btnOff" th:if="*{publicStatus} == 'CHECK'" href="javascript:void(0)" class="btn btn-primary float-right" >비공개</a>
+		    	  	</div>
+		      	</div>
+		    </div>
+		  </div>
+		  		<input id="publicStatus" type="hidden" th:field="*{publicStatus}" />
+		  </th:block>
+		  
+		  
+		</div>
+	</div>
+	
+	</form>
+	
+	<th:block th:if="${CHECK == true}">
+	<div class="fixed_bar fixed clearfix">
+		<span class="btn_wrap">
+				<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">미리보기</a>
+		</span>
+		<span class="btn_wrap">
+				<a id="btnRegister" href="javascript:void(0)" class="fix_btn_next">검수신청</a>
+		</span>
+	</div>
+	</th:block>
+	
+	<th:block th:if="!${CHECK}">
+		<div class="panel panel-default">
+	    	<div class="panel-body">모든 정보를 입력하면, 검수신청 할 수 있습니다.</div>
+	  	</div>
+	</th:block>
+	
+	<div id="snackbar">[[${sb_msg}]]</div>
+	
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$("#title").text("공간등록 리스트");
+			
+			var formObj = $("#basicinfo");
+			
+			/*   */
+			$("#btnRegister").on("click", function() {
+					$("#checkStatus").attr("value", "WAIT");
+					var aa = $("#checkStatus").attr("value");
+					alert(aa);
+					formObj.submit();
+			});
+			
+			$("#btnCancel").on("click", function() {
+				$("#checkStatus").attr("value", "CANCEL");
+				formObj.submit();
+			});
+			
+			$("#btnOpen").on("click", function() {
+				$("#publicStatus").attr("value", "CHECK");
+				formObj.submit();
+			});
+			
+			$("#btnOff").on("click", function() {
+				$("#publicStatus").attr("value", "OFF");
+				formObj.submit();
+			});
+			
+			
+			
+			 $(".card").hover(
+				  function() {
+				    $(this).addClass('shadow-lg').css('cursor', 'pointer'); 
+				  }, function() {
+				    $(this).removeClass('shadow-lg');
+			 });
+			
+			 
+			 var basic_status = [[${spaceInfo.basicStatus}]];
+			 var contacts_status = [[${spaceInfo.contactsStatus}]];
+			 var usage_status = [[${spaceInfo.usageStatus}]];
+			 var accounts_status = [[${spaceInfo.accountsStatus}]];
+			 var refund_status = [[${spaceInfo.refundStatus}]];
+			 
+			 var check = [[${CHECK}]];
+			 var sb_msg = [[${sb_msg}]];
+			 
+			 myFunction();
+		});
+		
+		function myFunction() {
+			  var x = document.getElementById("snackbar");
+			  x.className = "show";
+			  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+		}
+		
+		
+		
+	</script>	
+	
+</div>
+</body>
+</html>

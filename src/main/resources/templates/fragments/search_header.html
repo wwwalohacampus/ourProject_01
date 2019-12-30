@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	
+	
+<head>
+   <!-- Bootstrap core CSS -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/modern-business.css" rel="stylesheet">
+  
+   <!-- Theme CSS -->
+  <link href="/vendor/bootstrap/css/bootstrap-pagination.min.css" rel="stylesheet">
+  
+
+</head>
+
+<body>
+	
+	<div align="right" th:fragment="header">
+		
+	
+			  <!-- Navigation -->
+		  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+		    <div class="container">
+		      <a class="navbar-brand float-left" href="/home.html" th:href="@{/}" th:text="#{header.home}">Our Space</a>
+<!-- 		      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> -->
+<!-- 		        <span class="navbar-toggler-icon"></span> -->
+<!-- 		      </button> -->
+		      <div class="collapse navbar-collapse" id="navbarResponsive">
+		        <!-- Search form -->
+		        <div class="md-form mx-4">
+		        <form id="pgrq" action="search" th:action="@{|/search${pgrq.toUriStringByPage(1)}|}"  th:object="${pgrq}" method="GET">
+		          <input class="form-control" type="text" name="keyword" placeholder="공간을 검색해보세요." aria-label="Search" style="width: 500px;">
+		        </div>
+		
+		        <button class="btn btn-primary mx-0" type="submit" >검색</button>
+		        </form>
+		
+		        <ul class="navbar-nav ml-auto">
+					<table>
+						<tr sec:authorize="!isAuthenticated()">
+					        <td width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a></td>
+							<td width="80"><a href="../user/register.html" th:href="@{/user/register}" th:text="#{header.joinMember}">회원가입</a></td>
+							<td width="120"><a href="../space.html" th:href="@{/space}" th:text="#{header.createSpace}">공간 등록하기</a></td>
+							
+				        </tr>
+				        <tr sec:authorize="isAuthenticated()">
+							<td width="180"><span sec:authentication="principal.username" style="color:white">홍길동</span><span style="color:white"> 님</span> <a class="p-l-20" href="../auth/logoutForm.html" th:href="@{/auth/logout}" th:text="#{header.logout}">로그아웃</a></td>
+				        </tr>
+					</table>
+		        </ul>
+		      </div>
+		    </div>
+		    <span class="text-right" style="font-size:30px;cursor:pointer;color:white" onclick="openNav()">&#9776;</span>
+		  </nav>
+	
+	</div>
+	
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!-- 삭제해도 됨 -->
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Room</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/vendor/bootstrap/css/bootstrap-pagination.min.css" rel="stylesheet">
+	
+	
+	<!-- 아래 라이브러리는 향후에 CDN 방식 말고 파일방식으로 변환가능 -->
+	<link href="/css/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+    <script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+	<style>
+		a {
+    		text-decoration: none;
+		}
+		
+		a:hover {
+    		text-decoration: none;
+    		border-bottom-color: #ffc107;
+		}
+	
+	
+		.stepHeader a {
+			border-bottom: 4px solid;
+			border-color: #333;
+			padding-bottom: 10px;
+			color: #333;
+			text-decoration: none;
+		}
+		
+		.stepHeader a.active {
+			border-bottom: 4px solid;
+			border-color: #333;
+			padding-bottom: 10px;
+			border-bottom-color: #ffc107;
+			color: #ffc107;
+			text-decoration: none;
+		}
+		
+		.heading {
+		    display: table;
+		    position: relative;
+		    width: 100%;
+		    padding-bottom: 8px;
+		    border-bottom: 3px solid #704de4;
+		}
+		
+		.input-title {
+			font-size: 20px;
+			font-style: bold;
+			
+		}
+		
+		.img-box {
+			border: 2px solid  #e0e0e0;
+			min-height: 200px;
+		}
+		
+		.img-box-sub {
+			min-height: 200px;
+		}
+		
+		.img-box-sub .btn-box {
+			min-width: 80px;
+			background-color: #704de4;
+			top: 0;
+			right: 0;
+		}
+		
+		.img-box-sub .btn-box .btn {
+			color: white;
+			cursor: pointer;
+		}
+		
+		
+		.reserv-box {
+			min-height: 100px;
+		}
+		
+		.reserv-box .row {
+			border: 2px solid #f1f1f1;
+		}
+		
+		
+		.reserv-box .reserv-control {
+			font-size: 2.2em;
+    		background-color: #f1f1f1;
+    		width: 60px;
+    		height: 60px;
+    		padding: 5px;
+    		cursor: pointer;
+		}
+		
+		
+		.reserv-box .reserv-input {
+			font-size: 1.5em;
+			line-height: 60px;
+		}
+		
+		
+		.price-th-row {
+			padding: 0px;
+			font-size: 1.5em;
+			min-height: 50px;
+			line-height: 50px;
+			border-bottom: 3px solid #333;
+		
+		}
+		
+		.price-td-row {
+			padding: 0px;
+			font-size: 1.5em;
+			min-height: 50px;
+			line-height: 60px;
+			border-bottom: 3px solid #f1f1f1;
+		
+		}
+		
+		
+
+		
+	</style>
+</head>
+<body>
+<div layout:fragment="content">
+
+	<div class="row stepHeader m-t-45">
+		<a id="btn_room_info" class="w-50 col-xs-6 col-md-6 col-lg-6 m-t-10 " href="javascript:void(0);">1. 세부 공간 추가</a>
+		<a id="btn_price_info" class="w-50 col-xs-6 col-md-6 col-lg-6 m-t-10 active " href="javascript:void(0);" >2. 가격/옵션 관리</a>
+	</div>
+	
+	<div class="w-75 m-5">
+		<div class="heading"><h3>요일별 가격을 입력해주세요.</h3>
+			<span class="option"><span class="txt_required">
+			<span class="ico_required">* </span>필수입력</span></span>
+		</div>
+		
+		<div class="w-100 m-b-100">
+			<div class="box w-100">
+				<div class="w-100 row price-th-row">
+					<div class="col-sm-6">요일</div>
+					<div class="col-sm-6">가격</div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">월요일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">화요일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">수요일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">목요일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">금요일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">토요일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">일요일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+				<div class="w-100 row price-td-row">
+					<div class="col-sm-6">공휴일</div>
+					<div class="col-sm-6"><div class="w-50"><input type="text" class="form-control" /></div></div>
+				</div>
+			</div>
+		</div>
+		
+	
+	</div>
+	
+	<div class="fixed_bar fixed">
+		<span class="btn_wrap">
+			<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">이전</a>
+		</span>
+		<span class="btn_wrap">
+			<a id="btnRegister" href="javascript:void(0)" class="fix_btn_next">저장</a>
+		</span>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#title").text("시간단위 가격설정");
+			
+			
+		});	
+		
+		$("#btn_room_info").on("click", function(){
+			location.href="/space/2/room/room_info";			
+		});
+		
+		$("#btn_price_info").on("click", function(){
+			location.href="/space/2/room/price_info";			
+		});
+	</script>
+	 
+</div>
+</body>
+</html>

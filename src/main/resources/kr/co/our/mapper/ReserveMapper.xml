@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.our.mapper.ReserveMapper">
+
+	<insert id="reserveInfoCreate">
+				insert into reserv_info
+							(
+								space_num,
+								room_num,
+								host_id,
+								user_id,
+								user_name,
+								user_tel,
+								user_email,
+								user_req,
+								reserv_date,
+								start_time,
+								end_time,
+								time_list,
+								total_time,
+								reserv_man,
+								total_pay,
+								pay_type,
+								created_by
+							)
+							VALUES
+							(
+								#{spaceNum},
+								#{roomNum},
+								#{hostId},
+								#{userId},
+								#{userName},
+								#{userTel},
+								#{userEmail},
+								#{userReq},
+								#{reservDate},
+								#{startTime},
+								#{endTime},
+								#{timeList},
+								#{totalTime},
+								#{reservMan},
+								#{totalPay},
+								#{payType},
+								#{createdBy}
+							
+							)
+							
+	</insert>
+	
+	
+	
+	<select id="reserveInfoReadRecent" parameterType="map" resultType="reservInfo">
+				SELECT *
+				FROM reserv_info
+				WHERE space_num = #{spaceNum}
+				AND room_num = #{roomNum}
+				AND user_id = #{userId}
+				ORDER BY created_at DESC LIMIT 1
+	</select>
+
+</mapper>

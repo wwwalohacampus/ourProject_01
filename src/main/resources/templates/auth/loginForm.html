@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/common_template}">
+  
+<head>
+	<title>Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/modern-business.css" rel="stylesheet">
+    
+	
+</head>
+<body>
+<div class="container"  layout:fragment="content">
+
+	<div class="limiter">
+				<!-- 메시지 다시 정의해서 쓸 것 -->
+<!-- 			<h2 th:text="#{auth.header.login}">로그인</h2> -->
+<!-- 			<h2 th:text="${error}">${error}</h2> -->
+<!-- 			<h2 th:text="${logout}">${logout}</h2> -->
+		
+			<div class="wrap-login100 p-t-50 p-b-90">
+				<form class="login100-form validate-form flex-sb flex-w" method="post" action="../home.html" th:action="@{/login}">
+					<span class="login100-form-title p-b-51">
+						<h2 th:text="#{auth.header.login}">로그인</h2>
+					</span>
+
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+						<input class="input100" type="text" name="username" value="" placeholder="id	">
+						<span class="focus-input100"></span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+						<input class="input100" type="password" name="password" value="" placeholder="Password">
+						<span class="focus-input100"></span>
+					</div>
+					
+					<div class="flex-sb-m w-full p-t-3 p-b-24">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								자동 로그인
+							</label>
+						</div>
+
+						<div>
+							<a href="#" class="txt1">
+								Forgot?
+							</a>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn m-t-17">
+						<button class="login100-form-btn" th:text="#{action.login}">
+							Login
+						</button>
+					</div>
+
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				</form>
+			</div>
+	</div>
+
+
+	
+	
+</div>
+</body>
+</html>

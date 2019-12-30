@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Board</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="w-50 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{board.header.register}">회원게시판 등록</h2>
+		</div>
+	
+		<form id="board" action="list.html" th:action="@{/board/register}" th:object="${board}" method="POST">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td th:text="#{board.title}">제목</td>
+					<td><input class="form-control" type="text" name="title" th:field="*{title}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" th:if="${#fields.hasErrors('title')}">
+						<span class="error_message"  th:errors="*{title}">title의 에러 메시지</span>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{board.writer}">작성자</td>
+					<td><input class="form-control" type="text" name="writer" th:field="*{writer}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" th:if="${#fields.hasErrors('writer')}">
+						<span class="error_message"  th:errors="*{writer}">writer의 에러 메시지</span>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{board.content}">내용</td>
+					<td><textarea class="form-control" name="content" th:field="*{content}"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" th:if="${#fields.hasErrors('content')}">
+						<span class="error_message" th:errors="*{content}">content의 에러 메시지</span>
+					</td>
+				</tr>
+			</table>
+		</form>
+		
+		<div class="m-t-80">
+			<th:block sec:authorize="isAuthenticated()">
+		        <button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+			</th:block>
+			
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnList" th:text="#{action.list}">목록</button>
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+		
+				var formObj = $("#board");
+		
+				$("#btnRegister").on("click", function() {
+					formObj.submit();
+				});
+		
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+		
+			});
+		</script>
+	</div>
+</div>
+</body>
+</html>

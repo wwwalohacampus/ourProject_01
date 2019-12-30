@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+  
+<title layout:fragment="title">CodeClass</title>
+
+<div layout:fragment="content">
+	<div class="w-50 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{codeclass.header.register}"></h2>
+		</div>
+				
+		<form id="codeClass" action="./success.html" th:action="@{/codeclass/register}" th:object="${codeClass}" method="POST">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td th:text="#{codeclass.classCode}"></td>
+					<td><input class="form-control" type="text" name="classCode" th:field="*{classCode}" /></td>
+				</tr>
+				<tr th:if="${#fields.hasErrors('classCode')}">
+					<td class="text-center" colspan="2"><font color="red"><span  th:errors="*{classCode}">classCode의 에러 메시지</span></font></td>
+				</td>
+				<tr>
+					<td th:text="#{codeclass.className}"></td>
+					<td><input class="form-control" type="text" name="className" th:field="*{className}" /></td>
+				</tr>
+				<tr th:if="${#fields.hasErrors('className')}">
+					<td class="text-center" colspan="2"><font color="red"><span  th:errors="*{className}">className의 에러 메시지</span></font></td>
+				</tr>
+			</table>
+		</form>
+		
+		
+		<div class="m-t-80">
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnRegister" th:text="#{action.register}"></button>
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnList" th:text="#{action.list}"></button>
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+		
+				var formObj = $("#codeClass");
+		
+				$("#btnRegister").on("click", function() {
+					formObj.submit();
+				});
+		
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+		
+			});
+		</script>
+	</div>
+</div>  

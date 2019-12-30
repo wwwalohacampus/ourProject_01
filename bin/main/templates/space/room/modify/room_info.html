@@ -1,0 +1,677 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Room</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/vendor/bootstrap/css/bootstrap-pagination.min.css" rel="stylesheet">
+	
+	<!-- 아래 라이브러리는 향후에 CDN 방식 말고 파일방식으로 변환가능 -->
+	<link href="/css/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+    <script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+	<style>
+		a {
+    		text-decoration: none;
+		}
+		
+		a:hover {
+    		text-decoration: none;
+    		border-bottom-color: #ffc107;
+		}
+	
+	
+		.stepHeader a {
+			border-bottom: 4px solid;
+			border-color: #333;
+			padding-bottom: 10px;
+			color: #333;
+			text-decoration: none;
+		}
+		
+		.stepHeader a.active {
+			border-bottom: 4px solid;
+			border-color: #333;
+			padding-bottom: 10px;
+			border-bottom-color: #ffc107;
+			color: #ffc107;
+			text-decoration: none;
+		}
+		
+		.heading {
+		    display: table;
+		    position: relative;
+		    width: 100%;
+		    padding-bottom: 8px;
+		    border-bottom: 3px solid #704de4;
+		}
+		
+		.input-title {
+			font-size: 20px;
+			font-style: bold;
+			
+		}
+		
+		.img-box {
+			border: 2px solid  #e0e0e0;
+			min-height: 200px;
+		}
+		
+		.img-box-sub {
+			min-height: 200px;
+		}
+		
+		.img-box-sub .btn-box {
+			min-width: 80px;
+			background-color: #704de4;
+			top: 0;
+			right: 0;
+		}
+		
+		.img-box-sub .btn-box .btn {
+			color: white;
+			cursor: pointer;
+		}
+		
+		
+		.reserv-box {
+			min-height: 100px;
+		}
+		
+		.reserv-box .row {
+			border: 2px solid #f1f1f1;
+		}
+		
+		
+		.reserv-box .reserv-control {
+			font-size: 2.2em;
+    		background-color: #f1f1f1;
+    		width: 60px;
+    		height: 60px;
+    		padding: 5px;
+    		cursor: pointer;
+		}
+		
+		
+		.reserv-box .reserv-input {
+			font-size: 1.5em;
+			line-height: 60px;
+		}
+		
+		
+		
+
+		
+	</style>
+</head>
+<body>
+<div layout:fragment="content">
+	<form id="roominfo" action="room_info.html" th:action="@{|/space/${roomInfo.spaceNum}/room/${roomInfo.roomNum}/room_info|}" th:object="${roomInfo}" method="POST">
+	<input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:value="*{spaceNum}" />
+	<input type="hidden" class="form-control" id="roomNum" name="roomNum" th:value="*{roomNum}" />
+		
+	<div class="row stepHeader m-t-45">
+		<a id="btn_room_info" class="w-50 col-xs-6 col-md-6 col-lg-6 m-t-10 active" href="javascript:void(0);">1. 세부 공간 추가</a>
+		<a id="btn_price_info" class="w-50 col-xs-6 col-md-6 col-lg-6 m-t-10 " href="javascript:void(0);" >2. 가격/옵션 관리</a>
+	</div>
+	
+	<div class="w-75 m-5">
+		<div class="heading"><h3>세부 공간의 정보를 입력해주세요.</h3>
+			<span class="option"><span class="txt_required">
+			<span class="ico_required">* </span>필수입력</span></span>
+		</div>
+		
+		<div class="w-100">
+			<div class="box w-100 m-t-100">
+				<div class="row">
+					<div class="col-md-10 text-left">
+						<span class="input-title p-l-20"><strong>세부 공간명</strong></span>
+					</div>
+					<div class="col-md-2">글자수</div>
+				</div>
+				<div class="input m-t-10">
+					<input type="text" name="roomName" class="form-control" id="roomName" placeholder="세부 공간명을 입력해 주세요.(예. 101호)" required="" minlength="1" maxlength="17" value="" th:value="*{roomName}">
+				</div>
+			</div>
+		</div>
+		
+		<div class="w-100">
+			<div class="box w-100 m-t-100">
+				<div class="row">
+					<div class="col-md-10 text-left">
+						<span class="input-title p-l-20"><strong>세부 공간 소개</strong></span>
+					</div>
+					<div class="col-md-2">글자수</div>
+				</div>
+				<div class="input m-t-10">
+					<textarea type="text" name="roomIntro" class="form-control" id="roomIntro" placeholder="세부 공간 소개를 입력해주세요." required="" minlength="1" maxlength="200" value="" th:field="*{roomIntro}"></textarea>
+				</div>
+			</div>
+		</div>
+		
+		<div class="w-100">
+			<div class="box w-100 m-t-100">
+				<div class="row">
+					<div class="col-md-10 text-left">
+						<span class="input-title p-l-20"><strong>공간 유형</strong></span>
+					</div>
+				</div>
+				<!-- basicInfo.spaceCategory 에서 가져온 값을 리스트로 넣어주어야한다. -->
+				<div class="input m-t-10 w-25">
+					<div class="justify-content-md-center">
+			      	  <div  class="col1 mt-5 mb-5">
+			      	  	<ul class="list-group" th:each="list : ${cateList}">
+			      	  		<li class="list-group-item d-flex justify-content-between align-items-center">
+								<input type="checkbox" name="roomCategory" th:value="${list[0]}" th:text="${list[0]}" th:checked="${list[1]}">
+			      	  		</li>
+			      	  	</ul>
+					  </div>
+        			</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="w-100">
+			<div class="box w-100 m-t-100">
+				<div class="row">
+					<div class="col-md-10 text-left">
+						<span class="input-title p-l-20"><strong>대표 이미지</strong></span>
+					</div>
+				</div>
+				<div class="row m-t-10">
+					<div class="img-box col-md-10 mainImgThumnail">
+						
+					</div>
+					<!--  th:object="roomInfoImg" -->
+					<div class="img-box-sub col-md-2" >
+						<div class="btn-box">
+							<label class="btn">
+								<div id="btn-main-img">파일첨부</div>
+							</label>
+							<input type="file" id="inputMainImg" style="display:none"/>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+		<div class="w-100">
+			<div class="box w-100 m-t-100">
+				<div class="row">
+					<div class="col-md-10 text-left">
+						<span class="input-title p-l-20"><strong>상세 이미지</strong></span>
+					</div>
+				</div>
+				<div class="row m-t-10">
+					<div class="img-box col-md-10 detailImgThumnail">
+						
+					</div>
+					<div class="img-box-sub col-md-2">
+						<div class="btn-box">
+							<label class="btn">
+								<div id="btn-detail-img">파일첨부</div>
+							</label>
+							<input type="file" id="inputDetailImg" style="display:none"/>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+		<div class="w-100">
+			<div class="box w-100 m-t-100">
+				<div class="row">
+					<div class="col-md-10 text-left">
+						<span class="input-title p-l-20"><strong>편의 시설</strong></span>
+					</div>
+				</div>
+				<div class="input m-t-10">
+					<div class="justify-content-md-center">
+			      	  <div class="col1 mt-5 mb-5">
+							<fieldset id="cb_space_category" data-role = "controlgroup" data-type = "horizontal">
+								<input type="checkbox" name="roomOption" id="opt1" value="TV/프로젝터" th:checked="*{roomOpt1}">
+								<label for="opt1" class="ellip">TV/프로젝터</label>
+								
+								<input type="checkbox" name="roomOption" id="opt2" value="인터넷/와이파이" th:checked="*{roomOpt2}">
+								<label for="opt2" class="ellip">인터넷/와이파이</label>
+								
+								<input type="checkbox" name="roomOption" id="opt3" value="복사/인쇄기" th:checked="*{roomOpt3}">
+								<label for="opt3" class="ellip">복사/인쇄기</label>
+								
+								<input type="checkbox" name="roomOption" id="opt4" value="화이트보드" th:checked="*{roomOpt4}">
+								<label for="opt4" class="ellip">화이트보드</label>
+								
+								<input type="checkbox" name="roomOption" id="opt5" value="음향/마이크" th:checked="*{roomOpt5}">
+								<label for="opt5" class="ellip">음향/마이크</label>
+								
+								<input type="checkbox" name="roomOption" id="opt6" value="PC/노트북" th:checked="*{roomOpt6}">
+								<label for="opt6" class="ellip">PC/노트북</label>
+							</fieldset>
+						</div>
+        			</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="w-100 m-b-200">
+			<div class="box w-100 m-t-100">
+				<div class="row">
+					<div class="col-md-10 text-left">
+						<span class="input-title p-l-20"><strong>예약 허용</strong></span>
+					</div>
+				</div>
+					<hr>
+				<div class="row m-4">
+					<div class="col-sm-6">
+						<div class="text-left">
+							<h6>최소 예약시간</h3>
+						</div>
+						<div class="reserv-box w-75">
+							<div class="row m-5">
+								<div id="btn-r-min-t-minus" class="col-sm-2 reserv-control">-</div>
+								<div class="col-sm-8">
+									<span class="reserv-input"><strong id="r-min-time" th:text="*{reservMinTime}">1</strong></span><span class="reserv-input"><strong> 시간</strong></span>
+								</div>
+								<div id="btn-r-min-plus" class="col-sm-2 reserv-control">+</div>
+							</div>
+							<input id="reservMinTime" type="hidden" name="reservMinTime" th:value="*{reservMinTime}" />
+						</div>
+					</div>
+					<div class="col-sm-6">
+					
+					</div>
+				</div>
+				<div class="row m-4">
+					<div class="col-sm-6">
+						<div class="text-left">
+							<h6>최소 예약인원</h3>
+						</div>
+						<div class="reserv-box w-75">
+							<div class="row m-5">
+								<div id="btn-r-min-m-minus" class="col-sm-2 reserv-control">-</div>
+								<div class="col-sm-8">
+									<span class="reserv-input"><strong id="r-min-man" th:text="*{reservMinMan}">2</strong></span><span class="reserv-input"><strong> 명</strong></span>
+								</div>
+								<div id="btn-r-min-m-plus" class="col-sm-2 reserv-control">+</div>
+							</div>
+							<input id="reservMinMan" type="hidden" name="reservMinMan" th:value="*{reservMinMan}" />
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="text-left">
+							<h6>최대 수용인원</h3>
+						</div>
+						<div class="reserv-box w-75">
+							<div class="row m-5">
+								<div id="btn-r-max-m-minus" class="col-sm-2 reserv-control">-</div>
+								<div class="col-sm-8">
+									<span class="reserv-input"><strong id="r-max-man" th:text="*{reservMaxMan}">8</strong></span><span class="reserv-input"><strong> 명</strong></span>
+								</div>
+								<div id="btn-r-max-m-plus" class="col-sm-2 reserv-control">+</div>
+							</div>
+							<input id="reservMaxMan" type="hidden" name="reservMaxMan" th:value="*{reservMaxMan}" />
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="fixed_bar fixed">
+		<span class="btn_wrap">
+			<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">이전</a>
+		</span>
+		<span class="btn_wrap">
+			<a id="btnRegister" href="javascript:void(0)" class="fix_btn_next">저장</a>
+		</span>
+	</div>
+
+
+	<script type="text/javascript" th:inline="javascript" >
+		$(document).ready(function() {
+			$("#title").text("세부공간 추가");
+			
+			var formObj = $("#roominfo");
+			
+			$("#btnRegister").on("click", function() {
+				formObj.submit();
+			});
+			
+			
+			var spaceNum = [[${roomInfo.spaceNum}]];
+			var roomNum  = [[${roomInfo.roomNum}]]; 
+			
+			console.log("spaceNum : " 	+ spaceNum);
+			console.log("roomNum : " 	+ roomNum);
+			
+			$.getJSON("/space/room/getAttach/"+ spaceNum + "/"+ roomNum ,function(list){
+				
+				$(list).each(function(){
+					console.log("data : " + this);
+					
+					var data = this.fullName;
+					var img_type = this.imgType;
+					
+					var str ="";
+					  
+					if(checkImageType(data)){
+						str = "<div><a href='/space/room/displayFile?fileName=" + data + "'>"
+							+ "<img src='/space/room/displayFile?fileName=" + getThumbnailName(data) + "'/>"
+							+ "</a><span>" + getOnlyFileName(data)  + "</span><span>X</span></div>";
+					}
+					else{
+						str = "<div><a href='/space/room/displayFile?fileName=" + data + "'>" 
+							+ getOriginalName(data) +"</a><span>X</span></div>";
+					}
+					  
+					if(img_type == "main")
+						$(".mainImgThumnail").append(str);
+					else if(img_type == "detail")
+						$(".detailImgThumnail").append(str);
+				});
+			});
+			
+			
+		});	
+		
+		
+		$("#btn_room_info").on("click", function(){
+			location.href="/space/" + [[${spaceNum}]]  + "/room/"  + [[${roomNum}]]  +  "/room_info";			
+		});
+		
+		$("#btn_price_info").on("click", function(){
+			location.href="/space/" + [[${spaceNum}]]  +  "/room/" + [[${roomNum}]]  +  "/price_info";			
+		});
+		
+		
+		$("#btn-main-img").on("click", function(){
+			$("#inputMainImg").click();
+		});
+		
+		$("#btn-detail-img").on("click", function(){
+			$("#inputDetailImg").click();
+		});
+		
+		
+		
+		
+		/*  최소 예약 시간  */
+		$("#btn-r-min-t-minus").on("click", function(){
+			var reservMinTime = $("#r-min-time").text();
+			if( reservMinTime > 1) 
+				reservMinTime = parseInt(reservMinTime) -  1;
+			$("#r-min-time").text(reservMinTime);
+			$("#reservMinTime").val(reservMinTime);
+		});
+		
+		$("#btn-r-min-plus").on("click", function(){
+			var reservMinTime = $("#r-min-time").text();
+			if( reservMinTime < 24)
+				reservMinTime = parseInt(reservMinTime) +  1;
+			$("#r-min-time").text(reservMinTime);
+			$("#reservMinTime").val(reservMinTime);
+			
+		});
+		
+		var reservMinMan = $("#r-min-man").text();
+		var reservMaxMan = $("#r-max-man").text();
+		
+		/*  최소 예약 인원  */
+		$("#btn-r-min-m-minus").on("click", function(){
+			reservMinMan = $("#r-min-man").text();
+			reservMaxMan = $("#r-max-man").text();
+			if( reservMinMan > 1)
+				reservMinMan = parseInt(reservMinMan) -  1;
+			
+			$("#r-min-man").text(reservMinMan);
+			$("#reservMinMan").val(reservMinMan);
+		});
+		
+		$("#btn-r-min-m-plus").on("click", function(){
+			reservMinMan = $("#r-min-man").text();
+			reservMaxMan = $("#r-max-man").text();
+			
+			if( reservMinMan < 1000) 
+				reservMinMan = parseInt(reservMinMan) +  1;
+			
+			if( reservMinMan > reservMaxMan ) {
+				reservMinMan = parseInt(reservMinMan) -  1;
+				alert("최소 예약인원은 최대 수용인원보다 클 수 없습니다.");
+			}
+			
+			
+			$("#r-min-man").text(reservMinMan);
+			$("#reservMinMan").val(reservMinMan);
+			console.log("reservMinMan : reservMaxMan = " + reservMinMan + " : " + reservMaxMan);
+		});
+		
+		
+		/*  최대 수용 인원  */
+		$("#btn-r-max-m-minus").on("click", function(){
+			reservMinMan = $("#r-min-man").text();
+			reservMaxMan = $("#r-max-man").text();
+		
+			if( reservMaxMan > 1) 
+				reservMaxMan = parseInt(reservMaxMan) -  1;
+			if( reservMinMan > reservMaxMan ) {
+				reservMaxMan = parseInt(reservMaxMan) +  1;
+				alert("최대 수용인원은 최소 예약인원보다 작을 수 없습니다.");
+			}
+			
+			
+			$("#r-max-man").text(reservMaxMan);
+			$("#reservMaxMan").val(reservMaxMan);
+			console.log("reservMinMan : reservMaxMan = " + reservMinMan + " : " + reservMaxMan);
+		});
+		
+		$("#btn-r-max-m-plus").on("click", function(){
+			reservMinMan = $("#r-min-man").text();
+			reservMaxMan = $("#r-max-man").text();
+			if( reservMaxMan < 1000) {
+				reservMaxMan = parseInt(reservMaxMan) +  1;
+			}
+			$("#r-max-man").text(reservMaxMan);
+			$("#reservMaxMan").val(reservMaxMan);
+		});
+		
+		
+		/* 이미지 업로드 함수 */
+		function getOriginalName(fileName){
+			if(checkImageType(fileName)){
+				return;
+			}
+			
+			var idx = fileName.indexOf("_") + 1 ;
+			return fileName.substr(idx);
+		}
+		
+		function getThumbnailName(fileName){
+			var front = fileName.substr(0,12);
+			var end = fileName.substr(12);
+			var onlyName = end.substr("_");
+			
+			
+			console.log("front : " + front);
+			console.log("end : " + end);
+			
+			
+			return front + "s_" + end;
+		}
+		
+		function getOnlyFileName(fileName){
+			var f_idx = fileName.indexOf("_") + 1 ;
+			var e_idx = fileName.indexOf(".") + 1 ;
+			var onlyFileName = fileName.substr(f_idx, e_idx - f_idx - 1);
+			
+			console.log("onlyName : " + onlyFileName );
+			
+			return onlyFileName;
+		}
+		
+		function checkImageType(fileName){
+			var pattern = /jpg|gif|png|jpeg/i;
+			
+			return fileName.match(pattern);
+		}
+		
+		
+		/* 대표 이미지 추가 및 썸네일 */
+		$(".mainImgThumnail").on("click", "span", function(event){
+			$(this).parent("div").remove();
+		});
+		
+		$("#inputMainImg").on("change", function(event){
+			console.log("change");
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var files = event.target.files;
+			var file = files[0];
+
+			console.log(file);
+			
+			var formData = new FormData();
+			formData.append("file", file);
+			
+			console.log(formData);
+			
+			$.ajax({
+				url: "/space/room/uploadMainImg",
+				data: formData,
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				dataType:"text",
+				processData: false,
+				contentType: false,
+				type: "POST",
+				success: function(data){
+					console.log(data);
+				  
+					var str ="";
+				  
+					if(checkImageType(data)){
+						str = "<div><a href='/space/room/displayFile?fileName=" + data + "'>"
+							+ "<img src='/space/room/displayFile?fileName=" + getThumbnailName(data) + "'/>"
+							+ "</a><span>X</span></div>";
+					}
+					else{
+						str = "<div><a href='/space/room/displayFile?fileName=" + data + "'>" 
+							+ getOriginalName(data) + "</a>"
+							+ "<span>X</span></div></div>";
+					}
+				  
+					$(".mainImgThumnail").append(str);
+				},
+				
+				error:function(request,status,error){
+		             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		        }
+
+			});
+		});
+		
+		
+		/* 대표 이미지 추가 및 썸네일 */
+		$(".detailImgThumnail").on("click", "span", function(event){
+			$(this).parent("div").remove();
+		});
+		
+		$("#inputDetailImg").on("change", function(event){
+			console.log("change");
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var files = event.target.files;
+			var file = files[0];
+
+			console.log(file);
+			
+			var formData = new FormData();
+			formData.append("file", file);
+			
+			console.log(formData);
+			
+			$.ajax({
+				url: "/space/room/uploadDetailImg",
+				data: formData,
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				dataType:"text",
+				processData: false,
+				contentType: false,
+				type: "POST",
+				success: function(data){
+					console.log(data);
+				  
+					var str ="";
+				  
+					if(checkImageType(data)){
+						str = "<div><a href='/space/room/displayFile?fileName=" + data + "'>"
+							+ "<img src='/space/room/displayFile?fileName=" + getThumbnailName(data) + "'/>"
+							+ "</a><span>X</span></div>";
+					}
+					else{
+						str = "<div><a href='/space/room/displayFile?fileName=" + data + "'>" 
+							+ getOriginalName(data) + "</a>"
+							+ "<span>X</span></div></div>";
+					}
+				  
+					$(".detailImgThumnail").append(str);
+				},
+				
+				error:function(request,status,error){
+		             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		        }
+
+			});
+		});
+		
+		$("#roominfo").submit(function(event){
+			event.preventDefault();
+			var that = $(this);
+			
+			var str ="";
+			$(".mainImgThumnail a").each(function(index){	
+				 var value = $(this).attr("href");
+				 value = value.substr(33);
+				 str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
+			});
+			
+			$(".detailImgThumnail a").each(function(index){	
+				 var value = $(this).attr("href");
+				 value = value.substr(33);
+				 str += "<input type='hidden' name='detailFiles["+index+"]' value='"+ value +"'> ";
+			});
+			
+			console.log("str = " + str);
+			
+			that.append(str);
+
+			that.get(0).submit();
+		});
+	
+	</script>
+	
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+  
+<title layout:fragment="title">CodeDetail</title>
+
+<div layout:fragment="content">
+	<div class="w-50 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{codedetail.header.modify}"></h2>
+		</div>
+		
+		<form id="codeDetail" action="./success.html" th:action="@{/codedetail/modify}" th:object="${codeDetail}" method="POST">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td th:text="#{codedetail.classCode}"></td>
+					<td>
+						<select class="form-control" th:field="*{classCode}">
+							<option th:each="classCode : ${classCodeList}" 
+								th:value="${classCode.value}" 
+								th:text="${classCode.label}">Korea</option>
+						</select>
+					</td>
+				</tr>
+				<tr th:if="${#fields.hasErrors('classCode')}">
+					<td class="text-center" colspan="2"><font color="red"><span  th:errors="*{classCode}">classCode의 에러 메시지</span></font></td>
+				</tr>
+				<tr>
+					<td th:text="#{codedetail.codeValue}"></td>
+					<td><input class="form-control" type="text" name="codeValue" th:field="*{codeValue}" /></td>
+				</tr>
+				<tr th:if="${#fields.hasErrors('codeValue')}">
+					<td class="text-center" colspan="2"><font color="red"><span  th:errors="*{codeValue}">codeValue의 에러 메시지</span></font></td>
+				</tr>
+				<tr>
+					<td th:text="#{codedetail.codeName}"></td>
+					<td><input class="form-control" type="text" name="codeName" th:field="*{codeName}" /></td>
+				</tr>
+				<tr th:if="${#fields.hasErrors('codeName')}">
+					<td class="text-center" colspan="2"><font color="red"><span  th:errors="*{codeName}">codeName의 에러 메시지</span></font></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div class="m-t-80">
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnModify" th:text="#{action.modify}"></button>
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnList" th:text="#{action.list}"></button>
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+		
+				var formObj = $("#codeDetail");
+		
+				$("#btnModify").on("click", function() {
+					formObj.submit();
+				});
+		
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+		
+			});
+		</script>
+	</div>
+</div>

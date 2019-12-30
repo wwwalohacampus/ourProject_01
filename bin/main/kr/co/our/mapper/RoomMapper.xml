@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.our.mapper.RoomMapper">
+
+	<select id="roomList" parameterType="map" resultType="roomInfo">
+				SELECT *
+				FROM room_info
+				WHERE space_num = #{spaceNum}
+	</select>
+	
+	
+	<insert id="roomInfoCreate">
+				INSERT INTO room_info
+							(
+								space_num,
+								room_name,
+								room_intro,
+								room_category,
+								room_option,
+								reserv_min_time,
+								reserv_min_man,
+								reserv_max_man,
+								created_by
+							)
+						 	VALUES
+						 	(
+						 		#{spaceNum},
+						 		#{roomName},
+						 		#{roomIntro},
+						 		#{roomCategory},
+						 		#{roomOption},
+						 		#{reservMinTime},
+						 		#{reservMinMan},
+						 		#{reservMaxMan},
+						 		#{createdBy}
+						 	)
+	</insert>
+	
+	
+	<insert id="roomPriceCreate">
+				INSERT INTO room_price
+							(
+								space_num,
+								room_num,
+								mon_price,
+								tue_price,
+								wed_price,
+								thu_price,
+								fri_price,
+								sat_price,
+								sun_price,
+								created_by
+							)
+						 	VALUES
+						 	(
+						 		#{spaceNum},
+						 		#{roomNum},
+						 		#{monPrice},
+						 		#{tuePrice},
+						 		#{wedPrice},
+						 		#{thuPrice},
+						 		#{friPrice},
+						 		#{satPrice},
+						 		#{sunPrice},
+						 		#{createdBy}
+						 	)
+	
+	</insert>
+	
+	
+	<select id="roomInfoReadRecent" parameterType="map" resultType="int">
+				SELECT room_num
+				FROM room_info
+				WHERE created_by = #{hostId}
+				AND   space_num =  #{spaceNum}
+				ORDER BY created_at DESC LIMIT 1
+	
+	</select>
+	
+	
+	<update id="roomPriceUpdate" parameterType="map">
+				UPDATE 	room_price
+				SET 	mon_price = #{monPrice},
+						tue_price = #{tuePrice},
+						wed_price = #{wedPrice},
+						thu_price = #{thuPrice},
+						fri_price = #{friPrice},
+						sat_price = #{satPrice},
+						sun_price = #{sunPrice},
+						hol_price = #{holPrice},
+						updated_at = now(),
+						updated_by = #{updatedBy}
+				WHERE 	space_num = #{spaceNum}
+				AND		room_num  = #{roomNum}
+	</update>
+	
+	
+	<select id="roomPriceRead" parameterType="map" resultType="roomPrice">
+				SELECT *
+				FROM room_price
+				WHERE	space_num 	= #{spaceNum}
+				AND	  	room_num	= #{roomNum}	
+	</select>
+	
+	
+	<select id="roomInfoRead" parameterType="map" resultType="roomInfo" >
+				SELECT 	* 
+				FROM 	room_info
+				WHERE 	space_num	= #{spaceNum}
+				AND		room_num	= #{roomNum}
+	</select>
+	
+	<update id="roomInfoUpdate">
+				UPDATE 	room_info
+				SET 	room_name			= #{roomName},
+						room_intro			= #{roomIntro},
+						room_category		= #{roomCategory},
+						room_option			= #{roomOption},
+						reserv_min_time		= #{reservMinTime},
+						reserv_min_man		= #{reservMinMan},
+						reserv_max_man		= #{reservMaxMan},
+						updated_at			= now(),
+						updated_by			= #{updatedBy}
+				WHERE 	space_num			= #{spaceNum}
+				AND		room_num			= #{roomNum}
+	</update>
+
+
+	<delete id="roomInfoDelete" parameterType="map">
+				DELETE FROM room_info
+				WHERE  	space_num 	= #{spaceNum}
+				AND		room_num	= #{roomNum}
+	</delete>
+	
+	
+	<insert id="roomInfoImgCreate">
+				INSERT INTO room_info_img
+							(
+								space_num,
+								room_num,
+								fullName,
+								img_type,
+								created_by
+							)
+							VALUES
+							(
+								#{spaceNum},
+								#{roomNum},
+								#{fullName},
+								#{imgType},
+								#{hostId}
+							)
+	</insert>
+	
+	<insert id="roomInfoDetailImgCreate">
+				INSERT INTO room_info_img
+							(
+								space_num,
+								room_num,
+								fullName,
+								img_type,
+								created_by
+							)
+							VALUES
+							(
+								#{spaceNum},
+								#{roomNum},
+								#{fullName},
+								#{imgType},
+								#{hostId}
+							)
+	</insert>
+	
+	<select id="getAttach" parameterType="map" resultType="roomInfoImg">
+				SELECT 	*
+				FROM  	room_info_img
+				WHERE	space_num 		= #{spaceNum}
+				AND		room_num 		= #{roomNum}
+				ORDER BY	created_at
+	</select>
+	
+	<insert id="replaceAttach">
+				INSERT INTO room_info_img
+							(
+								space_num,
+								room_num,
+								fullName,
+								img_type,
+								created_by
+							)
+							VALUES
+							(
+								#{spaceNum},
+								#{roomNum},
+								#{fullName},
+								#{imgType},
+								#{hostId}
+							)
+	</insert>
+	
+	<insert id="replaceDetailAttach">
+				INSERT INTO room_info_img
+							(
+								space_num,
+								room_num,
+								fullName,
+								img_type,
+								created_by
+							)
+							VALUES
+							(
+								#{spaceNum},
+								#{roomNum},
+								#{fullName},
+								#{imgType},
+								#{hostId}
+							)
+	</insert>
+	
+	<delete id="deleteAttach" parameterType="map">
+				DELETE FROM room_info_img
+				WHERE	space_num	= #{spaceNum}
+				AND		room_num	= #{roomNum}
+	</delete>
+	
+	
+	<update id="roomStatusUpdate">
+				UPDATE 	space_info
+				SET 	room_status = #{roomStatus}
+				WHERE	space_num 	= #{spaceNum}
+	</update>
+	
+	
+	<select id="roomListwithPrice" parameterType="map" resultType="roomInfo">
+				SELECT  i.*, 
+				<choose>
+					<when test='weekDay == "월요일"'>
+						mon_price as 'price'
+					</when>
+					<when test='weekDay == "화요일"'>
+						tue_price as 'price'
+					</when>
+					<when test='weekDay == "수요일"'>
+						wed_price as 'price'
+					</when>
+					<when test='weekDay == "목요일"'>
+						thu_price as 'price'
+					</when>
+					<when test='weekDay == "금요일"'>
+						fri_price as 'price'
+					</when>
+					<when test='weekDay == "토요일"'>
+						sat_price as 'price'
+					</when>
+					<when test='weekDay == "일요일"'>
+						sun_price as 'price'
+					</when>
+				</choose>
+				
+				FROM room_info i, room_price p 
+				WHERE i.room_num = p.room_num
+				AND i.space_num = #{spaceNum}
+				
+	</select>
+	
+	
+		<select id="roomWithPrice" parameterType="map" resultType="roomInfo">
+				SELECT  i.*, 
+				<choose>
+					<when test='weekDay == "월요일"'>
+						mon_price as 'price'
+					</when>
+					<when test='weekDay == "화요일"'>
+						tue_price as 'price'
+					</when>
+					<when test='weekDay == "수요일"'>
+						wed_price as 'price'
+					</when>
+					<when test='weekDay == "목요일"'>
+						thu_price as 'price'
+					</when>
+					<when test='weekDay == "금요일"'>
+						fri_price as 'price'
+					</when>
+					<when test='weekDay == "토요일"'>
+						sat_price as 'price'
+					</when>
+					<when test='weekDay == "일요일"'>
+						sun_price as 'price'
+					</when>
+				</choose>
+				
+				FROM room_info i, room_price p 
+				WHERE i.room_num = p.room_num
+				AND i.space_num = #{spaceNum}
+				AND i.room_num = #{roomNum}
+				
+	</select>
+</mapper>
+
+
+
+
+
+
+
+

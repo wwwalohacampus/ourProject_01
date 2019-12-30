@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/search_template}">
+<head>
+	<title>OUR SPACE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap-pagination.min.css" rel="stylesheet">
+	
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/css/snackbar.css" rel="stylesheet">
+	
+		
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="w-100 p-t-10 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+				<a href="home.html" th:href="@{/}"><img src="/image/logo.png"></a>
+		</div>
+		
+		<!-- Title -->
+		<div class="m-t-70">
+			<div class="p-5">
+			<h2><a href="#" style="font-size: 50px;">[[${keyword}]]</a> (으/)로 검색한 결과입니다.</h2>
+			</div>
+		</div>
+		<hr>
+		
+		<!-- Card -->
+		<div class="card-columns w-75 p-t-100">
+			<div class="card" th:each="basicInfo : ${list}">
+			  <a href="space.html" th:href="@{|/space/${basicInfo.spaceNum}|}" >
+			  <div>
+			  
+				  <!-- Card image -->
+				  <div class="view overlay">
+				    <img class="card-img-top" th:src="@{|/space/displayFile?fileName=${basicInfo.fullName}|}" alt="Card image cap" style="width: 100%; height: 33%">
+				    <a href="space.html" th:href="@{|/space/${basicInfo.spaceNum}|}">
+				      <div class="mask rgba-white-slight">
+					    <input id="spaceNum" type="hidden" name="spaceNum" th:value="${basicInfo.spaceNum}"/>
+					    <input id="spaceName" type="hidden" name="spaceName" th:value="${basicInfo.spaceName}"/>
+				      </div>
+				    </a>
+				  </div>
+				  <a href="space.html" th:href="@{|/space/${basicInfo.spaceNum}|}" style="text-decoration:none">
+				  <div >
+				  <!-- Card content -->
+				  <div class="card-body">
+				    <!-- Title -->
+				    <h4 class="card-title" th:text="${basicInfo.spaceName}">Card title</h4>
+				    <hr>
+				    <!-- Text -->
+				    <p class="card-text text-right">등록일 : 
+				    	<span th:text="${#dates.format(basicInfo.createdAt,'yyyy.MM.dd')}"></span>  
+				    </p>
+				  </div>
+				  
+				   <div class="card-body">				 
+				    <!-- Button -->
+				  </div>
+				  </div>
+					</a>
+			  </div>
+			  </a>
+			</div>
+		</div>
+		<!-- Card -->
+	
+			
+	</div>	
+</div>
+</body>

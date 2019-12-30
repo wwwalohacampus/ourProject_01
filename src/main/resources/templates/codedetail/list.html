@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+  
+<title layout:fragment="title">CodeDetail</title>
+
+<div layout:fragment="content" >
+	<div class="w-75 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{codedetail.header.list}"></h2>
+		</div>
+			
+		<table class="table table-bordered table-hover" border="1">
+			<tr>
+				<th class="text-center" width="160" th:text="#{codedetail.classCode}"></th>
+				<th class="text-center" width="160" th:text="#{codedetail.codeValue}"></th>
+				<th class="text-center" width="160" th:text="#{codedetail.codeName}"></th>
+				<th class="text-center" width="160" th:text="#{codedetail.sortSeq}"></th>
+				<th class="text-center" width="180" th:text="#{codedetail.regdate}"></th>
+			</tr>
+			
+			<tr th:if="${#lists.isEmpty(list)}">
+				<td colspan="5" th:text="#{common.listEmpty}">
+					List is empty.
+				</td>
+			</tr>
+			
+			<tr th:each="codeDetail : ${list}">
+				<td class="text-center" th:text="${codeDetail.classCode}">${codeDetail.classCode}</td>
+				<td class="text-center" th:text="${codeDetail.codeValue}">${codeDetail.codeValue}</td>
+				<td class="text-center"><a href="/codeclass/read?classCode=${codeDetail.classCode}" th:href="'/codedetail/read?classCode=' + ${codeDetail.classCode} + '&codeValue=' + ${codeDetail.codeValue}" th:text="${codeDetail.codeName}">${codeDetail.codeName}</a></td>
+				<td class="text-center" th:text="${codeDetail.sortSeq}">${codeDetail.sortSeq}</td>
+				<td class="text-center" th:text="${#dates.format(codeDetail.regDate, 'yyyy-MM-dd HH:mm')}">${codeDetail.regDate}</td>
+			</tr>
+		</table>
+		<div class="m-t-100">
+			<button class="btn btn-sea">
+				<a href="register" th:text="#{action.new}"></a>
+			</button>
+		</div>
+		
+		<script th:inline="javascript">
+			var result = [[${msg}]];
+		
+			if (result === "SUCCESS") {
+				alert([[#{common.processSuccess}]]);
+			}
+		</script>
+		</div>
+</div>
+

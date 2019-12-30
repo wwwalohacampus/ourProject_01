@@ -1,0 +1,401 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/search_template}">
+<head>
+	<title>OUR SPACE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/css/radio.css" rel="stylesheet">
+		
+	
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="w-75 p-5">
+		<div class="p-3">
+			<h2>예약 하기</h2>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="reserv-space-box m-b-100">
+				  	<div class="reserv-space-header border-bottom border-primary p-2 row">
+				  		<div class="col-8 text-left">
+					  		<span><strong>예약 공간</strong></span>
+				  		</div>
+				  		<div class="col-4 text-right">
+					  		<span><strong>&#8361;</strong></span>
+					  		<span th:text="${roomInfo.price}"></span>
+					  		<span> /시간(인)</spaN>
+				  		</div>
+				  	</div>
+				  	
+				  	<div class="reserv-space-main row border-bottom">
+				  		<div class="col-4">
+				  			<div class="p-4">
+				  				<img class="card-img-top" th:src="@{|/space/displayFile?fileName=${spaceBasicImg.fullName}|}" alt="spaceImg">
+				  			</div>
+				  		</div>
+				  		<div class="col-8">
+				  			<div class="p-3">
+				  				<h4 class="text-left" th:text="${basicInfo.spaceName}"></h4>
+				  			</div>
+				  			<div class="p-3">
+				  				<p class="lead" th:text="${basicInfo.spaceIntro}"></p>
+				  			</div>
+				  		</div>
+				  	</div>
+				  	
+				  	<div class="reserv-space-body">
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 공간유형</div>
+							<div class="col-10 text-left"><span th:text="${basicInfo.spaceCategory}"></span></div>				  		
+				  		</div>
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 예약인원</div>
+							<div class="col-10 text-left">
+								<span>최소 </span>
+								<span th:text="${roomInfo.reservMinMan}"></span>
+								<span>명 ~ 최대 </span>
+								<span th:text="${roomInfo.reservMaxMan}"></span>
+								<span>명</span>
+							</div>				  		
+				  		</div>
+				  	</div>
+				  	
+				  	<div class="reserv-space-footer">
+				  		<div class=" p-4">
+				  			<span th:text="${roomInfo.roomOption}"></span>
+				  		</div>
+				  	</div>
+				  	
+				  	<div>
+				  		
+				  	</div>
+				  	
+				</div>
+				
+				
+				<div class="reserv-info-box m-b-100">
+					
+					<div class="reserv-space-header border-bottom border-primary p-2 ">
+						<div class="text-left">
+					  		<span><strong>예약 정보</strong></span>
+				  		</div>
+					</div>
+					
+					<div class="reserv-info-body">
+					
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 예약날짜</div>
+							<div class="col-10 text-right">
+								<span th:text="${#dates.format(reservInfo.reservDate, 'yyyy년 MM월  dd일 ')}"></span>
+								<span th:text="|(${#dates.dayOfWeekNameShort(reservInfo.reservDate)}) |"></span>
+								<span th:text="|${reservInfo.startTime}시 ~ ${reservInfo.endTime}시, 총 ${reservInfo.totalTime}시간  / [ ${reservInfo.timeList} ]시간|"></span>
+							</div>				  		
+				  		</div>
+				  		
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 예약인원</div>
+							<div class="col-10 text-right">
+								<span th:text="${reservInfo.reservMan}"></span>
+								<span>명</span>
+							</div>				  		
+				  		</div>
+				  		
+				  	</div>
+				</div>
+				
+				
+				<div class="client-info-box m-b-100">
+					
+					<div class="client-info-header border-bottom border-primary p-2 ">
+						<div class="text-left">
+					  		<span><strong>예약자 정보</strong></span>
+				  		</div>
+					</div>
+					
+					<div class="client-info-body">
+						<form th:id="|userInfoForm-${reservInfo.roomNum}|" class="reservForm" action="" th:action="@{|/reserv/space/${reservInfo.spaceNum}|}" th:object="${reservInfo}" method="POST">
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 예약자</div>
+							<div class="col-10 text-left">
+								<input th:id="|username-${roomInfo.roomNum}|" class="form-control" name="userName" />
+							</div>				  		
+				  		</div>
+				  		
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 연락처</div>
+							<div class="col-10 text-left">
+								<input th:id="|usertel-${roomInfo.roomNum}|" class="form-control" name="userTel"  />
+							</div>				  		
+				  		</div>
+				  		
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 이메일</div>
+							<div class="col-10 text-left">
+								<input th:id="|useremail-${roomInfo.roomNum}|" class="form-control" name="userEmail"  />
+							</div>				  		
+				  		</div>
+				  		
+				  		<div class="row p-4 border-bottom">
+							<div class="col-2">- 요청사항</div>
+							<div class="col-10 text-left">
+								<textarea th:id="|userReq-${roomInfo.roomNum}|" class="form-control" name="userReq" ></textarea>
+							</div>				  		
+				  		</div>
+				  		</form>
+				  	</div>
+					
+				</div>
+				
+				
+				<div class="host-info-box card h-150 m-b-100">
+			          <h5 class="host-info-header card-header text-left">호스트 정보</h5>
+			          <div class="bost-info-body card-body">
+				       			<div class="row p-4 border-bottom">
+									<div class="col-3">- 공간상호</div>
+									<div class="col-9 text-left">
+										<span th:text="${basicInfo.spaceName}"></span>
+									</div>				  		
+						  		</div>
+						  		
+						  		<div class="row p-4 border-bottom">
+									<div class="col-3">- 대표자명</div>
+									<div class="col-9 text-left">
+										<span th:text="${accountsInfo.ownerName}"></span>
+									</div>				  		
+						  		</div>
+						  		
+						  		<div class="row p-4 border-bottom">
+									<div class="col-3">- 소재지</div>
+									<div class="col-9 text-left">
+										<span th:text="${accountsInfo.bizAddr}"></span>
+									</div>				  		
+						  		</div>
+						  		
+						  		<div class="row p-4 border-bottom">
+									<div class="col-3">- 사업자번호</div>
+									<div class="col-9 text-left">
+										<span th:text="${accountsInfo.bizRegnum}"></span>
+									</div>				  		
+						  		</div>
+						  		
+						  		<div class="row p-4 border-bottom">
+									<div class="col-3">- 연락처</div>
+									<div class="col-9 text-left">
+										<span th:text="${accountsInfo.bizCaltel}"></span>
+									</div>				  		
+						  		</div>
+			           </div>
+		          </div>
+		          
+		          
+		          <div class="reserv-caution-box card h-150 m-b-100">
+			          <h5 class="reserv-caution-header card-header text-left">예약시 주의사항</h5>
+			          <div class="reserv-caution-body card-body">
+			          
+				       			<div class="row p-4 border-bottom">
+									<div class="col-2">- 1</div>
+									<div class="col-10 text-left">
+										<span th:text="${basicInfo.spaceCaution}"></span>
+									</div>				  		
+						  		</div>
+			          </div>
+		          </div>
+		          
+		          
+		          <div class="refund-policy-box card h-300 m-b-100">
+			          <h5 class="refund-policy-header card-header text-left">환불 규정</h5>
+			          <div class="refunt-policy-body card-body">
+			          		<div class="row p-5 border-bottom">
+			          			<span>이용당일(첫 날) 이후에 환불 관련 사항은 호스트에게 직접 문의하셔야 합니다.</span><br>
+			          			<span>결제 후 2시간 이내에는 100% 환불이 가능합니다.(단, 이용시간 전까지만 가능)</span>
+			          		</div>
+			          	
+			          
+			       			<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 8일 전</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddayEight}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 7일 전</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddaySeven}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 6일 전</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddaySix}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 5일 전</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddayFive}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 4일 전</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddayFour}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 3일 전</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddayThree}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 2일 전</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddayTwo}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 전날</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.ddayOne}% 환불|"></span>
+								</div>				  		
+					  		</div>
+					  		
+					  		<div class="row p-4 border-bottom">
+								<div class="col-2 text-left">이용 당일</div>
+								<div class="col-10 text-left">
+									<span th:text="|총 금액의 ${refundInfo.dday}% 환불|"></span>
+								</div>				  		
+					  		</div>
+			          </div>
+		          </div>
+		          
+		          
+		          
+		          
+		          <div class="pay-method-box card h-300 m-b-100">
+			          <h5 class="pay-method-header card-header text-left">결제방법 선택</h5>
+			          <div class="pay-method-body card-body">
+				         <div class="radio-group ">
+				         	 <div class="row">
+							 <div class="radio p-4">
+							 	<form th:id="|payTypeForm-${reservInfo.roomNum}|" class="reservForm" action="" th:action="@{|/reserv/space/${reservInfo.spaceNum}|}" th:object="${reservInfo}" method="POST">
+							      <input th:id="|credit-${roomInfo.roomNum}|" name="payType" type="radio" class="room-radio" value="신용카드">
+								  <label th:for="|credit-${roomInfo.roomNum}|" class="radio-label m-r-30">신용카드</label>
+								  <input th:id="|account-${roomInfo.roomNum}|" name="payType" type="radio" class="room-radio" value="계좌이체">
+								  <label th:for="|account-${roomInfo.roomNum}|"  class="radio-label m-r-30">실시간 계좌이체</label>
+								  <input th:id="|naverpay-${roomInfo.roomNum}|" name="payType" type="radio" class="room-radio" value="네이버페이">
+								  <label th:for="|naverpay-${roomInfo.roomNum}|"  class="radio-label m-r-30">네이버 페이</label>
+								</form>
+							 </div>
+							 </div>
+		  				</div>
+			          </div>
+			      </div>
+			      
+			</div> 
+			
+			<div class="col-lg-4">
+				<div th:id="|paybox-${roomInfo.roomNum}|" class="room-box  border-primary p-l-15 p-r-15">
+								<div class="reserv-space-header border-bottom border-primary p-2 row">
+							  		<div class="text-left">
+								  		<span><strong>예약 공간</strong></span>
+							  		</div>
+							  	</div>
+						  		
+						  		<div th:id="|paybox-${roomInfo.roomNum}|" class="pay-box">
+						  			<div class="p-t-20 p-b-20 border-bottom ">
+								  		<div class="row">
+								  			<div class="col-lg-4 text-left"><span>예약날짜</span></div>
+								  			<div class="col-lg-8 text-left"><strong><span th:text="${#dates.format(reservInfo.reservDate, 'yyyy년 MM월  dd일 ')}"></span></strong></div>
+								  		</div>
+							  		</div>
+							  		<div class="p-t-20 p-b-20 border-bottom ">
+								  		<div class="row">
+								  			<div class="col-lg-4 text-left"><span>예약시간</span></div>
+								  			<div class="col-lg-8 text-left"><strong><span th:text="|${reservInfo.startTime}시 ~ ${reservInfo.endTime}시, 총 ${reservInfo.totalTime}시간  / [ ${reservInfo.timeList} ]시간|"></span></strong></div>
+								  		</div>
+							  		</div>
+								  	<div class="p-t-20 p-b-20 border-bottom border-primary">
+								  		<div class="row">
+								  			<div class="col-lg-4 text-left"><span>예약인원</span></div>
+								  			<div class="col-lg-8 text-left"><strong><span th:text="${reservInfo.reservMan}"></span></strong></div>
+								  		</div>
+							  		</div>
+							  		<div class="total-pay row m-t-10 m-b-20">
+							  			<div class="col-6 text-left">
+							  				<h3>&#8361;</h3>
+							  			</div>
+							  			<div class="col-6 text-right">
+							  				<h3 th:id="|totalpay-${roomInfo.roomNum}|" th:text="${reservInfo.totalPay}" class="text-right"></h3>
+							  			</div>
+							  		</div>
+							  	</div>	
+							  	
+							  	</div>
+							  	<form th:id="|reservInfoForm-${reservInfo.roomNum}|" class="reservForm" action="" th:action="@{|/reserv/space/${reservInfo.spaceNum}|}" th:object="${reservInfo}" method="POST">
+									<input type="hidden" th:id="|reserv-spaceNum-${reservInfo.roomNum}|" 		name="spaceNum" 	th:value="*{spaceNum}" /> 							  		
+									<input type="hidden" th:id="|reserv-roomNum-${reservInfo.roomNum}|" 		name="roomNum" 		th:value="*{roomNum}" /> 							  		
+									<input type="hidden" th:id="|reserv-reservDate-${reservInfo.roomNum}|" 		name="reservDate" 	th:value="*{reservDate}" /> 							  		
+									<input type="hidden" th:id="|reserv-startTime-${reservInfo.roomNum}|"  		name="startTime" 	th:value="*{startTime}" /> 							  		
+									<input type="hidden" th:id="|reserv-endTime-${reservInfo.roomNum}|" 		name="endTime" 		th:value="*{endTime}" /> 							  		
+									<input type="hidden" th:id="|reserv-timeList-${reservInfo.roomNum}|" 		name="timeList" 	th:value="*{timeList}" /> 							  		
+									<input type="hidden" th:id="|reserv-totalTime-${reservInfo.roomNum}|" 		name="totalTime" 	th:value="*{totalTime}" /> 							  		
+									<input type="hidden" th:id="|reserv-reservMan-${reservInfo.roomNum}|" 		name="reservMan" 	th:value="*{reservMan}" /> 							  		
+									<input type="hidden" th:id="|reserv-totalPay-${reservInfo.roomNum}|" 		name="totalPay" 	th:value="*{totalPay}" /> 							  		
+									<input type="hidden" th:id="|reserv-userId-${reservInfo.roomNum}|" 			name="userId" 		th:value="*{userId}" /> 							  		
+									<input type="hidden" th:id="|reserv-createdBy-${reservInfo.roomNum}|" 		name="createdBy" 		th:value="*{userId}" /> 							  		
+									<input type="hidden" th:id="|reserv-hostId-${reservInfo.roomNum}|"  		name="hostId" 		th:value="${basicInfo.CreatedBy}" /> 							  		
+							  	</form>
+							  	
+							  	<div class="p-t-20 p-b-20 border border-primary bg-primary text-center">
+							  		<a id="btnReserv" href="javascript:void(0);" class="btnReserv" style="text-decoration: none; font-size: 1.45rem; color: white;">
+										바로 예약하기
+									</a>
+	  							</div>
+						
+							  	
+			</div>
+		</div>
+			
+		</div>
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			
+			
+		});
+		
+		
+		$("#btnReserv").on("click", function() {
+			
+			var spaceNum = [[${reservInfo.spaceNum}]];
+			var roomNum = [[${reservInfo.roomNum}]];
+			
+			// *****  (한 템플릿에서 form 태그를 2개이상 사용할 때)
+			$.post("/reserve/space", $(".reservForm").serialize(), function(data){
+				location.href = "/reserve/space/success?spaceNum=" + spaceNum + "&roomNum=" + roomNum;
+			});
+			
+		});
+	</script>
+	</div>
+	
+	
+</body>

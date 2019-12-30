@@ -1,0 +1,104 @@
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Board</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="w-50 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{board.header.read}">회원게시판 상세보기</h2>
+		</div>
+			
+		
+		<form id="board" action="list.html" th:action="@{/board/remove}" th:object="${board}" method="POST">
+			<input type="hidden" name="boardNo" th:field="*{boardNo}" />
+			
+			<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
+			<input type="hidden" name="page" th:field="${pgrq.page}" />
+			<input type="hidden" name="sizePerPage" th:field="${pgrq.sizePerPage}" />
+			<input type="hidden" name="searchType" th:field="${pgrq.searchType}" />
+			<input type="hidden" name="keyword" th:field="${pgrq.keyword}" />
+			
+			
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td th:text="#{board.title}">제목</td>
+					<td><input class="form-control" type="text" name="title" th:field="*{title}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{board.writer}">작성자</td>
+					<td><input class="form-control" type="text" name="writer" th:field="*{writer}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{board.content}">내용</td>
+					<td><textarea class="form-control" name="content" th:field="*{content}" readonly="readonly"></textarea></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div class="m-t-80" th:with="pinfo=${#authentication.principal}">
+			
+			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnEdit" th:text="#{action.edit}">편집</button>
+				<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
+			</th:block>
+		
+			<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+		       <th:block th:if="${pinfo.username eq board.writer}">
+		       	<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnEdit" th:text="#{action.edit}">편집</button>
+		       	<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
+		       </th:block>
+			</th:block>
+		
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnList" th:text="#{action.list}">목록</button>
+		</div>
+		
+		
+		<script th:inline="javascript">
+		
+			$(document).ready(function() {
+		
+				var formObj = $("#board");
+				
+				/* 현재 페이지 번호와 페이지 크기 */
+				var pageObj = $("#page");
+				var sizePerPageObj = $("#sizePerPage");
+				
+				var pageVal = pageObj.val();
+				var sizePerPageVal = sizePerPageObj.val();
+				
+				
+				$("#btnEdit").on("click", function() {
+					var boardNo = $("#boardNo");
+					var boardNoVal = boardNo.val();
+					
+					/* 현재 페이지 번호와 페이징 크기를 쿼리 파라미터로 전달한다. */
+					/* 페이징관련 정보를 쿼리 파라미터로 전달한다. */
+					self.location = "/board/modify[(${pgrq.toUriString()})]" + "&boardNo" + boardNoVal;
+				});
+		
+				$("#btnRemove").on("click", function() {
+					formObj.attr("action", "/board/remove");
+					formObj.submit();
+				});
+		
+				$("#btnList").on("click", function() {
+					/* 현재 페이지 번호와 페이징 크기를 쿼리 파라미터로 전달한다. */
+					/* 페이징관련 정보를 쿼리 파라미터로 전달한다. */
+					self.location = "/board/list[(${pgrq.toUriString()})]";
+				});
+		
+			});
+		
+		</script>
+	
+	</div>
+</div>
+</body>
+</html>

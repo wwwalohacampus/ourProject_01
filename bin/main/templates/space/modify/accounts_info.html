@@ -1,0 +1,419 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+		
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="heading m-t-80">
+		<h3>정산 정보를 입력해주세요</h3>
+			<span class="option">
+				<span class="txt_required">
+				<span class="ico_required">*</span>
+				필수입력</span>
+			</span>
+	</div>
+	
+	<div class="justify-content-md-center m-t-80 m-b-80">
+	
+	<div class="col1">
+	<section id="contents2" class="contents contents_register2" role="main">
+		<form id="accountsinfo" class="form-group accountsForm" action="manage.html" th:action="@{/space/modify/accounts_info}" th:object="${accountsInfo}" method="POST">
+		<input type="hidden" class="form-control" name="accountsHostId" th:value="*{accountsHostId}" readonly="readonly" />
+		<input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:field="*{spaceNum}" />
+			 <div>
+			  <div class="form-group row">
+			    <label for="inputPlace" class="col-sm-4 col-form-label">상호명</label>
+			    <div class="col-sm-6">
+			      <input type="place" class="form-control" id="companyName" name="companyName" placeholder="상호명" th:value="*{companyName}">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputIntro" class="col-sm-4 col-form-label">대표자명</label>
+			    <div class="col-sm-6">
+			      <input type="intro" class="form-control" id="ownerName" name="ownerName" placeholder="대표자명" th:value="*{ownerName}">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputIntroDetail" class="col-sm-4 col-form-label">사업자 등록번호</label>
+			    <div class="col-sm-6">
+			      <input type="introDetail" class="form-control" id="bizRegnum" name="bizRegnum" placeholder="사업자 등록번호" th:value="*{bizRegnum}">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputpalceTag" class="col-sm-4 col-form-label">주 업태</label>
+			    <div class="col-sm-6">
+			      <input type="placeTag" class="form-control" id="bizCon" name="bizCon" placeholder="주업태" th:value="*{bizCon}">
+			    </div>
+			  </div>
+		
+			  <div class="form-group row">
+			    <label for="inputNotice" class="col-sm-4 col-form-label">주 종목</label>
+			    <div class="col-sm-6">
+			      <input type="notice" class="form-control" id="bizKind" name="bizKind" placeholder="주 종목" th:value="*{bizKind}">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputSiteAdd" class="col-sm-4 col-form-label">사업장 주소</label>
+			    <div class="col-sm-6">
+			      <input type="siteAdd" class="form-control" id="bizAddr" name="bizAddr" placeholder="사업장 주소" th:value="*{bizAddr}">
+			    </div>
+			  </div>
+			  
+			 <div class="form-group row">
+			 	<label for="inputSiteAdd" class="col-sm-4 col-form-label">이메일 주소</label>
+			 	<div class="col-sm-2">
+			      <input type="siteAdd" class="form-control" id="bizEmailId" name="bizEmail1" placeholder="이메일 아이디" th:value="*{bizEmail1}">
+			    </div>
+			    <div class="col-sm-1">
+			    <div class="input-group mr-sm-2 mb-sm-0">
+				   <div class="input-group-addon">@</div>
+				</div>
+			    </div>
+			    <div class="col-sm-3">
+			      <input type="siteAdd" class="form-control" id="bizEmailDomain" name="bizEmail2" placeholder="이메일 주소" th:value="*{bizEmail2}">
+			    </div>
+			    
+			 </div>
+			 
+			  <div class="form-group row">
+			    <label for="inputAddress" class="col-sm-4 col-form-label">정산용 연락처</label>
+			    <div class="col-sm-6">
+			      <input type="address" class="form-control" id="bizCaltel" name="bizCaltel" placeholder="정산용 연락처" th:value="*{bizCaltel}">
+			    </div>
+			  </div>
+		  
+	        </div>
+	        
+	         <div class="heading m-t-80">
+				<h3>계좌 정보를 입력해주세요</h3>
+					<span class="option">
+						<span class="txt_required">
+						<span class="ico_required">*</span>
+						필수입력</span>
+					</span>
+			</div>
+	        
+	        	<div class="justify-content-md-center m-t-80 m-b-80">
+	<div class="form-inline justify-content-md-center m-t-80 m-b-80">
+	 <div class="form-group row mx-12">
+		<div class="account row col-sm-4">
+			<dl class="flex_box">
+				<dt class="flex tit">
+					<label for="bank11">은행명<span class="ico_required">*</span></label>
+				</dt>
+			<dd class="flex">
+				<div class="select">
+					<select id="bizBankname" name="bizBankname">
+						<option value="BOK" th:selected="*{bizBankname eq 'BOK' ? 'selected' : null}">한국은행</option>
+						<option value="BUSB" th:selected="*{bizBankname eq 'BUSB' ? 'selected' : null}">부산은행</option>
+						<option value="CITY" th:selected="*{bizBankname eq 'CITY' ? 'selected' : null}">한국씨티은행</option>
+						<option value="DGB" th:selected="*{bizBankname eq 'DGB' ? 'selected' : null}">대구은행</option>
+						<option value="EPOST" th:selected="*{bizBankname eq 'EPOST' ? 'selected' : null}">우체국</option>
+						<option value="HANA" th:selected="*{bizBankname eq 'HANA' ? 'selected' : null}">하나은행</option>
+						<option value="IBK" th:selected="*{bizBankname eq 'IBK' ? 'selected' : null}">기업은행</option>
+						<option value="JBB" th:selected="*{bizBankname eq 'JBB' ? 'selected' : null}">전북은행</option>
+						<option value="JEJUB" th:selected="*{bizBankname eq 'JEJUB' ? 'selected' : null}">제주은행</option>
+						<option value="KAKAO" th:selected="*{bizBankname eq 'KAKAO' ? 'selected' : null}">카카오뱅크</option>
+						<option value="KBANK" th:selected="*{bizBankname eq 'KBANK' ? 'selected' : null}">케이뱅크</option>
+						<option value="KDB" th:selected="*{bizBankname eq 'KDB' ? 'selected' : null}">산업은행</option>
+						<option value="KEB" th:selected="*{bizBankname eq 'KEB' ? 'selected' : null}">국민은행</option>
+						<option value="KEBHA" th:selected="*{bizBankname eq 'KEBHA' ? 'selected' : null}">외환은행</option>
+						<option value="KJB" th:selected="*{bizBankname eq 'KJB' ? 'selected' : null}">광주은행</option>
+						<option value="KNB" th:selected="*{bizBankname eq 'KNB' ? 'selected' : null}">경남은행</option>
+						<option value="MGS" th:selected="*{bizBankname eq 'MGS' ? 'selected' : null}">새마을금고</option>
+						<option value="NH" th:selected="*{bizBankname eq 'NH' ? 'selected' : null}">농협</option>
+						<option value="SCJ" th:selected="*{bizBankname eq 'SCJ' ? 'selected' : null}">SC제일은행</option>
+						<option value="SHC" th:selected="*{bizBankname eq 'SHC' ? 'selected' : null}">신협중앙회</option>
+						<option value="SINH" th:selected="*{bizBankname eq 'SINH' ? 'selected' : null}">신한은행</option>
+						<option value="SUH" th:selected="*{bizBankname eq 'SUH' ? 'selected' : null}">수협중앙회</option>
+						<option value="WOORI" th:selected="*{bizBankname eq 'WOORI' ? 'selected' : null}">우리은행</option>
+					</select>
+				</div>
+			</dd>
+			</dl>
+		</div>		
+			<dl class="flex_box">
+				<dt class="flex tit">
+					<label for="bank12">계좌번호<span class="ico_required">*</span></label>
+				</dt>
+				<dd class="flex">
+					<div class="input null">
+					<input type="tel" class="form-control" id="bizBanknum" name="bizBanknum" value=""  placeholder="계좌번호" th:value="*{bizBanknum}">
+					</div>
+				</dd>
+			</dl>
+			
+			<dl class="flex_box col-sm-4">
+				<dt class="flex tit">
+					<label for="bank13">예금주<span class="ico_required">*</span></label>
+					<dd class="flex">
+					<div class="input null">
+					<input type="tel" class="form-control" id="bizDepositor" name="bizDepositor" value="" placeholder="예금주" th:value="*{bizDepositor}">
+					</div>
+				</dd>
+				</dt>
+				</dl>
+			</div>
+			</div>
+			</div>
+		
+		</form>
+	</section>
+	<form id="refundinfo" class="form-group accountsForm" action="manage.html" th:action="@{/space/modify/refund_info}" th:object="${refundInfo}" method="POST">
+		<input type="hidden" class="form-control" name="refundHostId" th:value="*{refundHostId}" readonly="readonly" />
+		<input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:field="*{spaceNum}" />
+		<div class="heading">
+			<h3>환불기준</h3>
+			<span class="option"><span class="txt_guide">해당 기준의 의해 환불 처리됩니다.</span></span>
+		</div>
+		
+		<div id="refund" class="refund row">
+			<dl class="flex_box col-md-12 m-t-80">
+				<dd class="flex" style="vertical-align: top;">
+					<div style="margin-bottom: 16px;">
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+							<span>총 금액의</span>
+							<div class="select" style="display: inline-block;">
+								<select name="ddayEight">
+									<option value="100">100%</option>
+								</select>
+							</div>
+							<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 7일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddaySeven">
+							<option value="100" th:selected="*{ddaySeven eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{ddaySeven eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{ddaySeven eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{ddaySeven eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{ddaySeven eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{ddaySeven eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{ddaySeven eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{ddaySeven eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{ddaySeven eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{ddaySeven eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{ddaySeven eq '0' ? 'selected' : null}">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 6일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+							<span>총 금액의</span>
+							<div class="select" style="display: inline-block;">
+							<select name="ddaySix">
+								<option value="100" th:selected="*{ddaySix eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{ddaySix eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{ddaySix eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{ddaySix eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{ddaySix eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{ddaySix eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{ddaySix eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{ddaySix eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{ddaySix eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{ddaySix eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{ddaySix eq '0' ? 'selected' : null}">환불불가</option>
+							</select>
+							</div>
+							<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 5일 전</label><div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayFive">
+							<option value="100" th:selected="*{ddayFive eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{ddayFive eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{ddayFive eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{ddayFive eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{ddayFive eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{ddayFive eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{ddayFive eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{ddayFive eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{ddayFive eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{ddayFive eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{ddayFive eq '0' ? 'selected' : null}">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 4일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayFour">
+							<option value="100" th:selected="*{ddayFour eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{ddayFour eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{ddayFour eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{ddayFour eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{ddayFour eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{ddayFour eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{ddayFour eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{ddayFour eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{ddayFour eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{ddayFour eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{ddayFour eq '0' ? 'selected' : null}">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;"><label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 3일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayThree">
+							<option value="100" th:selected="*{ddayThree eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{ddayThree eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{ddayThree eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{ddayThree eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{ddayThree eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{ddayThree eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{ddayThree eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{ddayThree eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{ddayThree eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{ddayThree eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{ddayThree eq '0' ? 'selected' : null}">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 2일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayTwo">
+							<option value="100" th:selected="*{ddayTwo eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{ddayTwo eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{ddayTwo eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{ddayTwo eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{ddayTwo eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{ddayTwo eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{ddayTwo eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{ddayTwo eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{ddayTwo eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{ddayTwo eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{ddayTwo eq '0' ? 'selected' : null}">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 전날</label><div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayOne">
+							<option value="100" th:selected="*{ddayOne eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{ddayOne eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{ddayOne eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{ddayOne eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{ddayOne eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{ddayOne eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{ddayOne eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{ddayOne eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{ddayOne eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{ddayOne eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{ddayOne eq '0' ? 'selected' : null}">환불불가</option>
+						</select></div><span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 당일</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="dday">
+							<option value="100" th:selected="*{dday eq '100' ? 'selected' : null}">100%</option>
+							<option value="90" th:selected="*{dday eq '90' ? 'selected' : null}">90%</option>
+							<option value="80" th:selected="*{dday eq '80' ? 'selected' : null}">80%</option>
+							<option value="70" th:selected="*{dday eq '70' ? 'selected' : null}">70%</option>
+							<option value="60" th:selected="*{dday eq '60' ? 'selected' : null}">60%</option>
+							<option value="50" th:selected="*{dday eq '50' ? 'selected' : null}">50%</option>
+							<option value="40" th:selected="*{dday eq '40' ? 'selected' : null}">40%</option>
+							<option value="30" th:selected="*{dday eq '30' ? 'selected' : null}">30%</option>
+							<option value="20" th:selected="*{dday eq '20' ? 'selected' : null}">20%</option>
+							<option value="10" th:selected="*{dday eq '10' ? 'selected' : null}">10%</option>
+							<option value="0" th:selected="*{dday eq '0' ? 'selected' : null}">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+				</dd>
+			</dl>
+		</div>
+	</form>
+	
+</div>
+</div>
+	<div class="fixed_bar fixed">
+		<span class="btn_wrap">
+			<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">이전</a>
+		</span>
+		<span class="btn_wrap">
+			<a id="btnRegister" href="javascript:void(0);"  class="fix_btn_next">수정</a>
+		</span>
+	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$("#title").text("정산 정보");
+			var accounts_spaceId = $("#accounts_spaceId").val();
+			
+			$("#btnRegister").on("click", function() {
+
+				// 직렬화해서 object 2개를 한 번의 요청으로 넘겨준다.  *****  (한 템플릿에서 form 태그를 2개이상 사용할 때)
+				$.post("/space/modify/accounts_info", $(".accountsForm").serialize(), function(data){
+					var sn = $('#spaceNum').val();
+					location.href = '/space/modify?spaceNum=' + sn;
+				});
+				
+			});
+		});
+	</script>	
+	
+	
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

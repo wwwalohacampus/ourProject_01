@@ -1,0 +1,135 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/vendor/bootstrap/css/bootstrap-pagination.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="w-75 p-t-100 p-b-90">
+			<div class="m-5 p-t-10 p-b-10">
+				<h2 >공간 검수 목록</h2>
+			</div>
+			
+			
+		<table class="table table-bordered table-hover" border="1">
+			<tr>
+				<th align="center" width="100">공간 번호</th>
+				<th align="center" width="700">공간 명</th>
+				<th align="center" width="100">등록일자</th>
+				<th align="center" width="100">수정일자</th>
+				<th align="center" width="100">검수</th>
+			</tr>
+		
+		
+			<tr th:if="${#lists.isEmpty(wlist)}">	
+				<td colspan="5" th:text="#{common.listEmpty}">
+					List is empty.
+				</td>
+			</tr>
+		
+			<tr th:each="spaceInfo : ${wlist}">
+				<td align="center" th:text="${spaceInfo.spaceNum}">${spaceInfo.spaceNum}</td>
+				<td align="center" th:text="${spaceInfo.spaceName}">${spaceInfo.spaceName}</td>
+				<td align="center" th:text="${#dates.format(spaceInfo.createdAt,'yyyy.MM.dd HH:mm:ss')}">${spaceInfo.createdAt}</td>
+				<td align="center" th:text="${#dates.format(spaceInfo.updatedAt,'yyyy.MM.dd HH:mm:ss')}">${spaceInfo.updatedAt}</td>
+				<td align="center"><a href="javascript:void(0);" class="btn btn-primary btn_check" th:value="@{|${spaceInfo.spaceNum},${spaceInfo.spaceName}|}" >검수</a></td>
+			</tr>	
+		
+		</table>	
+			
+	</div>
+	
+	<div class="w-75 p-t-100 p-b-90">
+			<div class="m-5 p-t-10 p-b-10">
+				<h2 >검수 완료 목록</h2>
+			</div>
+			
+			
+		<table class="table table-bordered table-hover" border="1">
+			<tr>
+				<th align="center" width="100">공간 번호</th>
+				<th align="center" width="700">공간 명</th>
+				<th align="center" width="100">등록일자</th>
+				<th align="center" width="100">수정일자</th>
+				<th align="center" width="100">검수여부</th>
+			</tr>
+		
+		
+			<tr th:if="${#lists.isEmpty(clist)}">	
+				<td colspan="5" th:text="#{common.listEmpty}">
+					List is empty.
+				</td>
+			</tr>
+		
+			<tr th:each="spaceInfo : ${clist}">
+				<td align="center" th:text="${spaceInfo.spaceNum}">${spaceInfo.spaceNum}</td>
+				<td align="center" th:text="${spaceInfo.spaceName}">${spaceInfo.spaceName}</td>
+				<td align="center" th:text="${#dates.format(spaceInfo.createdAt,'yyyy.MM.dd HH:mm:ss')}">${spaceInfo.createdAt}</td>
+				<td align="center" th:text="${#dates.format(spaceInfo.updatedAt,'yyyy.MM.dd HH:mm:ss')}">${spaceInfo.updatedAt}</td>
+				<td align="center" th:text="${spaceInfo.checkStatus}">${spaceInfo.checkStatus}</td>
+			</tr>	
+		
+		</table>	
+		
+		<form id="checkform" class="form-group checkForm" action="space_check.html" th:action="@{/system/space/space_check}" method="POST">
+			<input type="hidden" name="spaceNum" id="postSpaceNum" />
+		</form>
+			
+	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$("#title").text("공간 검수 목록");
+			
+			$(".btn_check").on("click", function() {
+				var value = $(this).attr("value").split(",");
+				var space_num 	= value[0];
+				var space_name 	= value[1];
+				
+				var result = confirm("공간명 \"" + space_name + "\" (을/를) 정말로 검수 승인하시겠습니까?");
+				
+				if( result == true ) {
+					$("#postSpaceNum").val(space_num);
+					var formObj = $("#checkform");
+					
+					formObj.submit();
+				} else {
+				    alert("삭제를 취소하셨습니다.");
+				}
+			});
+			
+			
+		});
+	</script>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

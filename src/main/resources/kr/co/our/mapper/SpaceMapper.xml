@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.our.mapper.SpaceMapper">
+	
+	<insert id="basicInfoCreate">
+		INSERT INTO space_basic
+			( 	
+				space_num,
+				host_id,
+				space_category,
+				space_name,
+				space_head,
+				space_intro,
+				space_tag,
+				space_caution,
+				space_url,
+				space_addr,
+				space_addrdetail,
+				created_by
+				
+			) 
+			VALUES
+			(
+				#{spaceNum},
+				#{hostId},
+				#{spaceCategory},
+				#{spaceName},
+				#{spaceHead},
+				#{spaceIntro},
+				#{spaceTag},
+				#{spaceCaution},
+				#{spaceUrl},
+				#{spaceAddr},
+				#{spaceAddrdetail},
+				#{hostId}
+			)
+	
+	</insert>
+	
+	<select id="basicInfoList" parameterType="map" resultType="basicInfo">
+		<![CDATA[
+			SELECT A.*, B.fullName
+			FROM space_basic A, space_basic_img B
+			WHERE A.host_id = #{hostId}
+			AND A.space_num > 0
+			AND A.space_num = B.space_num
+		]]>
+		
+		<include refid="search"></include>
+		
+		<![CDATA[
+			ORDER BY A.space_num DESC,
+			   		 A.created_at DESC
+			  LIMIT #{pageStart}, #{sizePerPage}
+		]]>
+	</select>
+	
+	<insert id="spaceInfoCreate">
+		INSERT INTO space_info
+					(
+						space_name,
+						space_num,
+						basic_status,
+						contacts_status,
+						usage_status,
+						accounts_status,
+						refund_status,
+						check_status,
+						public_status,
+						created_by
+					)
+			VALUES
+					(
+						#{spaceName},
+						#{spaceNum},
+						#{basicStatus},
+						#{contactsStatus},
+						#{usageStatus},
+						#{accountsStatus},
+						#{refundStatus},
+						#{checkStatus},
+						#{publicStatus},
+						#{createdBy}
+					)
+	</insert>
+	
+	<select id="spaceInfoRead" resultType="SpaceInfo">
+		<![CDATA[
+			SELECT *
+			FROM space_info
+			WHERE space_num = #{spaceNum}
+		]]>	
+	</select>
+	
+
+	<select id="spaceCountAll" resultType="int">
+		SELECT count(*)
+		FROM space_info
+	</select>	
+	
+	
+	<select id="spaceInfoReadSpaceId" resultType="int">
+		SELECT space_id
+		FROM space_info
+		WHERE space_num = #{spaceNum}
+	</select>
+	
+	<select id="spaceInfoReadSpaceNum" resultType="int">
+		SELECT space_num
+		FROM space_info
+		WHERE space_id = #{spaceId}
+	</select>
+	
+	
+	<insert id="contactsInfoCreate">
+		INSERT INTO space_contacts
+					(
+						space_num,
+						space_email,
+						space_cell,
+						space_tel,
+						created_by
+					)
+			 VALUES 
+			 		( 
+			 			#{spaceNum},
+			 			#{spaceEmail},
+			 			#{spaceCell},
+			 			#{spaceTel},
+			 			#{createdBy}
+			 		)
+	
+	</insert>
+	
+	<insert id="usageInfoCreate">
+		INSERT INTO space_usage
+					(
+						space_num,
+						allday_yn,
+						start_hour,
+						end_hour,
+						holiday_yn,
+						holiday,
+						holiday_week,
+						holiday_date,
+						created_by
+					)
+				VALUES
+					(
+						#{spaceNum},
+						#{alldayYn},
+						#{startHour},
+						#{endHour},
+						#{holidayYn},
+						#{holiday},
+						#{holidayWeek},
+						#{holidayDate},
+						#{createdBy}
+					)
+	</insert>
+		
+		
+	<insert id="accountsInfoCreate">
+			INSERT INTO space_accounts
+						(
+							space_num,
+							company_name,
+							owner_name,
+							biz_regnum,
+							biz_con,
+							biz_kind,
+							biz_addr,
+							biz_email,
+							biz_caltel,
+							biz_bankname,
+							biz_banknum,
+							biz_depositor,
+							created_by
+						)
+					VALUES
+					  	(
+							#{spaceNum},
+							#{companyName},
+							#{ownerName},
+							#{bizRegnum},
+							#{bizCon},
+							#{bizKind},
+							#{bizAddr},
+							#{bizEmail},
+							#{bizCaltel},
+							#{bizBankname},
+							#{bizBanknum},
+							#{bizDepositor},
+							#{createdBy}
+					  	)
+	</insert>
+		
+	<insert id="refundInfoCreate">
+			INSERT INTO space_refund
+						(
+							space_num,
+							dday_one,
+							dday_two,
+							dday_three,
+							dday_four,
+							dday_five,
+							dday_six,
+							dday_seven,
+							dday_eight,
+							dday,
+							created_by
+						)
+					VALUES
+					  	(
+					  		#{spaceNum},
+					  		#{ddayOne},
+					  		#{ddayTwo},
+					  		#{ddayThree},
+					  		#{ddayFour},
+					  		#{ddayFive},
+					  		#{ddaySix},
+					  		#{ddaySeven},
+					  		#{ddayEight},
+					  		#{dday},
+					  		#{createdBy}
+					  	)
+	</insert>	
+	
+	
+	<select id="basicInfoRead" resultType="BasicInfo">
+			SELECT *
+			FROM space_basic
+			WHERE space_num = #{spaceNum}
+	</select>
+	
+	
+	
+		
+
+				
+	<update id="basicInfoUpdate">
+			UPDATE space_basic
+			SET space_category = #{spaceCategory},
+				space_name = #{spaceName},
+				space_head = #{spaceHead},
+				space_intro = #{spaceIntro},
+				space_tag = #{spaceTag},
+				space_caution = #{spaceCaution},
+				space_url = #{spaceUrl},
+				space_addr = #{spaceAddr},
+				space_addrdetail = #{spaceAddrdetail},
+				updated_at = now(),
+				updated_by = #{hostId}
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	
+	<select id="contactsInfoRead" resultType="ContactsInfo">
+			SELECT *
+			FROM space_contacts
+			WHERE space_num = #{spaceNum}
+	</select>
+	
+				
+	<update id="contactsInfoUpdate">
+			UPDATE space_contacts
+			SET space_email = #{spaceEmail},
+				space_cell = #{spaceCell},
+				space_tel = #{spaceTel}, 
+				updated_at = now(),
+				updated_by = #{hostId}
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	<select id="usageInfoRead" resultType="UsageInfo">
+			SELECT *
+			FROM space_usage
+			WHERE space_num = #{spaceNum}
+	</select>
+	
+	<update id="usageInfoUpdate">
+			UPDATE space_usage
+			SET allday_yn = #{alldayYn},
+				start_hour = #{startHour},
+				end_hour = #{endHour},
+				holiday_yn = #{holidayYn},
+				holiday = #{holiday},
+				holiday_week = #{holidayWeek},
+				holiday_date = #{holidayDate},
+				updated_at = now(),
+				updated_by = #{hostId}
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	
+	<select id="accountsInfoRead" resultType="AccountsInfo">
+			SELECT *
+			FROM space_accounts
+			WHERE space_num = #{spaceNum}
+	</select>
+	
+	
+	<select id="refundInfoRead" resultType="RefundInfo">
+			SELECT * 
+			FROM space_refund
+			WHERE space_num = #{spaceNum}
+	</select>
+	
+	
+	<update id="accountsInfoUpdate">
+			UPDATE space_accounts
+			SET company_name = #{companyName},
+				owner_name = #{ownerName},
+				biz_regnum = #{bizRegnum},
+				biz_con = #{bizCon},
+				biz_kind = #{bizKind},
+				biz_addr = #{bizAddr},
+				biz_email = #{bizEmail},
+				biz_caltel = #{bizCaltel},
+				biz_bankname = #{bizBankname},
+				biz_banknum = #{bizBanknum},
+				biz_depositor = #{bizDepositor},
+				updated_at = now(),
+				updated_by = #{accountsHostId}
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	
+	<update id="refundInfoUpdate">
+			UPDATE space_refund
+			SET dday_one = #{ddayOne},
+				dday_two = #{ddayTwo},
+				dday_three = #{ddayThree},
+				dday_four = #{ddayFour},
+				dday_five = #{ddayFive},
+				dday_six = #{ddaySix},
+				dday_seven = #{ddaySeven},
+				dday_eight = #{ddayEight},
+				dday = #{dday},
+				updated_at = now(),
+				updated_by = #{refundHostId}				
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	<delete id="spaceInfoDelete">
+			DELETE FROM space_info
+			WHERE space_num = #{spaceNum}
+	</delete>
+	
+	
+	<update id="contactsStatusUpdate">
+			UPDATE space_info
+			SET contacts_status = 'CHECK'
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	
+	<update id="usageStatusUpdate">
+			UPDATE space_info
+			SET usage_status = 'CHECK'
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	
+	<update id="accountsStatusUpdate">
+			UPDATE space_info
+			SET accounts_status = 'CHECK'
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	<update id="refundStatusUpdate">
+			UPDATE space_info
+			SET refund_status = 'CHECK'
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	
+	<update id="spaceNameUpdate">
+			UPDATE space_info
+			SET	space_name = #{spaceName}
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	<insert id="spaceImgCreate">
+			INSERT INTO space_basic_img
+						(
+							space_num,
+							fullname,
+							created_by					
+						)
+						VALUES
+						(
+							#{spaceNum},
+							#{fullName},
+							#{hostId}				
+						)
+	</insert>
+	
+	<select id="getAttach" resultType="string">
+			SELECT fullname 
+			  FROM space_basic_img 
+			 WHERE space_num = #{spaceNum} 
+			 ORDER BY created_at
+	</select>
+	
+	
+	<update id="updateFile">
+			UPDATE space_basic_img
+			SET fullName = #{fullName},
+				updated_at = now(),
+				updated_by = #{hostId}
+			WHERE space_num = #{spaceNum}
+	</update>
+	
+	<delete id="deleteAttach">
+			DELETE FROM space_basic_img
+			WHERE space_num = #{spaceNum}
+	</delete>
+	
+	<insert id="replaceAttach">
+		INSERT INTO space_basic_img
+					(
+						space_num,
+						fullname,
+						created_by
+					)
+					VALUES
+					(
+						#{spaceNum},
+						#{fullName},
+						#{hostId}
+					)
+	</insert>
+	
+	<!-- 검색유형과 검색어의 조합으로 다양한 쿼리를 동적으로 생성한다. -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND space_name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'g'.toString()">
+				AND space_tag LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tg'.toString()">
+				AND ( space_name LIKE CONCAT('%', #{keyword}, '%')
+					 OR space_tag LIKE CONCAT('%', #{keyword}, '%') )
+			</if>
+		</if>
+	</sql>
+	
+	<select id="spaceCount" resultType="int">
+		<![CDATA[
+			SELECT count(space_num)
+			FROM space_basic
+			WHERE space_num > 0
+		]]>
+		
+		<include refid="search"></include>
+	</select>
+	
+	
+	<update id="updateCheckStatus">
+			UPDATE 	space_info
+			SET		check_status = #{checkStatus},
+					updated_at	 = now()
+			WHERE	space_num	 = #{spaceNum}
+	</update>
+	
+	
+	<update id="updatePublicStatus">
+			UPDATE 	space_info
+			SET		public_status = #{publicStatus},
+					updated_at	 = now()
+			WHERE	space_num	 = #{spaceNum}
+	</update>
+	
+	
+	<select id="spaceBasicImgRead" resultType="SpaceBasicImg">
+			SELECT  *
+			FROM 	space_basic_img
+			where   space_num	= #{spaceNum}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

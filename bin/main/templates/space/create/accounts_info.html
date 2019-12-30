@@ -1,0 +1,415 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+		
+</head>
+<body>
+<div layout:fragment="content">
+	
+	<div class="heading m-t-80">
+		<h3>정산 정보를 입력해주세요</h3>
+			<span class="option">
+				<span class="txt_required">
+				<span class="ico_required">*</span>
+				필수입력</span>
+			</span>
+	</div>
+	
+	<div class="justify-content-md-center m-t-80 m-b-80">
+	
+    <div class="col1">
+	<section id="contents2" class="contents contents_register2" role="main">
+	  <form id="accountsinfo" class="form-group accountsForm" action="manage.html" th:action="@{/space/accounts_info}" th:object="${accountsInfo}" method="POST">
+	  <input id="accounts_spaceId" type="hidden" class="form-control" name="spaceId" th:value="*{spaceId}" readonly="readonly" />
+	  <input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:field="*{spaceNum}" />
+	  <input type="hidden" class="form-control" id="postType" name="postType" value="except" />
+	        <div>
+			  <div class="form-group row">
+			    <label for="inputPlace" class="col-sm-4 col-form-label">상호명</label>
+			    <div class="col-sm-6">
+			      <input type="place" class="form-control" id="companyName" name="companyName" placeholder="상호명">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputIntro" class="col-sm-4 col-form-label">대표자명</label>
+			    <div class="col-sm-6">
+			      <input type="intro" class="form-control" id="ownerName" name="ownerName" placeholder="대표자명">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputIntroDetail" class="col-sm-4 col-form-label">사업자 등록번호</label>
+			    <div class="col-sm-6">
+			      <input type="introDetail" class="form-control" id="bizRegnum" name="bizRegnum" placeholder="사업자 등록번호">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputpalceTag" class="col-sm-4 col-form-label">주 업태</label>
+			    <div class="col-sm-6">
+			      <input type="placeTag" class="form-control" id="bizCon" name="bizCon" placeholder="주업태">
+			    </div>
+			  </div>
+		
+			  <div class="form-group row">
+			    <label for="inputNotice" class="col-sm-4 col-form-label">주 종목</label>
+			    <div class="col-sm-6">
+			      <input type="notice" class="form-control" id="bizKind" name="bizKind" placeholder="주 종목">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputSiteAdd" class="col-sm-4 col-form-label">사업장 주소</label>
+			    <div class="col-sm-6">
+			      <input type="siteAdd" class="form-control" id="bizAddr" name="bizAddr" placeholder="사업장 주소">
+			    </div>
+			  </div>
+			  
+			 <div class="form-group row">
+			 	<label for="inputSiteAdd" class="col-sm-4 col-form-label">이메일 주소</label>
+			 	<div class="col-sm-2">
+			      <input type="siteAdd" class="form-control" id="bizEmailId" name="bizEmail" placeholder="이메일 아이디">
+			    </div>
+			    <div class="col-sm-1">
+			    <div class="input-group mr-sm-2 mb-sm-0">
+				   <div class="input-group-addon">@</div>
+				</div>
+			    </div>
+			    <div class="col-sm-3">
+			      <input type="siteAdd" class="form-control" id="bizEmailDomain" name="bizEmail" placeholder="이메일 주소">
+			    </div>
+			    
+			 </div>
+			  
+			  <div class="form-group row">
+			    <label for="inputAddress" class="col-sm-4 col-form-label">정산용 연락처</label>
+			    <div class="col-sm-6">
+			      <input type="address" class="form-control" id="bizCaltell" name="bizCaltell" placeholder="정산용 연락처">
+			    </div>
+			  </div>
+		  
+	        </div>
+	        
+
+        
+    <div class="heading m-t-80">
+		<h3>계좌 정보를 입력해주세요</h3>
+			<span class="option">
+				<span class="txt_required">
+				<span class="ico_required">*</span>
+				필수입력</span>
+			</span>
+	</div>
+	
+	<div class="justify-content-md-center m-t-80 m-b-80">
+	<div class="form-inline justify-content-md-center m-t-80 m-b-80">
+	 <div class="form-group row mx-12">
+		<div class="account row col-sm-4">
+			<dl class="flex_box">
+				<dt class="flex tit">
+					<label for="bank11">은행명<span class="ico_required">*</span></label>
+				</dt>
+			<dd class="flex">
+				<div class="select">
+					<select id="bizBankname" name="bizBankname">
+						<option value="BOK">한국은행</option>
+						<option value="BUSB">부산은행</option>
+						<option value="CITY">한국씨티은행</option>
+						<option value="DGB">대구은행</option>
+						<option value="EPOST">우체국</option>
+						<option value="HANA">하나은행</option>
+						<option value="IBK">기업은행</option>
+						<option value="JBB">전북은행</option>
+						<option value="JEJUB">제주은행</option>
+						<option value="KAKAO">카카오뱅크</option>
+						<option value="KBANK">케이뱅크</option>
+						<option value="KDB">산업은행</option>
+						<option value="KEB">국민은행</option>
+						<option value="KEBHA">외환은행</option>
+						<option value="KJB">광주은행</option>
+						<option value="KNB">경남은행</option>
+						<option value="MGS">새마을금고</option>
+						<option value="NH">농협</option>
+						<option value="SCJ">SC제일은행</option>
+						<option value="SHC">신협중앙회</option>
+						<option value="SINH">신한은행</option>
+						<option value="SUH">수협중앙회</option>
+						<option value="WOORI">우리은행</option>
+					</select>
+				</div>
+			</dd>
+			</dl>
+		</div>		
+			<dl class="flex_box">
+				<dt class="flex tit">
+					<label for="bank12">계좌번호<span class="ico_required">*</span></label>
+				</dt>
+				<dd class="flex">
+					<div class="input null">
+					<input type="tel" class="form-control" id="bizBanknum" name="bizBanknum" value=""  placeholder="계좌번호">
+					</div>
+				</dd>
+			</dl>
+			
+			<dl class="flex_box col-sm-4">
+				<dt class="flex tit">
+					<label for="bank13">예금주<span class="ico_required">*</span></label>
+					<dd class="flex">
+					<div class="input null">
+					<input type="tel" class="form-control" id="bizDepositor" name="bizDepositor" value="" placeholder="예금주">
+					</div>
+				</dd>
+				</dt>
+				</dl>
+			</div>
+			</div>
+			</div>
+	</form>	
+			
+     </section>		
+		 <form id="refundinfo" class="form-group accountsForm" action="manage.html" th:action="@{/space/accounts_info}" th:object="${refundInfo}" method="POST">
+		 		<input type="hidden" class="form-control" name="spaceId" th:value="*{spaceId}" readonly="readonly" />
+			<div class="heading">
+				<h3>환불기준</h3>
+				<span class="option"><span class="txt_guide">해당 기준의 의해 환불 처리됩니다.</span></span>
+			</div>
+			
+			<div id="refund" class="refund row">
+				<dl class="flex_box col-md-12 m-t-80">
+				<dd class="flex" style="vertical-align: top;">
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 8일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+							<span>총 금액의</span>
+							<div class="select" style="display: inline-block;">
+								<select name="ddayEight">
+									<option value="100">100%</option>
+								</select>
+							</div>
+							<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 7일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddaySeven">
+							<option value="100">100%</option>
+							<option value="90">90%</option>
+							<option value="80">80%</option>
+							<option value="70">70%</option>
+							<option value="60">60%</option>
+							<option value="50">50%</option>
+							<option value="40">40%</option>
+							<option value="30">30%</option>
+							<option value="20">20%</option>
+							<option value="10">10%</option>
+							<option value="0">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 6일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+							<span>총 금액의</span>
+							<div class="select" style="display: inline-block;">
+							<select name="ddaySix">
+								<option value="100">100%</option>
+								<option value="90">90%</option>
+								<option value="80">80%</option>
+								<option value="70">70%</option>
+								<option value="60">60%</option>
+								<option value="50">50%</option>
+								<option value="40">40%</option>
+								<option value="30">30%</option>
+								<option value="20">20%</option>
+								<option value="10">10%</option>
+								<option value="0">환불불가</option>
+							</select>
+							</div>
+							<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 5일 전</label><div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayFive"><option value="100">100%</option>
+							<option value="90">90%</option>
+							<option value="80">80%</option>
+							<option value="70">70%</option>
+							<option value="60">60%</option>
+							<option value="50">50%</option>
+							<option value="40">40%</option>
+							<option value="30">30%</option>
+							<option value="20">20%</option>
+							<option value="10">10%</option>
+							<option value="0">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 4일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayFour">
+							<option value="100">100%</option>
+							<option value="90">90%</option>
+							<option value="80">80%</option>
+							<option value="70">70%</option>
+							<option value="60">60%</option>
+							<option value="50">50%</option>
+							<option value="40">40%</option>
+							<option value="30">30%</option>
+							<option value="20">20%</option>
+							<option value="10">10%</option>
+							<option value="0">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;"><label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 3일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayThree"><option value="100">100%</option>
+							<option value="90">90%</option><option value="80">80%</option>
+							<option value="70">70%</option><option value="60">60%</option>
+							<option value="50">50%</option><option value="40">40%</option>
+							<option value="30">30%</option><option value="20">20%</option>
+							<option value="10">10%</option><option value="0">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 2일 전</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayTwo"><option value="100">100%</option>
+							<option value="90">90%</option>
+							<option value="80">80%</option>
+							<option value="70">70%</option>
+							<option value="60">60%</option>
+							<option value="50">50%</option>
+							<option value="40">40%</option>
+							<option value="30">30%</option>
+							<option value="20">20%</option>
+							<option value="10">10%</option>
+							<option value="0">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 전날</label><div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="ddayOne">
+							<option value="100">100%</option>
+							<option value="90">90%</option>
+							<option value="80">80%</option>
+							<option value="70">70%</option>
+							<option value="60">60%</option>
+							<option value="50">50%</option>
+							<option value="40">40%</option>
+							<option value="30">30%</option>
+							<option value="20">20%</option>
+							<option value="10">10%</option>
+							<option value="0">환불불가</option>
+						</select></div><span>환불</span>
+						</div>
+					</div>
+					<div style="margin-bottom: 16px;">
+						<label style="cursor: default; font-family: NanumBarunGothicBold, sans-serif; display: inline-block; vertical-align: middle; font-size: 18px; width: 163px; padding-right: 16px; color: rgb(17, 17, 17);">이용 당일</label>
+						<div class="policy-group" style="display: inline-block; vertical-align: middle;">
+						<span>총 금액의</span>
+						<div class="select" style="display: inline-block;">
+						<select name="dday">
+							<option value="100">100%</option>
+							<option value="90">90%</option>
+							<option value="80">80%</option>
+							<option value="70">70%</option>
+							<option value="60">60%</option>
+							<option value="50">50%</option>
+							<option value="40">40%</option>
+							<option value="30">30%</option>
+							<option value="20">20%</option>
+							<option value="10">10%</option>
+							<option value="0">환불불가</option>
+						</select>
+						</div>
+						<span>환불</span>
+						</div>
+					</div>
+				</dd>
+			</dl>
+		</div>
+		</form>
+	 </div>
+		
+  </div>
+	
+
+	
+	<div class="fixed_bar fixed">
+		<span class="btn_wrap">
+			<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">이전</a>
+		</span>
+		<span class="btn_wrap">
+			<a id="btnRegister" href="javascript:void(0);" class="fix_btn_next">저장</a>
+		</span>
+	</div>
+	
+	
+	
+	<script>
+		$(document).ready(function() {
+			$("#title").text("정산 정보");
+			
+			var accounts_spaceId = $("#accounts_spaceId").val();
+			
+			$("#btnRegister").on("click", function() {
+
+				// 직렬화해서 object 2개를 한 번의 요청으로 넘겨준다.  *****  (한 템플릿에서 form 태그를 2개이상 사용할 때)
+				$.post("/space/accounts_info", $(".accountsForm").serialize(), function(data){
+					var sn = $('#spaceNum').val();
+					
+					location.href = '/space/modify?spaceNum=' + sn;
+				});
+				
+			});
+
+
+
+			
+		});
+	</script>	
+	
+	
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/vendor/bootstrap/css/bootstrap-pagination.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="w-75 p-t-100 p-b-90">
+			<div class="m-5 p-t-10 p-b-10">
+				<h2 th:text="#{room.header.list}">세부공간 목록</h2>
+			</div>
+			
+			<!-- 검색 폼을 만든다. -->
+<!-- 			<form id="pgrq" action="list.html" th:action="@{|/board/list${pgrq.toUriStringByPage(1)}|}" th:object="${pgrq}" method="GET"> -->
+<!-- 				<div class="m-5 clearfix"> -->
+<!-- 					<select th:field="*{searchType}" class="form-control m-l-20 w-25 float-left"> -->
+<!-- 						<option th:each="element : ${searchTypeCodeValueList}" th:value="${element.value}" th:text="${element.label}">제목</option> -->
+<!-- 					</select> -->
+					
+<!-- 					<input type="text" class="form-control m-l-20 m-r-20 w-50 float-left" name="keyword" th:field="*{keyword}" /> -->
+<!-- 					<button id="searchBtn" class="btn btn-sea w-10 m-l-10 m-r-10 float-left" th:text="#{action.search}">검색</button> -->
+<!-- 				</div> -->
+<!-- 			</form> -->
+	
+	
+		<table class="table table-bordered table-hover" border="1">
+			<tr>
+				<th align="center" width="120" th:text="#{room.spaceNum}">공간 번호</th>
+				<th align="center" width="102" th:text="#{room.roomNum}">룸 번호</th>
+				<th align="center" width="100" th:text="#{room.roomName}">룸 이름</th>
+				<th align="center" width="200" th:text="#{room.category}">룸 유형</th>
+				<th align="center" width="200" th:text="#{room.option}">룸 옵션</th>
+				<th align="center" width="100" th:text="#{room.reserv.min.time}">최소 예약시간</th>
+				<th align="center" width="100" th:text="#{room.reserv.min.man}">최소 예약인원</th>
+				<th align="center" width="100" th:text="#{room.reserv.max.man}">최대 수용인원</th>
+				<th align="center" width="100" >삭제</th>
+			</tr>
+		
+		
+			<tr th:if="${#lists.isEmpty(list)}">	
+				<td colspan="9" th:text="#{common.listEmpty}">
+					List is empty.
+				</td>
+			</tr>
+		
+			<tr th:each="roomInfo : ${list}">
+				<td align="center" th:text="${roomInfo.spaceNum}">${roomInfo.spaceNum}</td>
+				<td align="center" th:text="${roomInfo.roomNum}">${roomInfo.roomNum}</td>
+				<td align="left"><a href="read.html" th:href="@{|/space/${roomInfo.spaceNum}/room/${roomInfo.roomNum}/room_info|}"  th:text="${roomInfo.roomName}">${roomInfo.roomName}</a></td>
+				<td align="left" th:text="${roomInfo.roomCategory}">${roomInfo.roomCategory}</td>
+				<td align="center" th:text="${roomInfo.roomOption}">${roomInfo.roomOption}</td>
+				<td align="center" th:text="${roomInfo.reservMinTime}">${roomInfo.reservMinTime}</td>
+				<td align="center" th:text="${roomInfo.reservMinMan}">${roomInfo.reservMinMan}</td>
+				<td align="center" th:text="${roomInfo.reservMaxMan}">${roomInfo.reservMaxMan}</td>
+				<td align="center" ><a th:value="@{|${roomInfo.spaceNum},${roomInfo.roomNum},${roomInfo.roomName}|}" class="btn btn-primary btn_delete" href="javascript:void(0);"  >삭제</a></td>
+			</tr>	
+		
+		</table>
+		
+		<!-- 페이징 네비게이션 -->
+<!-- 		<div> -->
+<!-- 			<th:block th:if="${pagination.prev}"> -->
+<!-- 				<a href="list.html" th:href="${pagination.startPage - 1}">&laquo;</a> -->
+<!-- 			</th:block> -->
+			
+<!-- 			<th:block th:each="idx:${#numbers.sequence(pagination.startPage, pagination.endPage)}"> -->
+<!-- 				<a href="list.html" th:href="@{|/board/list${pagination.makeQuery(idx)}|}" th:text="${idx}">${idx}</a> -->
+<!-- 			</th:block> -->
+			
+<!-- 			<th:block th:if="${pagination.next && pagination.endPage > 0}"> -->
+<!-- 				<a href="list.html" th:href="${pagination.endPage + 1}">&raquo;</a> -->
+<!-- 			</th:block> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="m-t-80"> -->
+<!-- 			<th:block sec:authorize="hasRole('ROLE_MEMBER')"> -->
+<!-- 				<button class="btn btn-sea m-l-10 m-r-10"> -->
+<!-- 					<a href="register.html" th:href="@{/board/register}" th:text="#{action.new}">새로만들기</a> -->
+<!-- 				</button> -->
+<!-- 			</th:block> -->
+<!-- 		</div> -->
+
+
+		<div class="mt-5 mb-5">
+			<span class="btn_wrap">
+				<a href="/space/room/room_info.html" th:href="@{|/space/${spaceNum}/room/room_info|}" class="btn btn-primary w-100">새 공간 등록하기</a>
+			</span>
+		</div>
+		
+		
+		<form id="manageform" class="form-group spaceForm" action="manage.html" th:action="@{/space/room/delete}" method="POST">
+			<input type="hidden" name="spaceNum" id="postSpaceNum" />
+			<input type="hidden" name="roomNum" id="postRoomNum" />
+		</form>
+		
+		
+		<script th:inline="javascript">
+			
+			var result = [[${msg}]];
+			
+			if(result === "SUCCESS"){
+				alert([[#{common.processSuccess}]]);
+			}
+		
+		</script>
+		
+		</div>
+	
+	
+	
+	<script>
+		$(document).ready(function() {
+			$("#title").text("세부공간 목록");
+			
+		$(".btn_delete").on("click", function() {
+			var value = $(this).attr("value").split(",");
+			var space_num = value[0];
+			var room_num  = value[1];
+			var room_name = value[2];
+			
+			var result = confirm("공간명 \"" + room_name + "\" (을/를) 정말로 삭제하시겠습니까?");
+			
+			if (result == true) {
+				$("#postSpaceNum").val(space_num);
+				$("#postRoomNum").val(room_num);
+				var formObj = $("#manageform");
+				
+				formObj.submit();
+			} else {
+			    alert("삭제를 취소하셨습니다.");
+			}
+		});
+		});	
+		
+	</script>
+</div>
+</body>
+</html>

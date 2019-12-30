@@ -1,0 +1,208 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Item</title>
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<script src="/js/jQuery-2.1.4.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	var formObj = $("#item");
+
+	$("#btnModify").on("click", function() {
+		formObj.attr("action", "/item/modify");
+		formObj.attr("method", "post");
+		formObj.submit();
+	});
+
+	$("#btnList").on("click", function() {
+		self.location = "/item/list";
+	});
+
+	$(".uploadedList").on("click", "span", function(event){
+		$(this).parent("div").remove();
+	});
+		
+	function getOriginalName(fileName){
+		if(checkImageType(fileName)){
+			return;
+		}
+		
+		var idx = fileName.indexOf("_") + 1 ;
+		return fileName.substr(idx);
+	}
+	
+	function getThumbnailName(fileName){
+		var front = fileName.substr(0,12);
+		var end = fileName.substr(12);
+		var onlyName = end.substr("_");
+		
+		
+		console.log("front : " + front);
+		console.log("end : " + end);
+		
+		
+		return front + "s_" + end;
+	}
+	
+	function getOnlyFileName(fileName){
+		var f_idx = fileName.indexOf("_") + 1 ;
+		var e_idx = fileName.indexOf(".") + 1 ;
+		var onlyFileName = fileName.substr(f_idx, e_idx - f_idx - 1);
+		
+		console.log("onlyName : " + onlyFileName );
+		
+		return onlyFileName;
+	}
+	
+	function checkImageType(fileName){
+		var pattern = /jpg|gif|png|jpeg/i;
+		
+		return fileName.match(pattern);
+	}
+	
+	var itemId = [[${item.itemId}]];
+	
+	console.log("itemId : " + itemId);
+	
+	$.getJSON("/item/getAttach/"+itemId,function(list){
+		$(list).each(function(){
+			console.log("data : " + this);
+			
+			var data = this;
+			
+			var str ="";
+			  
+			if(checkImageType(data)){
+				str = "<div><a href='/item/displayFile?fileName=" + data + "'>"
+					+ "<img src='/item/displayFile?fileName=" + getThumbnailName(data) + "'/>"
+					+ "</a><span>" + getOnlyFileName(data)  + "</span><span>X</span></div>";
+			}
+			else{
+				str = "<div><a href='/item/displayFile?fileName=" + data + "'>" 
+					+ getOriginalName(data) +"</a><span>X</span></div>";
+			}
+			  
+			$(".uploadedList").append(str);
+		});
+	});
+	
+	$("#item").submit(function(event){
+		event.preventDefault();
+		
+		var that = $(this);
+		
+		var str ="";
+		$(".uploadedList a").each(function(index){	
+			 var value = $(this).attr("href");
+			 value = value.substr(27);
+		
+			 str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
+		});
+		
+		console.log("str = " + str);
+		
+		that.append(str);
+
+		that.get(0).submit();
+	});
+	
+	$("#inputFile").on("change", function(event){
+		
+		console.log("change");
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var files = event.target.files;
+		
+		var file = files[0];
+
+		console.log(file);
+		
+		var formData = new FormData();
+		
+		formData.append("file", file);
+		
+		$.ajax({
+			url: '/item/uploadAjax',
+			data: formData,
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
+			dataType:'text',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function(data){
+				console.log(data);
+				
+				var str ="";
+			  
+				if(checkImageType(data)){
+					str = "<div><a href='/item/displayFile?fileName=" + data + "'>"
+						+ "<img src='/item/displayFile?fileName=" + getThumbnailName(data) + "'/>"
+						+ "</a><span>" + getOnlyFileName(data)  + "</span><span>X</span></div>";
+				}
+				else{
+					str = "<div><a href='/item/displayFile?fileName=" + data + "'>" 
+						+ getOriginalName(data) +"</a>"
+						+ "<span>X</span></div></div>";
+				}
+			  
+				$(".uploadedList").append(str);
+			},
+			error:	function(request,status,error){
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+
+		});
+	});
+		
+});
+</script>
+
+<body>
+	<h2>MODIFY</h2>
+	
+	<form id="item" action="success.html" th:action="@{modify}" th:object="${item}" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="itemId" th:field="*{itemId}" />
+		
+		<table>
+			<tr>
+				<td>상품명</td>
+				<td><input type="text" name="itemName" th:field="*{itemName}" /></td>
+				<td><font color="red"><span th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}">itemName의 에러 메시지</span></font></td>
+			</tr>
+			<tr>
+				<td>가격</td>
+				<td><input type="text" name="price" th:field="*{price}" />&nbsp;원</td>
+				<td><font color="red"><span th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price의 에러 메시지</span></font></td>
+			</tr>		
+			<tr>
+				<td>파일</td>
+				<td>
+					<input type="file" id="inputFile" />
+					
+					<div class="uploadedList"></div>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>개요</td>
+				<td><textarea name="description" th:field="*{description}"></textarea></td>
+				<td><font color="red"><span th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description의 에러 메시지</span></font></td>
+			</tr>			
+		</table>	
+	</form>	
+	
+	<div>
+		<button type="submit" id="btnModify">Modify</button>
+		<button type="submit" id="btnList">List</button>
+	</div>
+</body>
+</html>

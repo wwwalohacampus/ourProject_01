@@ -1,0 +1,296 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+
+	
+	
+	<!-- 아래 라이브러리는 향후에 CDN 방식 말고 파일방식으로 변환가능 -->
+	<link href="/css/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+	
+<!-- 	<script src = "https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+    <script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<!-- 	<script type="text/javascript" src="../js/modal.js"></script>     -->
+<!-- 	<script type="text/javascript" src="../modal/js/bootstrap.js"></script> -->
+<!-- 		<link href="../modal/css/bootstrap.css" rel="stylesheet"> -->
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="heading m-t-80">
+		<h3>이용 정보를 입력해주세요.</h3>
+			<span class="option">
+				<span class="txt_required">
+				<span class="ico_required">*</span>
+				필수입력</span>
+			</span>
+	</div>
+	
+	<form id="usageinfo" class="form-group " action="accounts_info.html" th:action="@{/space/modify/usage_info}" th:object="${usageInfo}" method="POST">
+		<input type="hidden" class="form-control" name="hostId" th:value="*{hostId}" readonly="readonly" />
+		<input type="hidden" class="form-control" name="spaceId" th:value="*{spaceId}" readonly="readonly" />
+		<input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:field="*{spaceNum}" />
+	<div class="flex_wrap column2 row justify-content-center m-t-80 m-b-80"> 
+		<div class="usage_box1 mr-5">
+		
+			<span class="tit">
+			<label for="officehour1">이용시간
+				<span class="ico_required">*</span>
+				<span class="tit_check">
+					<input type="checkbox" name="alldayYn" id="alldayYn" class="checkbox" th:checked="*{alldayYn}"> 
+					<label for="alldayYn">
+						<i class="sp_icon"></i>24시 운영
+					</label>
+				</span>
+			</label>
+			</span>
+			
+			<div class="box_form1" style="border: 1px solid gold">
+			<div class="box_form officehour">
+				<div class="select" style="display: inline-block">
+					<select name="startHour" title="이용시작 시간 선택">  
+						<option value="0" th:selected="*{startHour eq '0' ? 'selected' : null}">00시</option>
+						<option value="1" th:selected="*{startHour eq '1' ? 'selected' : null}">01시</option>
+						<option value="2" th:selected="*{startHour eq '2' ? 'selected' : null}">02시</option>
+						<option value="3" th:selected="*{startHour eq '3' ? 'selected' : null}">03시</option>
+						<option value="4" th:selected="*{startHour eq '4' ? 'selected' : null}">04시</option>
+						<option value="5" th:selected="*{startHour eq '5' ? 'selected' : null}">05시</option>
+						<option value="6" th:selected="*{startHour eq '6' ? 'selected' : null}">06시</option>
+						<option value="7" th:selected="*{startHour eq '7' ? 'selected' : null}">07시</option>
+						<option value="8" th:selected="*{startHour eq '8' ? 'selected' : null}">08시</option>
+						<option value="9" th:selected="*{startHour eq '9' ? 'selected' : null}">09시</option>
+						<option value="10" th:selected="*{startHour eq '10' ? 'selected' : null}">10시</option>
+						<option value="11" th:selected="*{startHour eq '11' ? 'selected' : null}">11시</option>
+						<option value="12" th:selected="*{startHour eq '12' ? 'selected' : null}">12시</option>
+						<option value="13" th:selected="*{startHour eq '13' ? 'selected' : null}">13시</option>
+						<option value="14" th:selected="*{startHour eq '14' ? 'selected' : null}">14시</option>
+						<option value="15" th:selected="*{startHour eq '15' ? 'selected' : null}">15시</option>
+						<option value="16" th:selected="*{startHour eq '16' ? 'selected' : null}">16시</option>
+						<option value="17" th:selected="*{startHour eq '17' ? 'selected' : null}">17시</option>
+						<option value="18" th:selected="*{startHour eq '18' ? 'selected' : null}">18시</option>
+						<option value="19" th:selected="*{startHour eq '19' ? 'selected' : null}">19시</option>
+						<option value="20" th:selected="*{startHour eq '20' ? 'selected' : null}">20시</option>
+						<option value="21" th:selected="*{startHour eq '21' ? 'selected' : null}">21시</option>
+						<option value="22" th:selected="*{startHour eq '22' ? 'selected' : null}">22시</option>
+						<option value="23" th:selected="*{startHour eq '23' ? 'selected' : null}">23시</option>
+						<option value="24" th:selected="*{startHour eq '24' ? 'selected' : null}">24시</option>
+					</select>
+				</div>
+				<span class="txt_hour">부터</span>
+				<div class="select" style="display: inline-block">
+					<select name="endHour" title="이용종료 시간 선택">
+						<option value="0" th:selected="*{endHour eq '0' ? 'selected' : null}">00시</option>
+						<option value="1" th:selected="*{endHour eq '1' ? 'selected' : null}">01시</option>
+						<option value="2" th:selected="*{endHour eq '2' ? 'selected' : null}">02시</option>
+						<option value="3" th:selected="*{endHour eq '3' ? 'selected' : null}">03시</option>
+						<option value="4" th:selected="*{endHour eq '4' ? 'selected' : null}">04시</option>
+						<option value="5" th:selected="*{endHour eq '5' ? 'selected' : null}">05시</option>
+						<option value="6" th:selected="*{endHour eq '6' ? 'selected' : null}">06시</option>
+						<option value="7" th:selected="*{endHour eq '7' ? 'selected' : null}">07시</option>
+						<option value="8" th:selected="*{endHour eq '8' ? 'selected' : null}">08시</option>
+						<option value="9" th:selected="*{endHour eq '9' ? 'selected' : null}">09시</option>
+						<option value="10" th:selected="*{endHour eq '10' ? 'selected' : null}">10시</option>
+						<option value="11" th:selected="*{endHour eq '11' ? 'selected' : null}">11시</option>
+						<option value="12" th:selected="*{endHour eq '12' ? 'selected' : null}">12시</option>
+						<option value="13" th:selected="*{endHour eq '13' ? 'selected' : null}">13시</option>
+						<option value="14" th:selected="*{endHour eq '14' ? 'selected' : null}">14시</option>
+						<option value="15" th:selected="*{endHour eq '15' ? 'selected' : null}">15시</option>
+						<option value="16" th:selected="*{endHour eq '16' ? 'selected' : null}">16시</option>
+						<option value="17" th:selected="*{endHour eq '17' ? 'selected' : null}">17시</option>
+						<option value="18" th:selected="*{endHour eq '18' ? 'selected' : null}">18시</option>
+						<option value="19" th:selected="*{endHour eq '19' ? 'selected' : null}">19시</option>
+						<option value="20" th:selected="*{endHour eq '20' ? 'selected' : null}">20시</option>
+						<option value="21" th:selected="*{endHour eq '21' ? 'selected' : null}">21시</option>
+						<option value="22" th:selected="*{endHour eq '22' ? 'selected' : null}">22시</option>
+						<option value="23" th:selected="*{endHour eq '23' ? 'selected' : null}">23시</option>
+						<option value="24" th:selected="*{endHour eq '24' ? 'selected' : null}">24시</option>
+					</select>
+				</div>
+				<span class="txt_hour" style="display: inline-block">까지</span>
+				</div>
+				
+				</div>
+					<p class="p_guide warn">
+						이용시간은 필수 입력입니다.
+					</p>
+					<p class="p_guide normal">
+						실제로 공간공유가 가능한 시간을 입력해주세요.
+					</p>
+		</div>
+		
+		<div class="usage_box2 px-8" style="width: 344px">
+				<span class="tit">
+					<label for="holiday">정기휴무
+						<span class="ico_required">*</span>
+						<span class="tit_check">
+						<input type="checkbox" name="holidayYn" id="holidayYn" class="checkbox" th:checked="*{holidayYn}">
+						<label for="holidayYn"><i class="sp_icon"></i>공휴일 휴무</label>
+					</span>
+				</label>
+				</span>
+				<div class="dayoff">
+					<div class="w-100 select select my-2" style="display: inline-block">
+						<select name="holiday" id="holiday">
+							<option value="NONE" th:selected="*{holiday eq 'NONE' ? 'selected' : null}">휴무없음</option>
+							<option value="WEEKLY" th:selected="*{holiday eq 'WEEKLY' ? 'selected' : null}">매주</option>
+							<option value="ODDW" th:selected="*{holiday eq 'ODDW' ? 'selected' : null}">격주(홀수주)</option>
+							<option value="EVENW" th:selected="*{holiday eq 'EVENW' ? 'selected' : null}">격주(짝수주)</option>
+							<option value="WEEK1" th:selected="*{holiday eq 'WEEK1' ? 'selected' : null}">매월 첫째주</option>
+							<option value="WEEK2" th:selected="*{holiday eq 'WEEK2' ? 'selected' : null}">매월 둘째주</option>
+							<option value="WEEK3" th:selected="*{holiday eq 'WEEK3' ? 'selected' : null}">매월 셋째주</option>
+							<option value="WEEK4" th:selected="*{holiday eq 'WEEK4' ? 'selected' : null}">매월 넷째주</option>
+							<option value="LSTWK" th:selected="*{holiday eq 'LSTWK' ? 'selected' : null}">매월 마지막주</option>
+							<option value="LSTDY" th:selected="*{holiday eq 'LSTDY' ? 'selected' : null}">매월 말일</option>
+							<option value="MNTLY" th:selected="*{holiday eq 'MNTLY' ? 'selected' : null}">매월(직접지정)</option>
+						</select>
+					</div>
+				
+				 <fieldset id="cb_holiday_wd" data-role = "controlgroup" data-type = "horizontal" >
+		            <input type = "checkbox" id = "day1" name="holidayWeek" value="월" th:checked="*{holidayWeek0}"  />
+		            <label for = "day1">월</label>
+		            
+		            <input type = "checkbox" id = "day2" name="holidayWeek" value="화" th:checked="*{holidayWeek1}" />
+		            <label for = "day2">화</label>
+		            
+		            <input type = "checkbox" id = "day3" name="holidayWeek" value="수" th:checked="*{holidayWeek2}" />
+		            <label for = "day3">수</label>
+		            
+		            <input type = "checkbox" id = "day4" name="holidayWeek" value="목" th:checked="*{holidayWeek3}" />
+		            <label for = "day4">목</label>
+		            
+		            <input type = "checkbox" id = "day5" name="holidayWeek" value="금" th:checked="*{holidayWeek4}" />
+		            <label for = "day5">금</label>
+		            
+		            <input type = "checkbox" id = "day6" name="holidayWeek" value="토" th:checked="*{holidayWeek5}" />
+		            <label for = "day6">토</label>
+		            
+		            <input type = "checkbox" id = "day7" name="holidayWeek" value="일" th:checked="*{holidayWeek6}" />
+		            <label for = "day7">일</label>
+        		 </fieldset>
+				
+			
+				
+				<div id="sl_holiday_dd" class="select specific" style="">
+					<select name="holidayDate" id="dd">
+						<option value="" selected disabled hidden >선택해주세요.</option>
+						<option value="1" th:selected="*{holidayDate eq '1' ? 'selected' : null}">1일</option>
+						<option value="2" th:selected="*{holidayDate eq '2' ? 'selected' : null}">2일</option>
+						<option value="3" th:selected="*{holidayDate eq '3' ? 'selected' : null}">3일</option>
+						<option value="4" th:selected="*{holidayDate eq '4' ? 'selected' : null}">4일</option>
+						<option value="5" th:selected="*{holidayDate eq '5' ? 'selected' : null}">5일</option>
+						<option value="6" th:selected="*{holidayDate eq '6' ? 'selected' : null}">6일</option>
+						<option value="7" th:selected="*{holidayDate eq '7' ? 'selected' : null}">7일</option>
+						<option value="8" th:selected="*{holidayDate eq '8' ? 'selected' : null}">8일</option>
+						<option value="9" th:selected="*{holidayDate eq '9' ? 'selected' : null}">9일</option>
+						<option value="10" th:selected="*{holidayDate eq '10' ? 'selected' : null}">10일</option>
+						<option value="11" th:selected="*{holidayDate eq '11' ? 'selected' : null}">11일</option>
+						<option value="12" th:selected="*{holidayDate eq '12' ? 'selected' : null}">12일</option>
+						<option value="13" th:selected="*{holidayDate eq '13' ? 'selected' : null}">13일</option>
+						<option value="14" th:selected="*{holidayDate eq '14' ? 'selected' : null}">14일</option>
+						<option value="15" th:selected="*{holidayDate eq '15' ? 'selected' : null}">15일</option>
+						<option value="16" th:selected="*{holidayDate eq '16' ? 'selected' : null}">16일</option>
+						<option value="17" th:selected="*{holidayDate eq '17' ? 'selected' : null}">17일</option>
+						<option value="18" th:selected="*{holidayDate eq '18' ? 'selected' : null}">18일</option>
+						<option value="19" th:selected="*{holidayDate eq '19' ? 'selected' : null}">19일</option>
+						<option value="20" th:selected="*{holidayDate eq '20' ? 'selected' : null}">20일</option>
+						<option value="21" th:selected="*{holidayDate eq '21' ? 'selected' : null}">21일</option>
+						<option value="22" th:selected="*{holidayDate eq '22' ? 'selected' : null}">22일</option>
+						<option value="23" th:selected="*{holidayDate eq '23' ? 'selected' : null}">23일</option>
+						<option value="24" th:selected="*{holidayDate eq '24' ? 'selected' : null}">24일</option>
+						<option value="25" th:selected="*{holidayDate eq '25' ? 'selected' : null}">25일</option>
+						<option value="26" th:selected="*{holidayDate eq '26' ? 'selected' : null}">26일</option>
+						<option value="27" th:selected="*{holidayDate eq '27' ? 'selected' : null}">27일</option>
+						<option value="28" th:selected="*{holidayDate eq '28' ? 'selected' : null}">28일</option>
+						<option value="29" th:selected="*{holidayDate eq '29' ? 'selected' : null}">29일</option>
+						<option value="30" th:selected="*{holidayDate eq '30' ? 'selected' : null}">30일</option>
+						<option value="31" th:selected="*{holidayDate eq '31' ? 'selected' : null}">31일</option>
+					</select>
+				</div>
+				</div>
+		</div>
+		
+		</div>
+		
+		
+	</form>	
+		
+		
+		
+		
+	
+	<div class="fixed_bar fixed">
+		<span class="btn_wrap">
+			<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">이전</a>
+		</span>
+		<span class="btn_wrap">
+			<a id="btnRegister" href="javascript:void(0)" class="fix_btn_next">수정</a>
+		</span>
+	</div>
+		<!-- 스크립트 영역 -->
+	
+	<script>
+		$(document).ready(function() {
+			$("#title").text("이용 정보");
+			
+			var formObj = $("#usageinfo");
+			
+			$("#btnRegister").on("click", function() {
+				formObj.submit();
+			});
+			
+			
+			$('#holiday').ready(function() {
+				var value = $("#holiday option:selected").val();
+			    
+			    if(value == 'NONE' || value == 'LSTDY'){
+			    	$("#cb_holiday_wd").hide();
+			    	$("#sl_holiday_dd").hide();
+			    }
+			    else if(value == 'MNTLY') {
+			    	$("#cb_holiday_wd").hide();
+			    	$("#sl_holiday_dd").show();
+			    }
+			    else {
+			    	$("#cb_holiday_wd").show();
+			    	$("#sl_holiday_dd").hide();
+			    }
+					
+			});
+			
+			$('#holiday').change(function() {
+			    var value = $(this).val();
+			    
+			    if(value == 'NONE' || value == 'LSTDY'){
+			    	$("#cb_holiday_wd").hide();
+			    	$("#sl_holiday_dd").hide();
+			    }
+			    else if(value == 'MNTLY') {
+			    	$("#cb_holiday_wd").hide();
+			    	$("#sl_holiday_dd").show();
+			    }
+			    else {
+			    	$("#cb_holiday_wd").show();
+			    	$("#sl_holiday_dd").hide();
+			    }
+			});
+			
+			
+			
+		});
+	</script>	
+</div>
+</body>
+</html>

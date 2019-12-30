@@ -1,0 +1,203 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	 <!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap-pagination.min.css" rel="stylesheet">
+	
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<link href="/css/snackbar.css" rel="stylesheet">
+	
+	
+		
+</head>
+<body>
+<div layout:fragment="content">
+		<div class="w-100 p-t-10 p-b-90">
+			<div class="m-5 p-t-10 p-b-10">
+				<h2 th:text="#{space.manage.header.list}">공간관리 목록</h2>
+			</div>
+			
+			<!-- 검색 폼을 만든다. -->
+			<div class="w-75">
+			<form id="pgrq" action="list.html" th:action="@{|/space/manage${pgrq.toUriStringByPage(1)}|}" th:object="${pgrq}" method="GET">
+				<div class="m-5 clearfix">
+					<select th:field="*{searchType}" class="form-control m-l-20 w-25 float-left">
+						<option th:each="element : ${searchTypeCodeValueList}" th:value="${element.value}" th:text="${element.label}">제목</option>
+					</select>
+					
+					<input type="text" class="form-control m-l-20 m-r-20 w-50 float-left" name="keyword" th:field="*{keyword}" />
+					<button id="searchBtn" class="btn btn-sea w-10 m-l-10 m-r-10 float-left" th:text="#{action.search}">검색</button>
+				</div>
+			</form>
+			</div>
+			
+			<!-- Card -->
+			<div class="card-columns w-75">
+				<div class="card" th:each="basicInfo : ${list}">
+				
+				  <!-- Card image -->
+				  <div class="view overlay">
+				    <img class="card-img-top" th:src="@{|/space/displayFile?fileName=${basicInfo.fullName}|}" alt="Card image cap" style="width: 100%; height: 33%">
+				    <a href="#!">
+				      <div class="mask rgba-white-slight">
+					    <input id="spaceNum" type="hidden" name="spaceNum" th:value="${basicInfo.spaceNum}"/>
+					    <input id="spaceName" type="hidden" name="spaceName" th:value="${basicInfo.spaceName}"/>
+				      </div>
+				    </a>
+				  </div>
+				
+				  <!-- Card content -->
+				  <div class="card-body">
+				
+				    <!-- Title -->
+				    <h4 class="card-title" th:text="${basicInfo.spaceName}">Card title</h4>
+				    <hr>
+				    <!-- Text -->
+				    <p class="card-text text-right">등록일 : 
+				    	<span th:text="${#dates.format(basicInfo.createdAt,'yyyy.MM.dd')}"></span>  
+				    </p>
+				    
+				  </div>
+				   <div class="card-body">				 
+				    <!-- Button -->
+				    <a href="modify.html" th:href="@{|/space/modify?spaceNum=${basicInfo.spaceNum}|}" class="btn btn-primary" >수정</a>
+					<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
+<!-- 				    <a href="modify.html" th:href="@{|/space/modify${pagination.makeQuery(pagination.pageRequest.page)}&spaceNum=${basicInfo.spaceNum}|}" class="btn btn-primary" >수정</a> -->
+					<a href="/room/manage.html" th:href="@{|/space/${basicInfo.spaceNum}/room/manage|}" class="btn btn-primary">룸 추가/수정</a>
+	                <a th:value="${basicInfo.spaceNum}" href="javascript:void(0);"  class="btn btn-dark deleteSpace">삭제</a>
+				  </div>
+				
+				</div>
+			</div>
+			<!-- Card -->
+			
+			<!-- 페이징 네비게이션 -->
+			<div class="m-5" style="display: inline-block;text-align: center;">
+				<nav>
+				  <ul class="pagination">
+				  		<th:block th:if="${pagination.prev}">
+							<li>
+								<a href="manage.html" aria-label="Previous" th:href="@{|/space/manage?page=${pagination.startPage - 1}&perPageNum=${pagination.pageRequest.sizePerPage}|}">&laquo;</a>
+							</li>				  
+						</th:block>
+						
+						<th:block th:each="idx:${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+							<li>
+									<a href="manage.html" th:href="@{|/space/manage${pagination.makeQuery(idx)}|}" th:text="${idx}" >${idx}</a>
+							</li>
+						</th:block>
+						
+						<th:block th:if="${pagination.next && pagination.endPage > 0}">
+							<li>
+								<a href="manage.html" th:href="@{|/space/manage?page=${pagination.endPage + 1}&perPageNum=${pagination.pageRequest.sizePerPage}|}">&raquo;</a>
+							</li>
+						</th:block>
+				  </ul>
+				 </nav>
+			</div>
+			
+			
+		<div class="mt-5 mb-5">
+			<span class="btn_wrap">
+				<a href="/space/basic_info.html" th:href="@{/space/basic_info}" class="btn btn-primary w-75">새 공간 등록하기</a>
+			</span>
+		</div>
+	
+	
+		<table class="table table-bordered table-hover w-75" borer="1">
+			<tr>
+				<th align="center" width="80" th:text="#{space.manage.no}">공간번호</th>
+				<th align="center" width="80" th:text="#{space.manage.host}">호스트</th>
+				<th align="center" width="80" th:text="#{space.manage.category}">공간 카테고리</th>
+				<th align="center" width="100" th:text="#{space.manage.name}">공간이름</th>
+				<th align="center" width="100" th:text="#{space.manage.tag}">공간태그</th>
+<!-- 				<th align="center" width="100" th:text="#{space.manage.head}">한줄 소개</th> -->
+<!-- 				<th align="center" width="100" th:text="#{space.manage.tag}">공간 태그</th> -->
+<!-- 				<th align="center" width="100" th:text="#{space.manage.caution}">예약 시 주의 사항</th> -->
+<!-- 				<th align="center" width="100" th:text="#{space.manage.url}">웹 사이트 주소</th> -->
+				<th align="center" width="100" th:text="#{space.manage.createdAt}">등록 일자</th>
+			</tr>
+		
+		
+			<tr th:if="${#lists.isEmpty(list)}">	
+				<td colspan="9" th:text="#{common.listEmpty}">
+					List is empty.
+				</td>
+			</tr>
+		
+			<tr th:each="basicInfo : ${list}">
+				<td class="_spaceNum" align="center" th:text="${basicInfo.spaceNum}">${basicInfo.spaceNum}</td>
+				<td align="center" th:text="${basicInfo.hostId}">${basicInfo.hostId}</td>
+				<td align="center" th:text="${basicInfo.spaceCategory}">${basicInfo.category}</td>
+				<td align="center"><a href="#" th:href="@{|/space/modify?spaceNum=${basicInfo.spaceNum}|}" th:text="${basicInfo.spaceName}" >${basicInfo.spaceName}</a></td>
+				<td align="center" th:text="${basicInfo.spaceTag}">${basicInfo.tag}</td>
+<!-- 				<td align="center" th:text="${basicInfo.spaceHead}">${basicInfo.head}</td> -->
+<!-- 				<td align="center" th:text="${basicInfo.spaceTag}">${basicInfo.tag}</td> -->
+<!-- 				<td align="center" th:text="${basicInfo.spaceCaution}">${basicInfo.caution}</td> -->
+<!-- 				<td align="center" th:text="${basicInfo.spaceUrl}">${basicInfo.url}</td> -->
+<!-- 				<td align="center" th:text="${basicInfo.createdAt}">${basicInfo.createdAt}</td> -->
+				<td align="center" th:text="${#dates.format(basicInfo.createdAt,'yyyy.MM.dd hh:mm:ss')}">${basicInfo.createdAt}</td>
+			</tr>
+		
+		</table>
+		
+		<form id="manageform" class="form-group spaceForm" action="manage.html" th:action="@{/space/manage}" method="POST">
+			<input type="hidden" name="spaceNum" id="postSpaceNum" />
+		</form>
+	
+	
+	<div id="snackbar">안녕하세요</div>
+	
+	
+	<button onclick="myFunction()">Show Snackbar</button>
+	<script>
+		$(document).ready(function() {
+			$("#title").text("공간 관리");
+			
+			 $(".card").hover(
+				  function() {
+				    $(this).addClass('shadow-lg').css('cursor', 'pointer'); 
+				  }, function() {
+				    $(this).removeClass('shadow-lg');
+			 });
+			
+		});
+		
+		$(".deleteSpace").on("click", function() {
+			var space_num = $(this).attr("value");
+			var space_name = $("input[value=" + space_num + "]").next().val();
+			var result = confirm("공간명 \"" + space_name + "\" (을/를) 정말로 삭제하시겠습니까?");
+			
+			if (result == true) {
+				$("#postSpaceNum").val(space_num);
+				var formObj = $("#manageform");
+				
+				formObj.submit();
+			} else {
+			    alert("삭제를 취소하셨습니다.");
+			}
+			
+
+		});
+		
+		function myFunction() {
+			  var x = document.getElementById("snackbar");
+			  x.className = "show";
+			  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+		}
+	</script>	
+</div>
+</div>
+</body>
+</html>

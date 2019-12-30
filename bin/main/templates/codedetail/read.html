@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+  
+<title layout:fragment="title">CodeDetail</title>
+
+<div layout:fragment="content">
+	<div class="w-50 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{codedetail.header.read}"></h2>
+		</div>
+		
+		<form id="codeDetail" action="./success.html" th:action="@{/codedetail/remove}" th:object="${codeDetail}" method="POST">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td th:text="#{codedetail.classCode}"></td>
+					<td>
+						<select class="form-control" th:field="*{classCode}" disabled="disabled">
+							<option th:each="classCode : ${classCodeList}" 
+							          th:value="${classCode.value}" 
+							          th:text="${classCode.label}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{codedetail.codeValue}"></td>
+					<td><input class="form-control" type="text" name="codeValue" th:field="*{codeValue}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{codedetail.codeName}"></td>
+					<td><input class="form-control" type="text" name="codeName" th:field="*{codeName}" readonly="readonly" /></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div class="m-t-80">
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnEdit" th:text="#{action.edit}"></button>
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnRemove" th:text="#{action.remove}"></button>
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnList" th:text="#{action.list}"></button>
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+		
+				var formObj = $("#codeDetail");
+		
+				$("#btnEdit").on("click", function() {
+					formObj.attr("action", "/codedetail/modify");
+					formObj.attr("method", "get");
+					formObj.submit();
+					
+					var classCode = $("#classCode");
+					var classCodeVal = classCode.val();
+					
+					var codeValue = $("#codeValue");
+					var codeValueVal = codeValue.val();
+					
+					self.location = "modify?classCode=" + classCodeVal + "&" + "codeValue=" + codeValueVal;
+				});
+		
+				$("#btnRemove").on("click", function() {
+					formObj.attr("action", "remove");
+					formObj.submit();
+				});
+		
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+		
+			});
+		</script>
+	</div>
+</div>

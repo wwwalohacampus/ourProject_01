@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/main_template}">
+  
+<title layout:fragment="title">CodeClass</title>
+
+<div layout:fragment="content">
+	<div class="w-50 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2 th:text="#{codeclass.header.read}"></h2>
+		</div>
+		
+		<form id="codeClass" action="./success.html" th:action="@{/codeclass/remove}" th:object="${codeClass}" method="POST">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td th:text="#{codeclass.classCode}"></td>
+					<td><input class="form-control" type="text" name="classCode" th:field="*{classCode}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{codeclass.className}"></td>
+					<td><input class="form-control" type="text" name="className" th:field="*{className}" readonly="readonly" /></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div class="m-t-80">
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnEdit" th:text="#{action.edit}"></button>
+		    <button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnRemove" th:text="#{action.remove}"></button>
+			<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnList" th:text="#{action.list}"></button>
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+		
+				var formObj = $("#codeClass");
+		
+				$("#btnEdit").on("click", function() {
+					var classCode = $("#classCode");
+					var classCodeVal = classCode.val();
+					
+					self.location = "modify?classCode=" + classCodeVal;
+				});
+		
+				$("#btnRemove").on("click", function() {
+					formObj.attr("action", "/codeclass/remove");
+					formObj.submit();
+				});
+		
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+		
+			});
+		</script>
+	</div>
+</div>  

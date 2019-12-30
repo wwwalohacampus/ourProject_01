@@ -1,0 +1,329 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/host_template}">
+<head>
+	<title>Space</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>	
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+	<!-- Bootstrap core CSS -->
+  	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+	
+	<!-- 아래 라이브러리는 향후에 CDN 방식 말고 파일방식으로 변환가능 -->
+	<link href="/css/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+    <script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+	<!--  Page content -->
+	<div class="container mb-5">
+	<form id="basicinfo" action="/modify/basic_info.html" th:action="@{/space/modify/basic_info}" th:object="${basicInfo}" method="POST">
+		<h1 class="mt-5 mb-3">공간 기본정보 수정</h1>
+		
+		<div class="justify-content-md-center">
+			<div class="col-lg-7 mb-5 p-b-50">
+				<div class="heading">
+				<h3>어떤 공간을 공유하세요?</h3>
+				<br>
+				<span class="option">
+					<span class="txt_required">필수선택</span>
+				</span>
+				</div>
+			</div>
+			
+			<section id="contents" class="contents contents_register" role="main">
+			<p class="tit_register_guide">등록하기 전 신중하게 공간유형을 선택주세요!</p>
+			<ul class="ul_guide">
+				<li>모임장소와 공유오피스는 중복 선택이 불가하며 최초 선택 후 교차 변경이 불가합니다.</li>
+				<li>모임장소는 용도에 따라 최대 5개까지, 공유오피스는 1개의 유형으로 선택해야 합니다.</li>
+			</ul>
+			
+			<br>
+			<div class="box_form">
+				<div class="tit">모임장소</div>
+				<span class="option">
+					<span class="txt_guide">최대 5개 선택가능</span>
+				</span>
+			</div>
+			
+			<br>
+			<div class="justify-content-md-center">
+			<div class="col1 mt-5 mb-5">
+				<fieldset id="cb_space_category" data-role = "controlgroup" data-type = "horizontal">
+					<input type="checkbox" name="spaceCategory" id="cate1" value="회의실" th:checked="*{spaceCategory1}" >
+					<label for="cate1" class="ellip">회의실</label>
+					
+					<input type="checkbox" name="spaceCategory" id="cate2" value="세미나실" th:checked="*{spaceCategory2}" >
+					<label for="cate2" class="ellip">세미나실</label>
+					
+					<input type="checkbox" name="spaceCategory" id="cate3" value="다목적홀" th:checked="*{spaceCategory3}" >
+					<label for="cate3" class="ellip">다목적홀</label>
+					
+					<input type="checkbox" name="spaceCategory" id="cate4" value="작업실" th:checked="*{spaceCategory4}" >
+					<label for="cate4" class="ellip">작업실</label>
+					
+					<input type="checkbox" name="spaceCategory" id="cate5" value="레저시설" th:checked="*{spaceCategory5}" >
+					<label for="cate5" class="ellip">레저시설</label>
+					
+					<input type="checkbox" name="spaceCategory" id="cate6" value="파티룸" th:checked="*{spaceCategory6}" >
+					<label for="cate6" class="ellip">파티룸</label>
+				</fieldset>
+			</div>
+			
+			</div>
+			</section>
+			
+			<section id="contents2" class="contents contents_register2" role="main">
+				<div>
+					
+						<input class="form-control" type="hidden" name="hostId" th:field="*{hostId}" readonly="readonly" />
+						<div class="form-group row">
+							<label for="inputPlace" class="col-sm-4 col-form-label">공간명</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputPlace" name="spaceName" th:field="*{spaceName}" placeholder="공간명" />
+							</div>
+						</div>
+						
+						<div class="form-group row"> 	
+						    <label for="inputIntro" class="col-sm-4 col-form-label">공간 한 줄 소개</label>
+						    <div class="col-sm-8">
+						      <input type="text" class="form-control" id="inputintro" name="spaceHead" th:field="*{spaceHead}" placeholder="공간 한 줄 소개">
+						    </div>
+				  		</div>
+				  		
+				  		<div class="form-group row">
+						    <label for="inputIntroDetail" class="col-sm-4 col-form-label">공간 소개</label>
+						    <div class="col-sm-8">
+						      <input type="text" class="form-control" id="inputIntroDetail" name="spaceIntro" th:field="*{spaceIntro}" placeholder="공간 소개">
+						    </div>
+					  	</div>
+					  	
+					  <div class="form-group row">
+					    <label for="inputpalceTag" class="col-sm-4 col-form-label">공간 태그</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="inputpalceTag" name="spaceTag" th:field="*{spaceTag}" placeholder="공간 태그">
+					    </div>
+					  </div>
+				
+					  <div class="form-group row">
+					    <label for="inputNotice" class="col-sm-4 col-form-label">예약 시 주의 사항</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="inputNotice" name="spaceCaution" th:field="*{spaceCaution}" placeholder="예약 시 주의 사항">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group row">
+						    <label for="inputSiteAdd" class="col-sm-4 col-form-label">웹 사이트 주소</label>
+						    <div class="col-sm-8">
+						      <input type="text" class="form-control" id="inputSiteAdd" name="spaceUrl" th:field="*{spaceUrl}" placeholder="웹 사이트 주소">
+						    </div>
+						  </div>
+						  <div class="form-group row" th:object="${spaceBasicImg}">
+						    <label for="inputImage" class="col-sm-4 col-form-label">이미지</label>
+						    <div class="col-sm-8">
+						    	<input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:field="*{spaceNum}" />
+						    	<input class="form-control" type="hidden" name="hostId" th:field="*{hostId}" readonly="readonly" />
+						    	<input type="file" id="inputFile" />
+								<div class="uploadedList"></div>
+						   	</div>
+					  		</div>
+					  
+					  <div class="form-group row">
+					    <label for="inputAddress" class="col-sm-4 col-form-label">주소</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="inputAddress" name="spaceAddr" th:field="*{spaceAddr}" placeholder="실제 주소">
+					    </div>
+					    <label for="inputAddress" class="col-sm-4 col-form-label"></label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="inputAddress" name="spaceAddrdetail" th:field="*{spaceAddrdetail}" placeholder="상세 주소">
+					    </div>
+					  </div>
+					  <input type="hidden" class="form-control" id="spaceNum" name="spaceNum" th:field="*{spaceNum}" />
+					  <input type="hidden" class="form-control" id="spaceCategory" name="spaceCategory" th:field="*{spaceCategory}" />
+			  		  <input type="hidden" class="form-control" id="createdBy" name="createdBy" th:field="*{createdBy}"/>
+					
+				</div>
+			</section>
+		</div>		
+		
+		</form>
+	</div>	
+	<div class="fixed_bar fixed">
+		<span class="btn_wrap">
+			<a href="javascript:void(0);" onclick="goBack()" class="fix_btn_prev">이전</a>
+		</span>
+		<span class="btn_wrap">
+			<a id="btnRegister" href="javascript:void(0)" class="fix_btn_next">수정</a>
+		</span>
+	</div>
+	<script>
+		$(document).ready(function() {
+			$("#title").text("기본 정보 수정");
+			
+			var formObj = $("#basicinfo");
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			$("#btnRegister").on("click", function() {
+				formObj.submit();
+			});
+			
+			$(".uploadedList").on("click", "span", function(event){
+				$(this).parent("div").remove();
+			});
+				
+			function getOriginalName(fileName){
+				if(checkImageType(fileName)){
+					return;
+				}
+				
+				var idx = fileName.indexOf("_") + 1 ;
+				return fileName.substr(idx);
+			}
+			
+			function getThumbnailName(fileName){
+				var front = fileName.substr(0,12);
+				var end = fileName.substr(12);
+				var onlyName = end.substr("_");
+				
+				
+				console.log("front : " + front);
+				console.log("end : " + end);
+				
+				
+				return front + "s_" + end;
+			}
+			
+			function getOnlyFileName(fileName){
+				var f_idx = fileName.indexOf("_") + 1 ;
+				var e_idx = fileName.indexOf(".") + 1 ;
+				var onlyFileName = fileName.substr(f_idx, e_idx - f_idx - 1);
+				
+				console.log("onlyName : " + onlyFileName );
+				
+				return onlyFileName;
+			}
+			
+			function checkImageType(fileName){
+				var pattern = /jpg|gif|png|jpeg/i;
+				
+				return fileName.match(pattern);
+			}
+			
+			var spaceNum = [[${spaceBasicImg.spaceNum}]];
+			
+			console.log("spaceNum : " + spaceNum);
+			
+			$.getJSON("/space/getAttach/"+spaceNum,function(list){
+				
+				$(list).each(function(){
+					console.log("data : " + this);
+					
+					var data = this;
+					
+					var str ="";
+					  
+					if(checkImageType(data)){
+						str = "<div><a href='/space/displayFile?fileName=" + data + "'>"
+							+ "<img src='/space/displayFile?fileName=" + getThumbnailName(data) + "'/>"
+							+ "</a><span>" + getOnlyFileName(data)  + "</span><span>X</span></div>";
+					}
+					else{
+						str = "<div><a href='/space/displayFile?fileName=" + data + "'>" 
+							+ getOriginalName(data) +"</a><span>X</span></div>";
+					}
+					  
+					$(".uploadedList").append(str);
+				});
+			});
+			
+			$("#basicinfo").submit(function(event){
+				event.preventDefault();
+				
+				var that = $(this);
+				
+				var str ="";
+				$(".uploadedList a").each(function(index){	
+					 var value = $(this).attr("href");
+					 value = value.substr(28);
+				
+					 str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
+				});
+				
+				console.log("str = " + str);
+				
+				that.append(str);
+
+				that.get(0).submit();
+			});
+			
+			$("#inputFile").on("change", function(event){
+				
+				console.log("change");
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
+				var files = event.target.files;
+				
+				var file = files[0];
+
+				console.log(file);
+				
+				var formData = new FormData();
+				
+				formData.append("file", file);
+				
+				$.ajax({
+					url: '/space/uploadAjax',
+					data: formData,
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+					dataType:'text',
+					processData: false,
+					contentType: false,
+					type: 'POST',
+					success: function(data){
+						console.log(data);
+						
+						var str ="";
+					  
+						if(checkImageType(data)){
+							str = "<div><a href='/space/displayFile?fileName=" + data + "'>"
+								+ "<img src='/space/displayFile?fileName=" + getThumbnailName(data) + "'/>"
+								+ "</a><span>" + getOnlyFileName(data)  + "</span><span>X</span></div>";
+						}
+						else{
+							str = "<div><a href='/space/displayFile?fileName=" + data + "'>" 
+								+ getOriginalName(data) +"</a>"
+								+ "<span>X</span></div></div>";
+						}
+					  
+						$(".uploadedList").append(str);
+					}
+				});
+			});
+			
+		});
+	</script>	
+	
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+

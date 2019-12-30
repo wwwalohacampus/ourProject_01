@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<body>
+	<div align="center" th:fragment="menu">
+	
+		<table>
+			<tr>
+				
+				<th:block sec:authorize="!isAuthenticated()">
+					<td width="120"><a href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.member}">회원 게시판</a></td>
+					<td width="120"><a href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.member}">상품</a></td>
+					
+				</th:block>
+				
+				
+				<th:block sec:authorize="isAuthenticated()">
+					
+					<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+						<td width="120"><a href="../codeclass/list.html" th:href="@{/codeclass/list}" th:text="#{menu.codeclass.list}">코드그룹관리</a></td>
+						<td width="120"><a href="../codedetail/list.html" th:href="@{/codedetail/list}" th:text="#{menu.codedetail.list}">코드관리</a></td>
+						<td width="120"><a href="../user/list.html" th:href="@{/user/list}" th:text="#{menu.user.admin}">회원관리</a></td>
+						<td width="120"><a href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.member}">회원게시판</a></td>
+						<td width="120"><a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{menu.notice.admin}">공지사항관리</a></td>
+						<td width="120"><a href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.admin}">상품관리</a></td>
+					</th:block>
+					
+					<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+						<td width="120"><a href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.member}">회원게시판</a></td>
+						<td width="120"><a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{menu.notice.member}">공지사항</a></td>
+						<td width="120"><a href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.member}">상품</a></td>
+					</th:block>
+					
+				</th:block>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
