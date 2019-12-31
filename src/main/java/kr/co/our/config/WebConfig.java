@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public ClassLoaderTemplateResolver yourTemplateResolver() {
         ClassLoaderTemplateResolver configurer = new ClassLoaderTemplateResolver();
-        configurer.setPrefix("templates");
+        configurer.setPrefix("/templates");
         configurer.setSuffix(".html");
         configurer.setTemplateMode(TemplateMode.HTML);
         configurer.setCharacterEncoding("UTF-8");
