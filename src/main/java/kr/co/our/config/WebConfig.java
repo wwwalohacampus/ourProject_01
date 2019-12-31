@@ -13,6 +13,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import lombok.var;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 
 @Configuration
@@ -41,8 +42,9 @@ public class WebConfig implements WebMvcConfigurer {
 	@Description("Thymelaef template engine with Spring integration")
 	public SpringTemplateEngine templateEngine() {
 		
-		var templateEngine = new SpringTemplateEngine();
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
+		templateEngine.addDialect(new LayoutDialect());			// **
 		
 		return templateEngine;
 	}
