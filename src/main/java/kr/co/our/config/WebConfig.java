@@ -33,15 +33,6 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 	
-	@Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/", "/resources/","/resource/*");
-        registry.addResourceHandler("/assets/**")
-        					.addResourceLocations("classpath:/assets/");
-        registry.addResourceHandler("/css/**")
-        					.addResourceLocations("/css/");
-    }
-	
 
 	@Bean
 	@Description("Thymeleaf template resolver serving HTML 5")
