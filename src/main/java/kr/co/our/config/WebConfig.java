@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Description;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -24,7 +25,6 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @Configuration
 @ComponentScan(basePackages = "templates")
 public class WebConfig implements WebMvcConfigurer {
-	
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
