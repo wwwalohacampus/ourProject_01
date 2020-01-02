@@ -83,11 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.passwordEncoder(createPasswordEncoder());
 	}
 	
-	
-	@Override
-	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers("/resources/**");
-	}
 
 	private PersistentTokenRepository createJDBCRepository() {
 		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
