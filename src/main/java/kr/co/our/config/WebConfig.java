@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -18,7 +17,12 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @Configuration
 @ComponentScan(basePackages = "templates")
 public class WebConfig implements WebMvcConfigurer {
-	/*
+	
+//	@Override
+//	public void addViewControllers(ViewControllerRegistry registry) {
+//		registry.addViewController("/").setViewName("index");
+//	}
+
 	@Bean
 	@Description("Thymeleaf template resolver serving HTML 5")
 	public ClassLoaderTemplateResolver templateResolver() {
@@ -35,20 +39,7 @@ public class WebConfig implements WebMvcConfigurer {
 		
 		return templateResolver;
 	}
-	*/
 	
-	@Bean
-    public SpringResourceTemplateResolver templateResolver() {
-        SpringResourceTemplateResolver  templateResolver = new SpringResourceTemplateResolver ();
-        templateResolver.setPrefix("templates/");
-		templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-		templateResolver.setCharacterEncoding("UTF-8");
-		templateResolver.setOrder(0);
-		templateResolver.setCacheable(false);
-		templateResolver.setCheckExistence(true);
-        return templateResolver;
-    }
 	
 	@Bean
 	@Description("Thymelaef template engine with Spring integration")
