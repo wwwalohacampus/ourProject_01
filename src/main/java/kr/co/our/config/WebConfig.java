@@ -12,7 +12,6 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import lombok.var;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 
@@ -37,7 +36,7 @@ public class WebConfig implements WebMvcConfigurer {
 		return templateResolver;
 	}
 	
-	/*
+	
 	@Bean
 	@Description("Thymelaef template engine with Spring integration")
 	public SpringTemplateEngine templateEngine() {
@@ -53,8 +52,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Description("Thymeleaf view resolver")
 	public ViewResolver viewResolver() {
 		
-		var viewResolver = new ThymeleafViewResolver();
-		
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine());
 		viewResolver.setCharacterEncoding("UTF-8");
 		
@@ -66,7 +64,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
 	}
-	*/
+	
 	
 	
 	
