@@ -36,7 +36,7 @@ public class WebConfig implements WebMvcConfigurer {
 		return templateResolver;
 	}
 	
-	/*
+	
 	@Bean
 	@Description("Thymelaef template engine with Spring integration")
 	public SpringTemplateEngine templateEngine() {
@@ -58,16 +58,6 @@ public class WebConfig implements WebMvcConfigurer {
 		
 		return viewResolver;
 	}
-
-
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index");
-	}
-	
-	*/
-	
-	
 	
 	
 }
