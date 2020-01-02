@@ -1,5 +1,6 @@
 package kr.co.our.config;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,27 +12,31 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 
 @Configuration
+@EnableWebMvc
 @ComponentScan(basePackages = "templates")
 public class WebConfig implements WebMvcConfigurer {
+	
+	private ApplicationContext applicationContext;
+  
+    public void setApplicationContext(ApplicationContext applicationContext) {
+    this.applicationContext = applicationContext;
+  }
+
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
 	}
-	
-	@Override
-    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-	
 
 	@Bean
 	@Description("Thymeleaf template resolver serving HTML 5")
@@ -43,7 +48,7 @@ public class WebConfig implements WebMvcConfigurer {
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		templateResolver.setCharacterEncoding("UTF-8");
-		templateResolver.setOrder(1);
+		templateResolver.setOrder(0);
 		templateResolver.setCacheable(false);
 		templateResolver.setCheckExistence(true);
 		
@@ -71,12 +76,20 @@ public class WebConfig implements WebMvcConfigurer {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine());
 		viewResolver.setCharacterEncoding("UTF-8");
-		viewResolver.setOrder(0);
+		viewResolver.setOrder(1);
 		
 		return viewResolver;
 	}
 
 
+	private ITemplateResolver resourceTemplateResolver() {
+		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+		resolver.setApplicationContext(applicationContext);
+		resolver.setPrefix("templates/");
+		resolver.setTemplateMode(TemplateMode.HTML);
+		
+		return resolver;
+	}
 	
 	
 	
