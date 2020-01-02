@@ -19,7 +19,6 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = "templates")
 public class WebConfig implements WebMvcConfigurer {
 	
