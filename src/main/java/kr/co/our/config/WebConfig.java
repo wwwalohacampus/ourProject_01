@@ -26,12 +26,6 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @ComponentScan(basePackages = "templates")
 public class WebConfig implements WebMvcConfigurer {
 	
-	private ApplicationContext applicationContext;
-  
-    public void setApplicationContext(ApplicationContext applicationContext) {
-    this.applicationContext = applicationContext;
-  }
-
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -76,24 +70,10 @@ public class WebConfig implements WebMvcConfigurer {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine());
 		viewResolver.setCharacterEncoding("UTF-8");
-		viewResolver.setOrder(1);
 		
 		return viewResolver;
 	}
 
-
-	private ITemplateResolver resourceTemplateResolver() {
-		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-		resolver.setApplicationContext(applicationContext);
-		resolver.setPrefix("templates/");
-		resolver.setTemplateMode(TemplateMode.HTML);
-		
-		return resolver;
-	}
-	
-	
-	
-	
 	
 	
 }
