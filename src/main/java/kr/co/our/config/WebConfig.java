@@ -60,7 +60,6 @@ public class WebConfig implements WebMvcConfigurer {
 		templateEngine.setTemplateResolver(templateResolver());
 		templateEngine.setEnableSpringELCompiler(true);
 
-		출처: https://sooin01.tistory.com/entry/Spring-4-자바-기반-Thymeleaf-설정 [수앙]
 		// templateEngine.addDialect(new LayoutDialect());			// **
 		
 		return templateEngine;
