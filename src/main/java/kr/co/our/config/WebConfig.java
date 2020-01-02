@@ -5,6 +5,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -16,8 +19,29 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 
 @Configuration
+@EnableWebMvc
 @ComponentScan(basePackages = "templates")
 public class WebConfig implements WebMvcConfigurer {
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("index");
+	}
+	
+	@Override
+    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+	
+	@Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/", "/resources/","/resource/*");
+        registry.addResourceHandler("/assets/**")
+        					.addResourceLocations("classpath:/assets/");
+        registry.addResourceHandler("/css/**")
+        					.addResourceLocations("/css/");
+    }
+	
 
 	@Bean
 	@Description("Thymeleaf template resolver serving HTML 5")
@@ -25,7 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
 		
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 		
-		templateResolver.setPrefix("/templates/");
+		templateResolver.setPrefix("templates/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		templateResolver.setCharacterEncoding("UTF-8");
@@ -55,9 +79,16 @@ public class WebConfig implements WebMvcConfigurer {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine());
 		viewResolver.setCharacterEncoding("UTF-8");
+		viewResolver.setOrder(1);
 		
 		return viewResolver;
 	}
+
+
+	
+	
+	
+	
 	
 	
 }
