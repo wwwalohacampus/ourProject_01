@@ -19,7 +19,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 	
-	/*
+	
     @Bean
     public ClassLoaderTemplateResolver templateResolver() {
         ClassLoaderTemplateResolver configurer = new ClassLoaderTemplateResolver();
@@ -31,8 +31,9 @@ public class WebConfig implements WebMvcConfigurer {
         return configurer;
     }
     
-    */
+    
 	
+	/*
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {
 		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -44,7 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
 		return templateResolver;
 	}
 	
-    
+    */
     
     @Bean
     public SpringTemplateEngine templateEngine() {
