@@ -3,14 +3,6 @@
 
 <body>
 	<div align="center" th:fragment="navmenu">
-			 <!-- Search form -->
-		        <div class="md-form mx-4 search-box">
-		        <form id="pgrq" class="search-box" action="search" th:action="@{|/search${pgrq.toUriStringByPage(1)}|}"  th:object="${pgrq}" method="GET">
-		          <input class="form-control" type="text" name="keyword" placeholder="공간을 검색해보세요." aria-label="Search" style="width: 13rem; display:inline; padding-top: 0.2rem">
-		        </div>
-		
-		        <button class="btn btn-primary mx-0 search-box" type="submit" >검색</button>
-		        </form>
 		<table>
 			<th:block sec:authorize="!isAuthenticated()">
 				<tbody>
