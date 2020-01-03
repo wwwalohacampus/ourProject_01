@@ -33,7 +33,7 @@ dependencies {
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
 	// 타임리프 레이아웃 다이얼렉트 라이브러리 추가
-	compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '1.2.9'
+	compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.4.0'
 	// 타임리프 엑스트라 라이브러리 추가
 	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 	// 타임리프 태그 라이브러리 추가
