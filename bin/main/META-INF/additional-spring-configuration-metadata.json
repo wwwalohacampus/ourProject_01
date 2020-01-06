@@ -8,5 +8,15 @@
     "name": "cloud.aws.stack.auto",
     "type": "java.lang.String",
     "description": "A description for 'cloud.aws.stack.auto'"
+  },
+  {
+    "name": "upload.space.room.path",
+    "type": "java.lang.String",
+    "description": "A description for 'upload.space.room.path'"
+  },
+  {
+    "name": "upload.space.path",
+    "type": "java.lang.String",
+    "description": "A description for 'upload.space.path'"
   }
 ]}
