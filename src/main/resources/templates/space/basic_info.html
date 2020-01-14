@@ -244,9 +244,9 @@
 				var str ="";
 				$(".uploadedList a").each(function(index){	
 					 var value = $(this).attr("href");
-					 alert(value);
+					 // alert(value);
 					 value = value.substr(28);
-					 alert(value);
+					 // alert(value);
 					 str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
 				});
 				
