@@ -83,7 +83,7 @@ public class SpaceController {
 	
 	
 	// 공간 기본정보 등록하기 - 화면
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	@RequestMapping(value = "/basic_info", method = RequestMethod.GET)
 	public void basicInfoRegisterForm(Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -101,7 +101,7 @@ public class SpaceController {
 	
 	// 공간 기본정보 등록하기 - 등록처리
 	@RequestMapping(value = "/basic_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String basicInfoRegister(BasicInfo basicInfo, SpaceBasicImg spaceBasicImg, RedirectAttributes rttr) throws Exception {
 		
 		int space_num = 0;
@@ -151,7 +151,7 @@ public class SpaceController {
 	
 	// 목록 화면
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public void basicInfoList(@ModelAttribute("pgrq") PageRequest pageRequest, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -402,7 +402,7 @@ public class SpaceController {
 	
 	// 공간 기본정보 수정하기 - 화면
 	@RequestMapping(value = "/modify/basic_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public void basicInfoModifyForm(Integer spaceNum, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -447,7 +447,7 @@ public class SpaceController {
 	
 	// 공간 기본정보 수정하기 - 수정처리
 	@RequestMapping(value = "/modify/basic_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String basicInfoModify(BasicInfo basicInfo, SpaceBasicImg spaceBasicImg, RedirectAttributes rttr) throws Exception {
 		SpaceInfo spaceInfo = new SpaceInfo();
 		spaceInfo.setSpaceNum(basicInfo.getSpaceNum());
@@ -471,7 +471,7 @@ public class SpaceController {
 	
 	// 공간 연락처정보 수정하기 - 화면
 	@RequestMapping(value = "/modify/contacts_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public void contactsInfoModifyForm(Integer spaceNum, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -498,7 +498,7 @@ public class SpaceController {
 	
 	// 공간 연락처정보 수정하기 - 수정처리
 	@RequestMapping(value = "/modify/contacts_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String contactsInfoModify(ContactsInfo contactsInfo, RedirectAttributes rttr) throws Exception {
 		String email1 = contactsInfo.getSpaceEmail1();
 		String eamil2 = contactsInfo.getSpaceEmail2();
@@ -516,7 +516,7 @@ public class SpaceController {
 	
 	// 공간 이용정보 수정하기 - 화면
 	@RequestMapping(value = "/modify/usage_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public void usageInfoModifyForm(Integer spaceNum, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -553,7 +553,7 @@ public class SpaceController {
 
 	// 공간 이용정보 수정하기 - 수정처리
 	@RequestMapping(value = "/modify/usage_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String usageInfoModify(UsageInfo usageInfo, RedirectAttributes rttr) throws Exception {
 		
 		service.usageInfoModify(usageInfo);
@@ -566,7 +566,7 @@ public class SpaceController {
 	
 	// 공간 정산정보 수정하기 - 화면
 	@RequestMapping(value = "/modify/accounts_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public void accountsInfoModifyForm(Integer spaceNum, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -597,7 +597,7 @@ public class SpaceController {
 	
 	// 공간 정산정보 수정하기 - 수정처리
 	@RequestMapping(value = "/modify/accounts_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String accountsInfoModify(AccountsInfo accountsInfo, RefundInfo refundInfo, RedirectAttributes rttr) throws Exception {
 		String email1 = accountsInfo.getBizEmail1();
 		String email2 = accountsInfo.getBizEmail2();
@@ -618,7 +618,7 @@ public class SpaceController {
 	
 	// 공간 삭제하기 - 삭제처리
 	@RequestMapping(value = "/manage", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String spaceInfoRemove(int spaceNum, RedirectAttributes rttr) throws Exception {
 		service.spaceInfoRemove(spaceNum);
 		return "redirect:/space/manage";
@@ -632,7 +632,7 @@ public class SpaceController {
 	
 	// 공간 연락처 정보 중간 추가  - 화면
 	@RequestMapping(value = "/create/contacts_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public void contactsInfoExceptRegisterForm(Integer spaceId, Integer spaceNum,  Model model) throws Exception {
 		ContactsInfo contactsInfo = new ContactsInfo();
 		contactsInfo.setSpaceId(spaceId);
@@ -730,7 +730,7 @@ public class SpaceController {
 	
 	/* 공간 상세(룸) 조회 페이지 */
 	@RequestMapping(value = "/{spaceNum}", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String roomDetailPage(@ModelAttribute("pgrq") PageRequest pageRequest, @PathVariable("spaceNum") Integer spaceNum, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -762,7 +762,7 @@ public class SpaceController {
 	
 	/* 공간 상세(룸) 바로 예약하기 */
 	@RequestMapping( value = "/{spaceNum}", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})")
 	public String roomDetailPagePost(ReservInfo reservInfo, RedirectAttributes rttr, Authentication authentication) throws Exception {
 		logger.info(reservInfo.toString());
 		

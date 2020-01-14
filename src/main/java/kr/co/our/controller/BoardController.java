@@ -37,7 +37,7 @@ public class BoardController {
 	
 	// 등록 화면
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})")
 	public void registerForm(Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -55,7 +55,7 @@ public class BoardController {
 	
 	// 등록 처리
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})")
 	public String register(Board board, RedirectAttributes rttr) throws Exception {
 		service.register(board);
 		

@@ -60,7 +60,7 @@ public class RoomController {
 
 	// 세부 공간 목록
 	@RequestMapping(value ="{spaceNum}/room/manage", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String roomList(@PathVariable("spaceNum") Integer spaceNum, @ModelAttribute("pgrq") PageRequest pageRequest, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -100,7 +100,7 @@ public class RoomController {
 	
 	// 룸 기본정보 등록하기 - 화면
 	@RequestMapping(value ="{spaceNum}/room/room_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String roomInfoRegisterForm(@PathVariable("spaceNum") Integer spaceNum, Model model, Authentication authentication ) throws Exception {
 		RoomInfo roomInfo = new RoomInfo();
 		roomInfo.setSpaceNum(spaceNum);
@@ -128,7 +128,7 @@ public class RoomController {
 	
 	// 룸 기본정보 등록하기 - 등록처리
 	@RequestMapping(value = "{spaceNum}/room/room_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String roomInfoRegister(@PathVariable("spaceNum") Integer spaceNum, RoomInfo roomInfo, RoomInfoImg roomInfoImg, RoomInfoDetailImg roomInfoDetailImg, RedirectAttributes rttr, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -177,7 +177,7 @@ public class RoomController {
 	
 	// 룸 가격정보 수정하기 - 화면
 	@RequestMapping(value ="{spaceNum}/room/{roomNum}/price_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String priceInfoModifyForm(@PathVariable("spaceNum") Integer spaceNum, @PathVariable("roomNum") Integer roomNum, Model model, Authentication authentication ) throws Exception {		
 		Map map = new HashMap();
 		map.put("spaceNum", spaceNum);
@@ -195,7 +195,7 @@ public class RoomController {
 	
 	// 룸 가격정보 수정하기 - 수정처리
 	@RequestMapping(value = "{spaceNum}/room/{roomNum}/price_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String priceInfoModify(@PathVariable("spaceNum") Integer spaceNum, @PathVariable("roomNum") Integer roomNum, RoomPrice roomPrice, RedirectAttributes rttr, Authentication authentication ) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -213,7 +213,7 @@ public class RoomController {
 	
 	// 룸 기본정보 수정하기 - 화면
 	@RequestMapping(value ="{spaceNum}/room/{roomNum}/room_info", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String roomInfoModifyForm(@PathVariable("spaceNum") Integer spaceNum, @PathVariable("roomNum") Integer roomNum, Model model, Authentication authentication ) throws Exception {		
 		Map map = new HashMap();
 		map.put("spaceNum", spaceNum);
@@ -290,7 +290,7 @@ public class RoomController {
 	
 	// 룸 기본정보 수정하기 - 수정처리
 	@RequestMapping(value ="{spaceNum}/room/{roomNum}/room_info", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String roomInfoModify(@PathVariable("spaceNum") Integer spaceNum, @PathVariable("roomNum") Integer roomNum, RoomInfo roomInfo, RoomInfoImg roomInfoImg, RoomInfoDetailImg roomInfoDetailImg, RedirectAttributes rttr, Authentication authentication ) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -312,7 +312,7 @@ public class RoomController {
 	
 	// 룸 정보 삭제하기 - 삭제처리
 	@RequestMapping(value ="/room/delete", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_HOST')")
 	public String roomInfoRemove(Integer spaceNum, Integer roomNum, RoomInfo roomInfo, RedirectAttributes rttr, Authentication authentication ) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();

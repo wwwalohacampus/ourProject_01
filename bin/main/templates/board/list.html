@@ -68,7 +68,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 		</div>
 		
 		<div class="m-t-80">
-			<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+			<th:block sec:authorize="hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})">
 				<button class="btn btn-sea m-l-10 m-r-10">
 					<a href="register.html" th:href="@{/board/register}" th:text="#{action.new}">새로만들기</a>
 				</button>

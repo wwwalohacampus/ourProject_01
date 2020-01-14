@@ -55,7 +55,7 @@ public class ReserveController {
 	
 	/* 공간 예약 페이지 */
 	@RequestMapping(value = "/space/{spaceNum}", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})")
 	public String reservePage(ReservInfo reservInfo, @PathVariable("spaceNum") Integer spaceNum, @ModelAttribute("pgrq") PageRequest pageRequest, Locale locale, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
@@ -124,7 +124,7 @@ public class ReserveController {
 	
 	/* 공간 예약 처리 */
 	@RequestMapping(value = "/space", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})")
 	public String roomDetailPagePost(ReservInfo reservInfo, RedirectAttributes rttr, Authentication authentication) throws Exception {
 		log.info(reservInfo.toString());
 		
@@ -144,7 +144,7 @@ public class ReserveController {
 	
 	/* 공간 예약 완료 페이지 */
 	@RequestMapping(value = "/space/success", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PreAuthorize("hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})")
 	public String reserveSuccessPage(ReservInfo reservInfo, Integer spaceNum, Integer roomNum, @ModelAttribute("pgrq") PageRequest pageRequest, Locale locale, Model model, Authentication authentication) throws Exception {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member =  customUser.getMember();
