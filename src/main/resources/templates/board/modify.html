@@ -47,7 +47,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 				<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnModify" th:text="#{action.modify}">수정</button>
 			</th:block>
 		
-			<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+			<th:block sec:authorize="hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})">
 		       <th:block th:if="${pinfo.username eq board.writer}">
 		       	<button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnModify" th:text="#{action.modify}">수정</button>
 		       </th:block>
