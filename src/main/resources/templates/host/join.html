@@ -39,6 +39,27 @@
 				</tr>
 			</table>	
 		</form>
+		
+		<div class="m-t-80">
+			<th:block sec:authorize="isAuthenticated()">
+		        <button class="btn btn-sea m-l-10 m-r-10" type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+			</th:block>
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+		
+				var formObj = $("#board");
+		
+				$("#btnRegister").on("click", function() {
+					formObj.submit();
+				});
+		
+		
+			});
+		</script>
+		
+		
 	</div>
 	
 </div>
