@@ -6,34 +6,39 @@
 		<table>
 			<th:block sec:authorize="!isAuthenticated()">
 				<tbody>
-						<tr width="200"><a href="/home.html" th:href="@{/}"><img src="/image/logo.png"></a>
+						<tr width="200"><a href="/home.html" th:href="@{/}"><img src="/image/logo.png"></a></tr>
 						<tr width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a></tr>
 						<tr width="80"><a href="../user/register.html" th:href="@{/user/register}" th:text="#{header.joinMember}">회원가입</a></tr>
 						<tr width="120"><a href="../codeclass/list.html" th:href="@{/codeclass/list}" th:text="#{menu.codeclass.list}">코드그룹관리</a></tr>
 						<tr width="120"><a href="../codedetail/list.html" th:href="@{/codedetail/list}" th:text="#{menu.codedetail.list}">코드관리</a></tr>
-						<tr width="120"><a href="../space.html" th:href="@{/space}" th:text="#{header.createSpace}">공간 등록하기</a></tr>
+<!-- 						<tr width="120"><a href="../space.html" th:href="@{/space}" th:text="#{header.createSpace}">공간 등록하기</a></tr> -->
 						<tr width="120"><a href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.member}">상품</a></tr>			
 				</tbody>
 			</th:block>
 			<th:block sec:authorize="isAuthenticated()">
 				<tbody>
 					<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-						<tr width="120"><a href="home.html" th:href="@{/}"><img src="/image/logo.png"></a>
+						<tr width="120"><a href="home.html" th:href="@{/}"><img src="/image/logo.png"></a></tr>
 						<tr width="120"><a href="../codeclass/list.html" th:href="@{/codeclass/list}" th:text="#{menu.codeclass.list}">코드그룹관리</a></tr>
 						<tr width="120"><a href="../codedetail/list.html" th:href="@{/codedetail/list}" th:text="#{menu.codedetail.list}">코드관리</a></tr>
 						<tr width="120"><a href="../user/list.html" th:href="@{/user/list}" th:text="#{menu.user.admin}">회원관리</a></tr>
 						<tr width="120"><a href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.member}">회원게시판</a></tr>
-						<tr width="120"><a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{menu.notice.admin}">공지사항관리</a></tr>
+<!-- 						<tr width="120"><a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{menu.notice.admin}">공지사항관리</a></tr> -->
 						<tr width="120"><a href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.admin}">상품관리</a></tr>
 						<tr width="120"><a href="../system/space/space_check.html" th:href="@{/system/space/space_check}" >검수관리</a></tr>
 					</th:block>
 					<th:block sec:authorize="hasRole('ROLE_MEMBER')">
-						<tr width="200"><a href="home.html" th:href="@{/}"><img src="/image/logo.png"></a>
+						<tr width="200"><a href="home.html" th:href="@{/}"><img src="/image/logo.png"></a></tr>
 						<tr width="120"><a onclick="location.href = '/board/list';" href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.member}">회원게시판</a></tr>
-						<tr width="120"><a onclick="location.href = '/notice/list';" href="../notice/list.html" th:href="@{/notice/list}" th:text="#{menu.notice.member}">공지사항</a></tr>
+<!-- 						<tr width="120"><a onclick="location.href = '/notice/list';" href="../notice/list.html" th:href="@{/notice/list}" th:text="#{menu.notice.member}">공지사항</a></tr> -->
+<!-- 						<tr width="120"><a onclick="location.href = '/item/list';" href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.member}">상품</a></tr>		 -->
+						<tr width="120"><a href="join.html" th:href="@{/host/join}">호스트로 가입하기</a></tr>
+					</th:block>
+					<th:block sec:authorize="hasRole('ROLE_HOST')">
+						<tr width="200"><a href="home.html" th:href="@{/}"><img src="/image/logo.png"></a></tr>
+						<tr width="120"><a onclick="location.href = '/board/list';" href="../board/list.html" th:href="@{/board/list}" th:text="#{menu.board.member}">회원게시판</a></tr>
 						<tr width="120"><a onclick="location.href = '/space';" href="../space.html" th:href="@{/space}" th:text="#{header.createSpace}">공간 등록하기</a></tr>
 						<tr width="120"><a onclick="location.href = '/space/manage';" href="../space/manage.html" th:href="@{/space/manage}" th:text="#{header.spaceManage}">공간 관리</a></tr>
-						<tr width="120"><a onclick="location.href = '/item/list';" href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.member}">상품</a></tr>		
 					</th:block>
 				</tbody>
 			</th:block>

@@ -616,21 +616,21 @@
 		
 		$("#roominfo").submit(function(event){
 			event.preventDefault();
-			alert("roominfo submit");
+			// alert("roominfo submit");
 			var that = $(this);
 			
 			var str ="";
 			$(".mainImgThumnail a").each(function(index){	
 				 var value = $(this).attr("href");
 				 value = value.substr(33);
-				 alert(value);
+				 // alert(value);
 				 str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
 			});
 			
 			$(".detailImgThumnail a").each(function(index){	
 				 var value = $(this).attr("href");
 				 value = value.substr(33);
-				 alert(value);
+				 // alert(value);
 				 str += "<input type='hidden' name='detailFiles["+index+"]' value='"+ value +"'> ";
 			});
 			

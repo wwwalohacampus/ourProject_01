@@ -23,29 +23,22 @@
 			<h2>예약이 완료 되었습니다!</h2>
 		</div>
 		
+		<div class="reserv-info-box card h-150 m-b-100">
+	          <h5 class="reserv-caution-header card-header text-left">예약내용</h5>
+	          <div class="reserv-caution-body card-body">
+	          
+		       			<div class="row p-4 border-bottom">
+							<div class="col-2">신청일</div>
+							<div class="col-10 text-left">
+								<span th:text="${#dates.format(reservInfo.createdAt, 'yyyy년 MM월  dd일 ')}"></span>
+								<span th:text="|(${#dates.dayOfWeekNameShort(reservInfo.createdAt)}) |"></span>
+							</div>				  		
+				  		</div>
+	          </div>
+          </div>
+		
 	</div>
 	
-	<div class="row">
-			<div class="col-lg-8">
-				<div class="reserv-info-box card h-150 m-b-100">
-			          <h5 class="reserv-caution-header card-header text-left">예약내용</h5>
-			          <div class="reserv-caution-body card-body">
-			          
-				       			<div class="row p-4 border-bottom">
-									<div class="col-2">신청일</div>
-									<div class="col-10 text-left">
-										<span th:text="${#dates.format(reservInfo.createdAt, 'yyyy년 MM월  dd일 ')}"></span>
-										<span th:text="|(${#dates.dayOfWeekNameShort(reservInfo.createdAt)}) |"></span>
-									</div>				  		
-						  		</div>
-			          </div>
-		          </div>
-			</div>
-			<div class="col-lg-4">
-			
-			
-			</div>
-	</div>
 </div>
 
 </body>

@@ -84,7 +84,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	// 관리자 권한을 가진 사용자만 접근이 가능하다.
-		@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String remove(int userNo, RedirectAttributes rttr) throws Exception {
 		service.remove(userNo);
 
