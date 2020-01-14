@@ -17,8 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.our.common.security.domain.CustomUser;
 import kr.co.our.domain.Member;
-import kr.co.our.domain.PageRequest;
-import kr.co.our.domain.ReservInfo;
 import kr.co.our.service.MemberService;
 
 @Controller
