@@ -55,7 +55,6 @@ public class HostController {
 	
 	
 	@RequestMapping(value = "/joinSuccess", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole({'ROLE_MEMBER' , 'ROLE_HOST'})")
 	public void joinSuccess(Member member, String email, Model model, Authentication authentication) throws Exception {
 		
 		model.addAttribute(member);
