@@ -101,6 +101,12 @@ public class MemberServiceImpl implements MemberService {
 		
 		mapper.createAuth(memberAuth);
 	}
+
+	@Override
+	public void modifyAuth(int userNo) throws Exception {
+		String hostAuth = "ROLE_HOST";
+		mapper.updateAuth(userNo, hostAuth);
+	}
 	
 	
 

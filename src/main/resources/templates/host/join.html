@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/common_template}">
+  
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<title>join Host</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/modern-business.css" rel="stylesheet">
+    
+	
 </head>
 <body>
-	<h1>홋트로 가입하시겠습니까?</h1>
+<div class="container"  layout:fragment="content">
+	
+	<div class="w-50 p-t-100 p-b-90">
+		<div class="m-5 p-t-10 p-b-10">
+			<h2>호스트로 가입하기</h2>
+		</div>
+		
+		<form id="joinHost" action="join.html" th:action="@{/host/join}" method="POST">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td>사용자 번호</td>
+					<td><input class="form-control" type="text" name="userNo" th:field="${member.userNo}" readonly="readonly"/></td>
+				</tr>
+				<tr>
+					<td>사용자 이름</td>
+					<td><input class="form-control" type="text" name="userName" th:field="${member.userName}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td>호스트 이메일</td>
+					<td><input class="form-control" name="email" /></td>
+				</tr>
+			</table>	
+		</form>
+	</div>
+	
+</div>
 </body>
 </html>

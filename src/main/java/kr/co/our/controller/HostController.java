@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.our.common.security.domain.CustomUser;
+import kr.co.our.domain.Member;
 import kr.co.our.domain.PageRequest;
 import kr.co.our.domain.ReservInfo;
 import kr.co.our.service.MemberService;
@@ -31,9 +34,25 @@ public class HostController {
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	public void hostJoin(Model model, Authentication authentication) throws Exception {
+	public void hostJoinForm(Model model, Authentication authentication) throws Exception {
+		CustomUser customUser = (CustomUser) authentication.getPrincipal();
+		Member member =  customUser.getMember();
 		
+		model.addAttribute(member);
+	}
+	
+	
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public String hostJoin(Member member, String email, RedirectAttributes rttr) throws Exception {
+		Integer userNo = member.getUserNo();
 		
+		memberService.modifyAuth(userNo);
+		
+		rttr.addFlashAttribute("member", member);
+		rttr.addFlashAttribute("email", email);
+		
+		return "redirect:/host/joinSuccess";
 	}
 	
 	

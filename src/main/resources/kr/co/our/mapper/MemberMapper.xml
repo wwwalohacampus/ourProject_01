@@ -119,4 +119,10 @@
 	</select>
 	
 	
+	<update id="updateAuth">
+		UPDATE member_auth
+		   SET auth = #{hostAuth}
+		 WHERE user_no = #{userNo}
+	</update>
+	
 </mapper>

@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+  
+<head>
+	<title>Host</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+
+
+  	<!-- Custom styles for this template -->
+  	<link href="/css/modern-business.css" rel="stylesheet">
+  	
+  	<!-- Theme CSS -->
+	<link href="/css/freelancer.min.css" rel="stylesheet">
+		
+</head>
+<body>
+<div layout:fragment="content">
+	 <header class="masthead text-center">
+	    <div class="container d-flex align-items-center flex-column">
+	
+	      <!-- Masthead Avatar Image -->
+	      <img class="masthead-avatar mb-5" src="images/icons/logo.png" alt="">
+	
+	      <!-- Masthead Heading -->
+	      <h1 class="masthead-heading mb-0" th:text="|${member.userName}님,|"></h1>
+	      <h1 class="masthead-heading mb-0">축하합니다! 호스트로 가입되었습니다!!</h1>
+	
+	      <!-- Icon Divider -->
+	      <div class="divider-custom divider-light">
+	        <div class="divider-custom-line"></div>
+	        <div class="divider-custom-icon">
+	          <i class="fas fa-star"></i>
+	        </div>
+	        <div class="divider-custom-line"></div>
+	      </div>
+	
+	      <!-- Masthead Subheading -->
+	      <p class="masthead-subheading font-weight-light mb-0" th:text="|${email} 여기로 안내메일을 보내드렸습니다.|"></p>
+	      <p class="masthead-subheading font-weight-light mb-0">감사합니다.</p>
+	      
+	
+	    </div>
+	  </header>
+	  
+	
+</div>	
+</body>
+</html>

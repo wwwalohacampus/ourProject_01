@@ -25,5 +25,6 @@ public interface MemberMapper {
 
 	public int countAll() throws Exception;
 	
+	public void updateAuth(int userNo, String hostAuth) throws Exception;
 	
 }
