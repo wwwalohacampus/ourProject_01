@@ -6,6 +6,8 @@ src/main/resources/static/**/*.css linguist-vendored
 src/main/resources/static/**/**/*.css linguist-vendored
 
 bin/**/**/**/*.css linguist-vendored
+bin/**/**/**/**/*.css linguist-vendored
+bin/**/**/**/**/**/*.css linguist-vendored
 src/**/**/**/*.css linguist-vendored
 src/**/**/**/**/*.css linguist-vendored
 src/**/**/**/**/**/*.css linguist-vendored
