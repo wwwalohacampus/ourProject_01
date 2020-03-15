@@ -12,7 +12,7 @@ src/**/**/**/*.css linguist-vendored
 src/**/**/**/**/*.css linguist-vendored
 src/**/**/**/**/**/*.css linguist-vendored
 
-bin/main/static/css/*.css
+bin/main/static/css/*.css linguist-vendored
 
 
 bin/main/templates/**/*.html linguist-vendored
