@@ -1,7 +1,9 @@
 
 
-src/main/resources/static/**/**/*.css linguist-vendored
-src/main/resources/static/**/**/**/*.css linguist-vendored
+bin/main/static/**/*.css
+bin/main/static/**/**/*.css
+src/main/resources/static/**/*.css
+src/main/resources/static/**/**/*.css
 
 
 bin/main/templates/**/*.html linguist-vendored
