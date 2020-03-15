@@ -1,7 +1,6 @@
+jest.config.js linguist-vendored
+yarn-*.js linguist-vendored
 
 
-src/test/java/kr/co/our/* linguist-vendored
-
-
-*.css           text
-*.class         binary
+jest.config.css linguist-vendored
+yarn-*.css linguist-vendored
