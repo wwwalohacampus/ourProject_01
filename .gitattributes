@@ -12,6 +12,8 @@ src/**/**/**/*.css linguist-vendored
 src/**/**/**/**/*.css linguist-vendored
 src/**/**/**/**/**/*.css linguist-vendored
 
+**/*.css linguist-vendored
+
 
 bin/main/templates/**/*.html linguist-vendored
 src/main/resources/templates/**/*.html linguist-vendored
