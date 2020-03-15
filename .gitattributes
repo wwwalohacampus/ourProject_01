@@ -1,2 +1,2 @@
--*.js linguist-vendored
--*.css linguist-vendored
+
+bin/main/static/**/CSS/*.css linguist-vendored
