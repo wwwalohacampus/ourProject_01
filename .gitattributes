@@ -1,12 +1,1 @@
-
-
-bin/main/static/**/*.css linguist-vendored
-bin/main/static/**/**/*.css linguist-vendored
-src/main/resources/static/**/*.css linguist-vendored
-src/main/resources/static/**/**/*.css linguist-vendored
-
-
-
-
-bin/main/templates/**/*.html linguist-vendored
-src/main/resources/templates/**/*.html linguist-vendored
+-*.js linguist-vendored
