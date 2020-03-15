@@ -2,6 +2,7 @@ web/dist/* linguist-vendored
 web/template/* linguist-vendored
 web/vendor/* linguist-vendored
 
+/src/test/java/kr/co/our/* linguist-vendored
 
 
 *.css           text
