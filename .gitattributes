@@ -1,1 +1,3 @@
 static/js/*.js linguist-vendored
+
+static/css/*.js linguist-vendored
